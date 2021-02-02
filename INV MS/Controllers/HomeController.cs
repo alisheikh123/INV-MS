@@ -1,4 +1,5 @@
 ﻿using INV_MS.Models;
+using Inventory_Management_Systems.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -17,7 +18,7 @@ namespace INV_MS.Controllers
         {
             _logger = logger;
         }
-
+     
         public IActionResult Index()
         {
             return View();

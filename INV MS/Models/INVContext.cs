@@ -1,4 +1,5 @@
 ﻿using Inventory_Management_Systems.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,12 +8,27 @@ using System.Threading.Tasks;
 
 namespace INV_MS.Models
 {
-    public class INVContext:DbContext
+    public class INVContext: IdentityDbContext
     {
+        public INVContext(DbContextOptions<INVContext> options)
+     : base(options)
+        { }
         public DbSet<tblItemcategory> tblItemcategory { get; set; }
-       
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite("Data Source=INV.db");
+        public DbSet<tblAccount> tblAccount { get; set; }
+
+        public DbSet<tblInvoice> tblInvoice { get; set; }
+        public DbSet<tblItem> tblItem { get; set; }
+        public DbSet<tblItemUnit> tblItemUnit { get; set; }
+        public DbSet<tblInvoiceDetail> tblInvoiceDetail { get; set; }
+        public DbSet<tblAccountHead> tblAccountHead { get; set; }
+        public DbSet<tblCompany> tblCompany { get; set; }
+        public DbSet<Customer> Customer { get; set; }
+        public DbSet<tblVoucher> tblVoucher { get; set; }
+
+        public DbSet<tblVoucherDetail> tblVoucherDetail { get; set; }
+        //protected override void OnConfiguring(DbContextOptionsBuilder options)
+        //    => options.UseSqlite("Data Source=INV.db");
+      
     }
 }
