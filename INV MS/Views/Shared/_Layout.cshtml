@@ -1,26 +1,9 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - INV_MS</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-
-</head>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Starter</title>
-
-    <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome Icons -->
-    <link href="~/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
-
-    <!-- Theme style -->
-    <link href="~/dist/css/adminlte.min.css" rel="stylesheet" />
-
+   
+    @Html.Partial("_StylePartialView")
 </head>
 <body class="hold-transition sidebar-mini">
     @Html.Partial("_Navbar")
@@ -31,18 +14,13 @@
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>
-            </div>
         </div>
-    
+    </div>
+
     @Html.Partial("_ControlSidebar")
     @Html.Partial("_Footer")
+    @Html.Partial("_ScriptPartialView")
 
-    <!-- jQuery -->
-    <script src="~/plugins/jquery/jquery.min.js"></script>
-    <!-- Bootstrap 4 -->
-    <script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="~/dist/js/adminlte.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
