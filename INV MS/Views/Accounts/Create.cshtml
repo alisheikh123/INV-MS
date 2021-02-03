@@ -1,0 +1,84 @@
+﻿@model Inventory_Management_Systems.Models.tblAccount
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+<h4 class="text-center">Add Account Holder Detail</h4>
+<hr />
+<div class="row col-md-12">
+    
+    <form asp-action="Create">
+        <div class="form-group">
+         
+            <i class="fa fa-save btn btn-success btn-xs"><input type="submit" value="Save" class="btn btn-success btn-xs " /></i>
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="row col-md-12">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="accountHeadId" class="control-label"></label>
+                    <select asp-for="accountHeadId" class="form-control" asp-items="ViewBag.accountHeadId"></select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="accountCode" class="control-label"></label>
+                    <input asp-for="accountCode" class="form-control" />
+                    <span asp-validation-for="accountCode" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="accountTitle" class="control-label"></label>
+                    <input asp-for="accountTitle" class="form-control" />
+                    <span asp-validation-for="accountTitle" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="PhoneNo" class="control-label"></label>
+                    <input asp-for="PhoneNo" class="form-control" />
+                    <span asp-validation-for="PhoneNo" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row col-md-12">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="MobileNo" class="control-label"></label>
+                    <input asp-for="MobileNo" class="form-control" />
+                    <span asp-validation-for="MobileNo" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="Address" class="control-label"></label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

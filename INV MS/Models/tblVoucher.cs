@@ -13,7 +13,7 @@ namespace Inventory_Management_Systems.Models
         public int voucherId { get; set; }
 
 
-        [Required(ErrorMessage = "*Required Invoice ID")]
+        [Required(ErrorMessage = "*Required Voucher Code")]
         [Display(Name = "Voucher Code :")]
         public string voucherCode { get; set; }
 

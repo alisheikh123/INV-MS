@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Inventory_Management_Systems.Models.tblAccount>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h5 class="text-center">List of Account Holders</h5>
+
+@Html.Partial("PagesPV/_Modal")
+<p>
+    <a asp-action="Create" class="btn btn-success btn-sm"><i class="fa fa-plus-circle"></i> Add New Account</a>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Launch demo modal
+    </button>
+</p>
+<table class="table compact nowrap" id="table_id">
+    <thead>
+        <tr>
+            <th>
+                Account Code
+            </th>
+            <th>
+                Account Title
+            </th>
+            <th>
+                Phone No
+            </th>
+            <th>
+                Mobile No
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                Account Holder Type
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.accountCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.accountTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MobileNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TblAccountHead.accountHeadName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.accountId" class="btn btn-primary btn-xs"><i class="fa fa-pen"></i> Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.accountId" class="btn btn-warning btn-xs"><i class="fa fa-question-circle"></i> Details</a>
+                    <a asp-action="Delete" asp-route-id="@item.accountId" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var tab = $("#table_id").DataTable({
+            "lengthMenu": [[4, 10, 50, -1], [4, 10, 50, "All"]],
+            responsive: true
+        });
+
+    });
+</script>

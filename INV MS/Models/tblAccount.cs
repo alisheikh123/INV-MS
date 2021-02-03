@@ -13,7 +13,7 @@ namespace Inventory_Management_Systems.Models
         public int accountId { get; set; }
 
 
-        [Required(ErrorMessage = "*Required Category Name")]
+        [Required(ErrorMessage = "*Required Account Head Name")]
         [Display(Name = "Account Head Name :")]
         public int accountHeadId { get; set; }
 
@@ -22,7 +22,7 @@ namespace Inventory_Management_Systems.Models
         public int accountCode { get; set; }
 
         [Display(Name = "Account Title :")]
-        [Required(ErrorMessage = "*Required Item Code ")]
+        [Required(ErrorMessage = "*Required accountTitle ")]
         public string accountTitle { get; set; }
 
         [DataType(DataType.PhoneNumber)]
