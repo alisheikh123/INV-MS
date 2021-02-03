@@ -27,12 +27,12 @@
     @Html.Partial("_MainSidebar")
 
     <div class="container-fluid">
-
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-        
-    </div>
+        <div class="content-wrapper">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+            </div>
+        </div>
     
     @Html.Partial("_ControlSidebar")
     @Html.Partial("_Footer")

@@ -29,11 +29,11 @@ namespace Inventory_Management_Systems.Models
         [Required(ErrorMessage = "*Required ItemName")]
         [Display(Name = "Item Name ")]
         public string itemName { get; set; }
-
+        [Column(TypeName = "decimal(18,4)")]
         [Required(ErrorMessage = "*Required Purchase Price")]
         [Display(Name = "Purchase Price ")]
         public decimal purchase_Price { get; set; }
-
+        [Column(TypeName = "decimal(18,4)")]
         [Required(ErrorMessage = "*Required Sale Price")]
         [Display(Name = "Sale Price ")]
         public decimal sale_Price { get; set; }

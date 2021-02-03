@@ -21,7 +21,7 @@ namespace Inventory_Management_Systems.Models
         [Display(Name = "Item ID:")]
         public int itemId { get; set; }
 
-
+        [Column(TypeName = "decimal(18,4)")]
         [Required(ErrorMessage = "*Required Price ")]
         [Display(Name = "Price :")]
         public decimal price { get; set; }
@@ -31,7 +31,7 @@ namespace Inventory_Management_Systems.Models
         public int Quantity { get; set; }
 
 
-        
+        [Column(TypeName = "decimal(18,4)")]
         [Required(ErrorMessage = "*Required  Amount")]
         [Display(Name = "Amount :")]
         public decimal amount { get; set; }
