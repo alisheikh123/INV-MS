@@ -22,7 +22,10 @@ namespace INV_MS.Controllers
         // GET: Accounts
         public async Task<IActionResult> Index()
         {
+            
             var iNVContext = db.tblAccount.Include(t => t.TblAccountHead);
+
+            ViewBag.AccHdList = new SelectList(db.tblAccountHead, "accountHeadId", "accountHeadName");
             return View(await iNVContext.ToListAsync());
         }
 
@@ -52,21 +55,29 @@ namespace INV_MS.Controllers
             return View();
         }
 
-        // POST: Accounts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("accountId,accountHeadId,accountCode,accountTitle,PhoneNo,MobileNo,Email,Address")] tblAccount tblAccount)
+     
+        [HttpPost]   
+        public JsonResult Create([Bind("accountId,accountHeadId,accountCode,accountTitle,PhoneNo,MobileNo,Email,Address")] tblAccount obj)
         {
             if (ModelState.IsValid)
             {
-                db.Add(tblAccount);
-                await db.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //var checkformData = db.tblAccount.Where(x => x.accountCode==obj.accountCode 
+                //|| x.PhoneNo == obj.PhoneNo
+                //|| x.MobileNo==obj.MobileNo 
+                //|| x.Email==obj.Email).ToList();
+                //if (checkformData.Count>0) 
+                //{
+                //  string output = "Data Already Exist";
+
+                //    return Json(output, System.Web.Mvc.JsonRequestBehavior.AllowGet);
+                //}
+
+                db.Add(obj);
+                db.SaveChanges();
+                return Json("Success Fully", System.Web.Mvc.JsonRequestBehavior.AllowGet);
             }
-            ViewData["accountHeadId"] = new SelectList(db.tblAccountHead, "accountHeadId", "accountHeadName", tblAccount.accountHeadId);
-            return View(tblAccount);
+            //ViewData["accountHeadId"] = new SelectList(db.tblAccountHead, "accountHeadId", "accountHeadName", tblAccount.accountHeadId);
+            return Json("Error Occure", System.Web.Mvc.JsonRequestBehavior.AllowGet);
         }
 
         // GET: Accounts/Edit/5
@@ -143,13 +154,12 @@ namespace INV_MS.Controllers
 
         // POST: Accounts/Delete/5
         [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public JsonResult  DeleteConfirmed(int id)
         {
-            var tblAccount = await db.tblAccount.FindAsync(id);
+            var tblAccount =  db.tblAccount.Find(id);
             db.tblAccount.Remove(tblAccount);
-            await db.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            db.SaveChanges();
+            return Json("Current Select Row Successfully Delete!");
         }
 
         private bool tblAccountExists(int id)

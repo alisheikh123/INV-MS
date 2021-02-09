@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -22,13 +23,20 @@ namespace Inventory_Management_Systems.Models
         [Display(Name = "Unit ")]
         public int UnitId { get; set; }
 
+        //[Remote("IsAlreadyExit", "Item", HttpMethod = "POST", ErrorMessage = "ItemCode already exists in database.")]
         [Display(Name = "Item  Code")]
         [Required(ErrorMessage = "*Required Item Code ")]
         public string ItemCode { get; set; }
 
         [Required(ErrorMessage = "*Required ItemName")]
         [Display(Name = "Item Name ")]
+
         public string itemName { get; set; }
+
+        
+        [Display(Name = "Description")]
+        [Column(TypeName = "nvarchar(100)")]
+        public string Description { get; set; }
         [Column(TypeName = "decimal(18,4)")]
         [Required(ErrorMessage = "*Required Purchase Price")]
         [Display(Name = "Purchase Price ")]

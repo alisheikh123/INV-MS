@@ -4,60 +4,78 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h3 class="text-center">Edit Account Holder</h3>
 
-<h4>tblAccount</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-12">
+
         <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="accountId" />
             <div class="form-group">
-                <label asp-for="accountHeadId" class="control-label"></label>
-                <select asp-for="accountHeadId" class="form-control" asp-items="ViewBag.accountHeadId"></select>
-                <span asp-validation-for="accountHeadId" class="text-danger"></span>
+                <button class="btn btn-success btn-xs" type="submit"><i class="fa fa-save"> Update</i></button>
+                <button asp-action="Index" class="btn btn-primary btn-xs" ><i class="fa fa-arrow-alt-circle-left"> Back to List</i></button>
+         
             </div>
-            <div class="form-group">
-                <label asp-for="accountCode" class="control-label"></label>
-                <input asp-for="accountCode" class="form-control" />
-                <span asp-validation-for="accountCode" class="text-danger"></span>
+            <div class="row col-md-12">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="accountId" />
+                <div class="col-3">
+                    <div class="form-group">
+                        <label class="control-label">Account Head Name</label>
+                        <select asp-for="accountHeadId" class="form-control" asp-items="ViewBag.accountHeadId"></select>
+                        <span asp-validation-for="accountHeadId" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label class="control-label">Account Code</label>
+                        <input asp-for="accountCode" class="form-control" />
+                        <span asp-validation-for="accountCode" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label asp-for="accountTitle" class="control-label">Account Title</label>
+                        <input asp-for="accountTitle" class="form-control" />
+                        <span asp-validation-for="accountTitle" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label asp-for="PhoneNo" class="control-label">Phone No</label>
+                        <input asp-for="PhoneNo" class="form-control" />
+                        <span asp-validation-for="PhoneNo" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="accountTitle" class="control-label"></label>
-                <input asp-for="accountTitle" class="form-control" />
-                <span asp-validation-for="accountTitle" class="text-danger"></span>
+            <div class="row col-md-12">
+                <div class="col-3">
+                    <div class="form-group">
+                        <label asp-for="MobileNo" class="control-label">Mobile No</label>
+                        <input asp-for="MobileNo" class="form-control" />
+                        <span asp-validation-for="MobileNo" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label">Email</label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="form-group">
+                        <label asp-for="Address" class="control-label">Address</label>
+                        <input asp-for="Address" class="form-control" />
+                        <span asp-validation-for="Address" class="text-danger"></span>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="PhoneNo" class="control-label"></label>
-                <input asp-for="PhoneNo" class="form-control" />
-                <span asp-validation-for="PhoneNo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MobileNo" class="control-label"></label>
-                <input asp-for="MobileNo" class="form-control" />
-                <span asp-validation-for="MobileNo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
+
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

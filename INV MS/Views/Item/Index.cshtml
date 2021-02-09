@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Inventory_Management_Systems.Models.tblItem>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<div style="margin-top:20px;">
+    <a class="btn btn-primary btn-xs"  asp-action="Create"><i class="fas fa-plus"> Add New Item</i> </a>
+</div>
+<div style="margin-top:20px;">
+    <table class="table compact nowrap" id="table_id">
+        <thead>
+            <tr>
+                <th>Action</th>
+                <th>
+                    Category
+                </th>
+                <th>
+                    Item Name
+                </th>
+                <th>
+                    Item Code
+                </th>
+                <th>
+                    Unit
+                </th>
+
+                <th>
+                    Description
+                </th>
+                <th>
+                    Purchase Price
+                </th>
+                <th>
+                    Sale Price
+                </th>
+
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+
+                        <a asp-action="Edit" asp-route-id="@item.itemId" class="btn btn-primary btn-xs"><i class="fa fa-pen"></i> Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.itemId" class="btn btn-warning btn-xs"><i class="fa fa-question-circle"></i> Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.itemId" class="btn btn-danger btn-xs" ><i class="fa fa-trash"></i> Delete</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.category.catName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.itemName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Unit.unitName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.purchase_Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.sale_Price)
+                    </td>
+
+
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+
+        var tab = $("#table_id").DataTable({
+            "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            responsive: true
+        });
+
+    });
+</script>

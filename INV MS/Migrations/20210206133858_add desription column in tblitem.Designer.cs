@@ -4,14 +4,16 @@ using INV_MS.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace INV_MS.Migrations
 {
     [DbContext(typeof(INVContext))]
-    partial class INVContextModelSnapshot : ModelSnapshot
+    [Migration("20210206133858_add desription column in tblitem")]
+    partial class adddesriptioncolumnintblitem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

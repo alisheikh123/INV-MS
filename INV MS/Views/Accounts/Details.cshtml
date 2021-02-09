@@ -3,58 +3,65 @@
 @{
     ViewData["Title"] = "Details";
 }
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+        width:600px;
+    }
 
-<h1>Details</h1>
+        table.center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+</style>
+<h3 class="text-center">Account Detail</h3>
+<div>
+ 
+    <a asp-action="Edit" asp-route-id="@Model.accountId" class="btn btn-warning btn-xs"><i class="fa fa-pen"></i> Edit</a>
+    
+    <button asp-action="index" class="btn btn-outline-primary btn-xs"><i class="fa fa-arrow-alt-circle-left"> Back to List</i></button>
+</div>
+<div class="panel panel-default" style="margin-top:40px;">
+    <table class="center panel-body ">
 
-<div>
-    <h4>tblAccount</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.accountCode)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.accountCode)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.accountTitle)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.accountTitle)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PhoneNo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MobileNo)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MobileNo)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TblAccountHead)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TblAccountHead.accountHeadName)
-        </dd>
-    </dl>
+        <tr>
+
+            <th>Account Head Name</th>
+            <td>@Html.DisplayFor(model => model.TblAccountHead.accountHeadName)</td>
+        </tr>
+        <tr>
+
+            <th>Account Code</th>
+            <td>@Html.DisplayFor(model => model.accountCode)</td>
+        </tr>
+        <tr>
+
+            <th>Account Title</th>
+            <td>@Html.DisplayFor(model => model.accountTitle)</td>
+        </tr>
+        <tr>
+
+            <th>Phone No</th>
+            <td>@Html.DisplayFor(model => model.PhoneNo)</td>
+        </tr>
+        <tr>
+
+            <th>Mobile No</th>
+            <td>@Html.DisplayFor(model => model.MobileNo)</td>
+        </tr>
+        <tr>
+
+            <th>Email</th>
+            <td>@Html.DisplayFor(model => model.Email)</td>
+        </tr>
+        <tr>
+
+            <th>Address</th>
+            <td>@Html.DisplayFor(model => model.Address)</td>
+        </tr>
+
+
+    </table>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.accountId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+

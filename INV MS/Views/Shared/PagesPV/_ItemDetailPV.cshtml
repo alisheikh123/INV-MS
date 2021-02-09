@@ -1,0 +1,94 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div>
+    <span class="text-danger" id="catid"></span>
+    <span class="text-danger" id="itmcode"></span>
+    <span class="text-danger" id="itmnm"></span>
+    <span class="text-danger" id="unitid"></span>
+    <span class="text-danger" id="purprice"></span>
+    <span class="text-danger" id="salpr"></span>
+</div>
+<div class="row col-12" id="content">
+    <form id="formdata">
+        <div class="form-group">
+            <button class="btn btn-success btn-xs" id="save"><i class="fa fa-save"> Save</i></button>
+            <button class="btn btn-primary btn-xs" id="refresh" onclick="refresh()"><i class="fas fa-sync-alt"> Refresh</i> </button>
+            <button class="btn btn-default btn-xs" asp-controller="Home" asp-action="Index"><i class="fas fa-home"> Dashboard</i> </button>
+        </div>
+        <div class="row col-md-12 container-fluid ">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Category</label>
+                    <select class="form-control itmcat" id="itmcat" asp-items="ViewBag.catId">
+                        <option value="0">
+                            --Select Category--
+                        </option>
+                    </select>
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Item Code</label>
+                    <input class="form-control itcode" id="itcode" type="text" />
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">item Name</label>
+                    <input class="form-control itmnm" id="itmnme" type="text" />
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Item Unit</label>
+                    <select class="form-control unit" id="unit" asp-items="ViewBag.UnitId">
+                        <option value="0">
+                            --Select Unit--
+                        </option>
+                    </select>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row col-md-12 ">
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Description</label>
+                    <input class="form-control desc" id="desc" />
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Purchase Price</label>
+                    <input class="form-control" id="purprices" type="number" required min="0" value="0" />
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Sale Price</label>
+                    <input class="form-control salprice" id="salprice" type="number" required min="0" value="0" />
+
+                </div>
+            </div>
+
+        </div>
+
+
+    </form>
+</div>
+<div class="text-center">
+
+    <button type="button" class="btn btn-primary btn-xs " onclick="ShowAccDetail()" id='hideshow'>
+        <i class="fas fa-times"> Hide</i>
+    </button>
+</div>

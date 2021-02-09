@@ -1,0 +1,75 @@
+﻿
+<div class="row col-12" id="content">
+    <form id="formdata" onsubmit="return validateForm()" name="formdata">
+        <div class="form-group">
+            <button class="btn btn-success btn-xs" id="save"><i class="fa fa-save"> Save</i></button>
+            <button class="btn btn-primary btn-xs" id="refresh" onclick="refresh()"><i class="fas fa-sync-alt"> Refresh</i> </button>
+            <button class="btn btn-default btn-xs" asp-controller="Home" asp-action="Index"><i class="fas fa-home"> Dashboard</i> </button>
+        </div>
+        <div class="row col-md-12 container-fluid ">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Account Head Name</label>
+                    <select  class="form-control acchl" asp-items="ViewBag.AccHdList">
+                        <option value="0">
+                            --Select--
+                        </option></select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Account Code</label>
+                    <input class="form-control accc" name="accode" type="number" />
+                    
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Account Title</label>
+                    <input class="form-control acct" style="text" />
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Phone No</label>
+                    <input class="form-control pn" type="number" minlength="13" maxlength="13" />
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row col-md-12 ">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Mobile No</label>
+                    <input class="form-control mn" type="number" minlength="13" maxlength="13" />
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Email</label>
+                    <input class="form-control em" type="email" />
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label class="control-label">Address</label>
+                    <input class="form-control add" type="text" />
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+<div class="text-center">
+
+    <button type="button" class="btn btn-primary btn-xs " onclick="ShowAccDetail()" id='hideshow'>
+        <i class="fas fa-times"> Hide</i>
+    </button>
+</div>
