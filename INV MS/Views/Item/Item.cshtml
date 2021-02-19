@@ -1,0 +1,125 @@
+﻿@model INV_MS.Models.ViewModel.ItemVM 
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="row col-md-12">
+    <div class="col-md-2">
+        <button class="btn btn-default btn-xs" asp-controller="Home" asp-action="Index"><i class="fas fa-home"> Dashboard</i> </button>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-secondary btn-xs" asp-action="Index"><i class="fas fa-arrow-alt-circle-left"> Back to List</i> </button>
+    </div>
+    <div class="col-md-2">
+        <button class="btn btn-success btn-xs" id="save"><i class="fa fa-save"> Save</i></button>
+    </div>
+    <br />
+    <form>
+
+
+        <div class="row col-md-12 container-fluid ">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="@Model.catId" class="control-label"></label>
+                    <select asp-for="@Model.catId" class="form-control cat" asp-items="ViewBag.catId">
+                        <option value="0">--Select Item Category--</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="@Model.ItemCode" class="control-label"></label>
+                    <input asp-for="@Model.ItemCode" class="form-control itmcode" />
+                    <span asp-validation-for="ItemCode" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="@Model.itemName" class="control-label"></label>
+                    <input asp-for="@Model.itemName" class="form-control itemName" />
+                    <span asp-validation-for="itemName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="@Model.UnitId" class="control-label"></label>
+                    <select asp-for="@Model.UnitId" class="form-control unit" asp-items="ViewBag.UnitId">
+                        <option value="0">--Select Item Unit--</option>
+                    </select>
+                </div>
+            </div>
+
+        </div>
+        <div class="row col-md-12 ">
+
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="@Model.Description" class="control-label"></label>
+                    <input asp-for="@Model.Description" class="form-control Description" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="@Model.purchase_Price" class="control-label"></label>
+                    <input asp-for="@Model.purchase_Price" class="form-control purchase_Price" />
+                    <span asp-validation-for="purchase_Price" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label asp-for="@Model.sale_Price" class="control-label"></label>
+                    <input asp-for="@Model.sale_Price" class="form-control sale_Price" />
+                    <span asp-validation-for="sale_Price" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+    <table class="table table-bordered table-avatar" id="tableid">
+        <thead>
+            <tr>
+
+                <th>Category</th>
+                <th>Item Code</th>
+                <th>Item Name</th>
+                <th>Unit</th>
+                <th> Description</th>
+                <th>Purchase Price</th>
+                <th> Sale Price</th>
+                <th> Bulk Action</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.ItemList)
+            {
+                <tr>
+                    <td>@item.category.catName</td>
+                    <td>@item.ItemCode</td>
+                    <td>@item.itemName</td>
+                    <td>@item.Unit.unitName</td>
+                    <td>@item.Description</td>
+                    <td>@item.purchase_Price</td>
+                    <td>@item.sale_Price</td>
+                    <td><input type="checkbox" id="check" value="@item.itemId" /></td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    <script src="~/js/site.js"></script>
+<script>
+    $(document).ready(function () {
+
+        var tab = $("#tableid").DataTable({
+            "lengthMenu": [[8, 10, 50, -1], [8, 10, 50, "All"]],
+            responsive: true
+        });
+
+    });
+</script>

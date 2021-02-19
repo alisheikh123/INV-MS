@@ -72,76 +72,14 @@
         }
     </tbody>
 </table>
-<script type="text/javascript">
-
-    //Submit the Form
-    $('#save').click(function () {
-        var AccountHeadName = $('.acchl').val();
-        var AccountCode = $('.accc').val();
-        var AccountTitle = $('.acct').val();
-        var PhoneNo = $('.pn').val();
-        var MobileNo = $('.mn').val();
-        var Email = $('.em').val();
-        var Address = $('.add').val();
-
-        $.ajax({
-            url: "/Accounts/Create",
-            type: "POST",
-            dataType: 'json',
-            data: {
-                "accountHeadId": AccountHeadName,
-                "accountCode": AccountCode,
-                "accountTitle": AccountTitle,
-                "PhoneNo": PhoneNo,
-                "MobileNo": MobileNo,
-                "Email": Email,
-                "Address": Address
-            }, success: function (output) {
-
-
-                $("#table_id").load(window.location.href + " #table_id");
-                //location.reload();
-
-            },
-            error: function () {
-                alert("Result is = " + data);
-
-            }
-
-        });
-
-    });
-    //Toggle Account Detail Form
-    function ShowAccDetail() {
-        $('#content').toggle('show');
-
-    }
-    function refresh() {
-        Location.refresh();
-    }
-
-
-    function deletes(Id) {
-        $.ajax({
-            type: "POST",
-            url: "/Accounts/Delete/?" + Id,
-            dataType: "json",
-            data: { Id: Id },
-            success: (function (res) {
-                alert("hy=" + data);
-
-            }),
-            error: (function () { alert("Error") })
-        });
-    }
-   
-        $(document).ready(function () {
+<script src="~/js/site.js"></script>
+<script>
+    $(document).ready(function () {
 
         var tab = $("#table_id").DataTable({
-            "lengthMenu": [[4, 10, 50, -1], [4, 10, 50, "All"]],
+            "lengthMenu": [[8, 10, 50, -1], [8, 10, 50, "All"]],
             responsive: true
         });
 
     });
-
 </script>
