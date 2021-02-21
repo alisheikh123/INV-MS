@@ -67,7 +67,86 @@ function deletes(Id) {
 ////Account Code End
 
 
+///Item Code  START
 
+
+
+
+$("#addcat").click(function () {
+    $("#categoryModal").modal('show');
+
+});
+$(".addUnit").on("click", function () {
+    $("#unitModal").modal('show');
+
+
+});
+
+$("#addCategory").click(function (e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    let catName = $("#categoryName").val();
+    let Description = $("#catDescription").val();
+    var postData = { catName: catName, catDescription: Description };
+    $.ajax({
+        type: "POST",
+        url: "/Item/createCategory",
+        data: postData,
+        success: function (result) {
+            
+            if (result != "Category Saved Successfully") {
+                $('#categoryName').val('');
+                $('#Description').val('');
+                $('#catValidation').html(result);
+
+            }
+            else {
+                $("#categoryModal").modal('hide');
+               
+            }
+        },
+        error: function () {
+            alert("Error");
+        }
+
+    });
+});
+$("#addUnit").click(function (e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    let UnitName = $("#UnitName").val();
+    
+   
+    var postData = { unitName: UnitName };
+    $.ajax({
+        type: "POST",
+        url: "/Item/createUnit",
+        data: postData,
+        success: function (result) {
+           
+            if (result != "Unit Saved Successfully") {
+                $('#UnitName').val('');
+             
+                $('#unitValidation').html(result);
+
+            }
+            else {
+                $("#unitModal").modal('hide');
+               
+            }
+        },
+        error: function () {
+            alert("Error");
+        }
+
+    });
+});
+
+
+$("#Refresh").click(function () {
+    window.location.reload();
+});
+///Item Code END
 
 
 
@@ -83,7 +162,9 @@ function deletes(Id) {
 
 // Write your JavaScript code.
 
-$('#save').click(function () {
+$('#save').click(function (e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
     var Category = $('.cat').val();
     var itmcode = $('.itmcode').val();
     var itemName = $('.itemName').val();
@@ -106,9 +187,9 @@ $('#save').click(function () {
             "sale_Price": sale_Price
         }, success: function (output) {
 
-            alert(output);
-           
-           
+
+            alert("Saved Successfully");
+            window.location.reload();
 
         },
         error: function (output) {

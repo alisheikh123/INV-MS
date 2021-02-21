@@ -9,7 +9,10 @@ namespace INV_MS.Models.ViewModel
     {
         public int itemId { get; set; }
         public int catId { get; set; }
+        public string catName { get; set; }
+        public string catDescription { get; set; }
         public int UnitId { get; set; }
+        public string unitName { get; set; }
         public string ItemCode { get; set; }
         public string itemName { get; set; }
         public string Description { get; set; }
