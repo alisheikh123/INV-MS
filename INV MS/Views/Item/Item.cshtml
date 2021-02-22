@@ -103,7 +103,7 @@
                       <div class="form-group">
                           <label class="control-label">Item Code</label>
                           <input asp-for="@Model.ItemCode" class="form-control itmcode" />
-                          <span asp-validation-for="ItemCode" class="text-danger"></span>
+                          <span id="itemcodeValidation" class="text-danger"></span>
                       </div>
                   </div>
                   <div class="col-lg-3">
@@ -149,7 +149,7 @@
                   <div class="col-lg-1">
                       <div class="form-group">
                           
-                          <button class="btn btn-success btn-sm " id="save" style="margin-top:35px;"><i class="fa fa-save"> Save</i></button>
+                          <button class="btn btn-success btn-sm " id="saveItems" style="margin-top:35px;"><i class="fa fa-save"> Save</i></button>
                       </div>
                   </div>
               </div>
@@ -188,8 +188,8 @@
             <td>
 
                 <a asp-action="Edit" asp-route-id="@item.itemId" class="btn btn-primary btn-xs"><i class="fa fa-pen"></i> Edit</a>
-                <a asp-action="Details" asp-route-id="@item.itemId" class="btn btn-warning btn-xs"><i class="fa fa-question-circle"></i> Details</a>
-                <a asp-action="Delete" asp-route-id="@item.itemId" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Delete</a>
+                <a class="btn btn-warning btn-xs" onclick="detailItem(@item.itemId)"><i class="fa fa-question-circle"></i> Details</a>
+                <a class="btn btn-danger btn-xs" onclick="deleteItem(@item.itemId)"><i class="fa fa-trash"></i> Delete</a>
             </td>
 
         </tr>
@@ -210,5 +210,24 @@
     });
     $(".cat").select2();
     $(".unit").select2();
-    
+    function detailItem(id) {
+        $.ajax({
+            type: "POST",
+            url: "/item/Details",
+            data: { id: id },
+            success: function (response) {
+
+                let str = JSON.stringify(response);
+                let JsonParser = JSON.parse(str);
+                console.log(JsonParser.itemCode, JsonParser.itemName , JsonParser.category.catName)
+                //alert("Item Code="+JsonParser.itemCode+"\nItem Name="+JsonParser.itemName+"\nCategory Name=" JsonParser.category.catName);
+               
+            },
+            error: function (ItemCode) {
+                alert(ItemCode);
+            }
+
+        });
+
+    }
 </script>

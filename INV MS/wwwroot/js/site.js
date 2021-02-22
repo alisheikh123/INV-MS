@@ -30,8 +30,8 @@ $('#save').click(function () {
             //location.reload();
 
         },
-        error: function () {
-            alert("Result is = " + data);
+        error: function (output) {
+            alert("Result is = " + output);
 
         }
 
@@ -64,7 +64,7 @@ function deletes(Id) {
 
 
 
-////Account Code End
+////Account Code Endsave
 
 
 ///Item Code  START
@@ -160,9 +160,9 @@ $("#Refresh").click(function () {
 
 
 
-// Write your JavaScript code.
+// Save Item Detail
 
-$('#save').click(function (e) {
+$('#saveItems').click(function (e) {
     e.preventDefault();
     e.stopImmediatePropagation();
     var Category = $('.cat').val();
@@ -173,33 +173,78 @@ $('#save').click(function (e) {
     var purchase_Price = $('.purchase_Price').val();
     var sale_Price = $('.sale_Price').val();
 
-    $.ajax({
-        url: "/Item/Item",
-        type: "POST",
-        dataType: 'json',
-        data: {
-            "catId": Category,
-            "ItemCode": itmcode,
-            "itemName": itemName,
-            "UnitId": unit,
-            "Description": Description,
-            "purchase_Price": purchase_Price,
-            "sale_Price": sale_Price
-        }, success: function (output) {
+    if (Category == 0 || ItemCode == "" || itemName == "" || unit == 0
+        || purchase_Price == "" || purchase_Price == 0.0 || purchase_Price == 0 ||
+        sale_Price == "" || sale_Price == 0.0 || sale_Price == 0
+        ) {
+        //alert("Something is Missing in Input Box!");
+        toastr.error('Something is Missing in Input Box!')
+    }
+    else {
+        $.ajax({
+            url: "/Item/Item",
+            type: "POST",
+            dataType: 'json',
+            data: {
+                "catId": Category,
+                "ItemCode": itmcode,
+                "itemName": itemName,
+                "UnitId": unit,
+                "Description": Description,
+                "purchase_Price": purchase_Price,
+                "sale_Price": sale_Price
+            }, success: function (output) {
 
+                if (output != "Record is Saved Successfully") {
 
-            alert("Saved Successfully");
-            window.location.reload();
+                    $("#itemcodeValidation").html(output);
+                }
+                else {
+                    toastr.success(output);
+                    
+                    window.location.reload();
+                }
+            },
+            error: function (output) {
+                
+                toastr.error(output)
+            }
 
-        },
-        error: function (output) {
-            alert("Result is = " + output);
-
-        }
-
-    });
-
+        });
+    }
 });
+
+
+//Delete the Item
+
+function deleteItem(id) {
+    if (id != null || id != 0 || id == 0 || id == "") {
+   
+        
+        $.ajax({
+            url: "/Item/Delete",
+            type: "POST",
+            dataType: 'json',
+            data: {
+                "id": id,
+
+            }, success: function (output) {
+                toastr.success(output);
+                location.reload();
+
+
+            },
+            error: function (output) {
+
+                toastr.error(output)
+            }
+
+        });
+    }
+    else {
+        toastr.success(id);
+    }
+}
 
 
 
