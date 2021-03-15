@@ -1,0 +1,79 @@
+﻿@model INV_MS.Models.tblCompanyDetail
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>tblCompanyDetail</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="companyId" class="control-label"></label>
+                <select asp-for="companyId" class ="form-control" asp-items="ViewBag.companyId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductName" class="control-label"></label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ArrivalDate" class="control-label"></label>
+                <input asp-for="ArrivalDate" class="form-control" />
+                <span asp-validation-for="ArrivalDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNo" class="control-label"></label>
+                <input asp-for="PhoneNo" class="form-control" />
+                <span asp-validation-for="PhoneNo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TotalAmount" class="control-label"></label>
+                <input asp-for="TotalAmount" class="form-control" />
+                <span asp-validation-for="TotalAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaidAmount" class="control-label"></label>
+                <input asp-for="PaidAmount" class="form-control" />
+                <span asp-validation-for="PaidAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RemainingAmount" class="control-label"></label>
+                <input asp-for="RemainingAmount" class="form-control" />
+                <span asp-validation-for="RemainingAmount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="dateoforder" class="control-label"></label>
+                <input asp-for="dateoforder" class="form-control" />
+                <span asp-validation-for="dateoforder" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="dateofpayment" class="control-label"></label>
+                <input asp-for="dateofpayment" class="form-control" />
+                <span asp-validation-for="dateofpayment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="dateofremainpayment" class="control-label"></label>
+                <input asp-for="dateofremainpayment" class="form-control" />
+                <span asp-validation-for="dateofremainpayment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

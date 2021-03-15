@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using INV_MS.Models;
 
 namespace INV_MS.Models
 {
@@ -27,6 +28,8 @@ namespace INV_MS.Models
         public DbSet<tblVoucher> tblVoucher { get; set; }
 
         public DbSet<tblVoucherDetail> tblVoucherDetail { get; set; }
+
+        public DbSet<INV_MS.Models.tblCompanyDetail> tblCompanyDetail { get; set; }
         //protected override void OnConfiguring(DbContextOptionsBuilder options)
         //    => options.UseSqlite("Data Source=INV.db");
       
