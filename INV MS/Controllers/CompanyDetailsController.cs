@@ -11,17 +11,17 @@ namespace INV_MS.Controllers
 {
     public class CompanyDetailsController : Controller
     {
-        private readonly INVContext _context;
+        private readonly INVContext db;
 
         public CompanyDetailsController(INVContext context)
         {
-            _context = context;
+            db = context;
         }
 
         // GET: CompanyDetails
         public async Task<IActionResult> Index()
         {
-            var iNVContext = _context.tblCompanyDetail.Include(t => t.TblCompany);
+            var iNVContext = db.tblCompanyDetail.Include(t => t.TblCompany);
             return View(await iNVContext.ToListAsync());
         }
 
@@ -33,7 +33,7 @@ namespace INV_MS.Controllers
                 return NotFound();
             }
 
-            var tblCompanyDetail = await _context.tblCompanyDetail
+            var tblCompanyDetail = await db.tblCompanyDetail
                 .Include(t => t.TblCompany)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (tblCompanyDetail == null)
@@ -47,7 +47,12 @@ namespace INV_MS.Controllers
         // GET: CompanyDetails/Create
         public IActionResult Create()
         {
-            ViewData["companyId"] = new SelectList(_context.tblCompany, "CompanyId", "CompanyrCode");
+            ViewData["companyId"] = new SelectList(db.tblCompany, "CompanyId", "CompanyrCode");
+            return View();
+        }
+        public IActionResult Company()
+        {
+            ViewData["companyId"] = new SelectList(db.tblCompany, "CompanyId", "Name");
             return View();
         }
 
@@ -56,16 +61,16 @@ namespace INV_MS.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,companyId,ProductName,Description,ArrivalDate,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] tblCompanyDetail tblCompanyDetail)
+        public IActionResult Create([Bind("Id,companyId,ProductName,Description,ArrivalDate,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] tblCompanyDetail detail)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(tblCompanyDetail);
-                await _context.SaveChangesAsync();
+                db.Add(detail);
+                db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["companyId"] = new SelectList(_context.tblCompany, "CompanyId", "CompanyrCode", tblCompanyDetail.companyId);
-            return View(tblCompanyDetail);
+            ViewData["companyId"] = new SelectList(db.tblCompany, "CompanyId", "CompanyrCode", detail.companyId);
+            return View(detail);
         }
 
         // GET: CompanyDetails/Edit/5
@@ -76,12 +81,12 @@ namespace INV_MS.Controllers
                 return NotFound();
             }
 
-            var tblCompanyDetail = await _context.tblCompanyDetail.FindAsync(id);
+            var tblCompanyDetail = await db.tblCompanyDetail.FindAsync(id);
             if (tblCompanyDetail == null)
             {
                 return NotFound();
             }
-            ViewData["companyId"] = new SelectList(_context.tblCompany, "CompanyId", "CompanyrCode", tblCompanyDetail.companyId);
+            ViewData["companyId"] = new SelectList(db.tblCompany, "CompanyId", "CompanyrCode", tblCompanyDetail.companyId);
             return View(tblCompanyDetail);
         }
 
@@ -101,8 +106,8 @@ namespace INV_MS.Controllers
             {
                 try
                 {
-                    _context.Update(tblCompanyDetail);
-                    await _context.SaveChangesAsync();
+                    db.Update(tblCompanyDetail);
+                    await db.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -117,7 +122,7 @@ namespace INV_MS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["companyId"] = new SelectList(_context.tblCompany, "CompanyId", "CompanyrCode", tblCompanyDetail.companyId);
+            ViewData["companyId"] = new SelectList(db.tblCompany, "CompanyId", "CompanyrCode", tblCompanyDetail.companyId);
             return View(tblCompanyDetail);
         }
 
@@ -129,7 +134,7 @@ namespace INV_MS.Controllers
                 return NotFound();
             }
 
-            var tblCompanyDetail = await _context.tblCompanyDetail
+            var tblCompanyDetail = await db.tblCompanyDetail
                 .Include(t => t.TblCompany)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (tblCompanyDetail == null)
@@ -145,15 +150,15 @@ namespace INV_MS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var tblCompanyDetail = await _context.tblCompanyDetail.FindAsync(id);
-            _context.tblCompanyDetail.Remove(tblCompanyDetail);
-            await _context.SaveChangesAsync();
+            var tblCompanyDetail = await db.tblCompanyDetail.FindAsync(id);
+            db.tblCompanyDetail.Remove(tblCompanyDetail);
+            await db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool tblCompanyDetailExists(int id)
         {
-            return _context.tblCompanyDetail.Any(e => e.Id == id);
+            return db.tblCompanyDetail.Any(e => e.Id == id);
         }
     }
 }

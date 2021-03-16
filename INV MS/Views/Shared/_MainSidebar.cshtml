@@ -39,6 +39,31 @@
                 @* Category Start *@
                 <li class="nav-item">
                     <a href="#" class="nav-link">
+                        &nbsp; <i class="fas fa-dot-circle"></i>
+                        <p>
+                            Company
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-controller="tblCompanies" asp-action="Create" class="nav-link">
+                                <i class="far fa-dot-circle nav-icon"></i>
+                                <p>Add New Company</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="CompanyDetails" asp-action="Company" class="nav-link">
+                                <i class="far fa-dot-circle nav-icon"></i>
+                                <p>Add Company Detail </p>
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </li> 
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
                         &nbsp; <i class="fas fa-list-ul"></i>
                         <p>
                             Category

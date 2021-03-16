@@ -12,17 +12,17 @@ namespace INV_MS.Controllers
 {
     public class tblCompaniesController : Controller
     {
-        private readonly INVContext _context;
+        private readonly INVContext db;
 
         public tblCompaniesController(INVContext context)
         {
-            _context = context;
+            db = context;
         }
 
         // GET: tblCompanies
         public async Task<IActionResult> Index()
         {
-            return View(await _context.tblCompany.ToListAsync());
+            return View(await db.tblCompany.ToListAsync());
         }
 
         // GET: tblCompanies/Details/5
@@ -33,7 +33,7 @@ namespace INV_MS.Controllers
                 return NotFound();
             }
 
-            var tblCompany = await _context.tblCompany
+            var tblCompany = await db.tblCompany
                 .FirstOrDefaultAsync(m => m.CompanyId == id);
             if (tblCompany == null)
             {
@@ -58,8 +58,8 @@ namespace INV_MS.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(tblCompany);
-                await _context.SaveChangesAsync();
+                db.Add(tblCompany);
+                await db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(tblCompany);
@@ -73,7 +73,7 @@ namespace INV_MS.Controllers
                 return NotFound();
             }
 
-            var tblCompany = await _context.tblCompany.FindAsync(id);
+            var tblCompany = await db.tblCompany.FindAsync(id);
             if (tblCompany == null)
             {
                 return NotFound();
@@ -97,8 +97,8 @@ namespace INV_MS.Controllers
             {
                 try
                 {
-                    _context.Update(tblCompany);
-                    await _context.SaveChangesAsync();
+                    db.Update(tblCompany);
+                    await db.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -124,7 +124,7 @@ namespace INV_MS.Controllers
                 return NotFound();
             }
 
-            var tblCompany = await _context.tblCompany
+            var tblCompany = await db.tblCompany
                 .FirstOrDefaultAsync(m => m.CompanyId == id);
             if (tblCompany == null)
             {
@@ -139,15 +139,15 @@ namespace INV_MS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var tblCompany = await _context.tblCompany.FindAsync(id);
-            _context.tblCompany.Remove(tblCompany);
-            await _context.SaveChangesAsync();
+            var tblCompany = await db.tblCompany.FindAsync(id);
+            db.tblCompany.Remove(tblCompany);
+            await db.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool tblCompanyExists(int id)
         {
-            return _context.tblCompany.Any(e => e.CompanyId == id);
+            return db.tblCompany.Any(e => e.CompanyId == id);
         }
     }
 }
