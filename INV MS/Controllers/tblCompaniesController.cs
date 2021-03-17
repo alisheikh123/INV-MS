@@ -67,7 +67,7 @@ namespace INV_MS.Controllers
                 {
                     db.Add(tblCompany);
                     await db.SaveChangesAsync();
-                    return RedirectToAction(nameof(Index));
+                    return Json("Company Record Successfully Added!");
                 }
             }
             return View(tblCompany);

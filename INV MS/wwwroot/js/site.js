@@ -154,23 +154,23 @@ $("#AddCompany").click(function (e) {
     e.stopImmediatePropagation();
     let CompanyNm = $("#CompanyNm").val();
     let CompanyCode = $("#CompanyCode").val();
-    alert(CompanyNm + CompanyCode);
+   
     var postData = { Name: CompanyNm, CompanyrCode: CompanyCode, Email:"jshu@gmail.com", Contact:"98867689", Address:"ghqgtygq"};
     $.ajax({
         type: "POST",
         url: "/tblCompanies/Create",
         data: postData,
         success: function (result) {
-            alert("hy");
-            if (result != "Company Saved Successfully") {
-                $('#categoryName').val('');
-                $('#Description').val('');
-                $('#catValidation').html(result);
+         
+            if (result != "Company Record Successfully Added!") {
+                $('#CompanyNm').val('');
+                $('#CompanyCode').val('');
+                $('#compcodeValidation').html(result);
 
             }
             else {
                 $("#categoryModal").modal('hide');
-
+                window.location.reload();
             }
         },
         error: function () {
@@ -274,6 +274,60 @@ function deleteItem(id) {
         toastr.success(id);
     }
 }
+
+
+
+$('#saveItems').click(function (e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    var Category = $('.cat').val();
+    var itmcode = $('.itmcode').val();
+    var itemName = $('.itemName').val();
+    var unit = $('.unit').val();
+    var Description = $('.Description').val();
+    var purchase_Price = $('.purchase_Price').val();
+    var sale_Price = $('.sale_Price').val();
+
+    if (Category == 0 || ItemCode == "" || itemName == "" || unit == 0
+        || purchase_Price == "" || purchase_Price == 0.0 || purchase_Price == 0 ||
+        sale_Price == "" || sale_Price == 0.0 || sale_Price == 0
+    ) {
+        //alert("Something is Missing in Input Box!");
+        toastr.error('Something is Missing in Input Box!')
+    }
+    else {
+        $.ajax({
+            url: "/Item/Item",
+            type: "POST",
+            dataType: 'json',
+            data: {
+                "catId": Category,
+                "ItemCode": itmcode,
+                "itemName": itemName,
+                "UnitId": unit,
+                "Description": Description,
+                "purchase_Price": purchase_Price,
+                "sale_Price": sale_Price
+            }, success: function (output) {
+
+                if (output != "Record is Saved Successfully") {
+
+                    $("#itemcodeValidation").html(output);
+                }
+                else {
+                    toastr.success(output);
+
+                    window.location.reload();
+                }
+            },
+            error: function (output) {
+
+                toastr.error(output)
+            }
+
+        });
+    }
+});
 
 
 

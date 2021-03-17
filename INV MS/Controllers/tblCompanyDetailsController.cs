@@ -68,6 +68,11 @@ namespace INV_MS.Controllers
             return View(companyDetail);
         }
 
+        [HttpPost]
+        public JsonResult CompDetailCreate([Bind("Id,companyId,ProductName,Description,ArrivalDate,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] tblCompanyDetail companyDetail) 
+        {
+            return Json("");
+        }
         // GET: tblCompanyDetails/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
