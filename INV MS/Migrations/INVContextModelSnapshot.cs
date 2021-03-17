@@ -15,9 +15,55 @@ namespace INV_MS.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.13")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("INV_MS.Models.tblCompanyDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PaidAmount")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PhoneNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("RemainingAmount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalAmount")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("companyId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("dateoforder")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("dateofpayment")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("dateofremainpayment")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("companyId");
+
+                    b.ToTable("tblCompanyDetail");
+                });
 
             modelBuilder.Entity("Inventory_Management_Systems.Models.Customer", b =>
                 {
@@ -356,18 +402,18 @@ namespace INV_MS.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex")
+                        .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
@@ -410,8 +456,8 @@ namespace INV_MS.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
@@ -423,12 +469,12 @@ namespace INV_MS.Migrations
                         .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -446,17 +492,17 @@ namespace INV_MS.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(256)")
-                        .HasMaxLength(256);
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
+                        .HasDatabaseName("EmailIndex");
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex")
+                        .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
@@ -542,6 +588,17 @@ namespace INV_MS.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("INV_MS.Models.tblCompanyDetail", b =>
+                {
+                    b.HasOne("Inventory_Management_Systems.Models.tblCompany", "TblCompany")
+                        .WithMany()
+                        .HasForeignKey("companyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TblCompany");
+                });
+
             modelBuilder.Entity("Inventory_Management_Systems.Models.tblAccount", b =>
                 {
                     b.HasOne("Inventory_Management_Systems.Models.tblAccountHead", "TblAccountHead")
@@ -549,6 +606,8 @@ namespace INV_MS.Migrations
                         .HasForeignKey("accountHeadId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("TblAccountHead");
                 });
 
             modelBuilder.Entity("Inventory_Management_Systems.Models.tblInvoice", b =>
@@ -570,6 +629,12 @@ namespace INV_MS.Migrations
                         .HasForeignKey("customerName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("TblAccount");
+
+                    b.Navigation("tblCompany");
                 });
 
             modelBuilder.Entity("Inventory_Management_Systems.Models.tblInvoiceDetail", b =>
@@ -585,6 +650,10 @@ namespace INV_MS.Migrations
                         .HasForeignKey("itemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("TblInvoice");
+
+                    b.Navigation("TblItem");
                 });
 
             modelBuilder.Entity("Inventory_Management_Systems.Models.tblItem", b =>
@@ -600,6 +669,10 @@ namespace INV_MS.Migrations
                         .HasForeignKey("catId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("category");
+
+                    b.Navigation("Unit");
                 });
 
             modelBuilder.Entity("Inventory_Management_Systems.Models.tblVoucher", b =>
@@ -609,6 +682,8 @@ namespace INV_MS.Migrations
                         .HasForeignKey("invoiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("TblInvoice");
                 });
 
             modelBuilder.Entity("Inventory_Management_Systems.Models.tblVoucherDetail", b =>
@@ -618,6 +693,8 @@ namespace INV_MS.Migrations
                         .HasForeignKey("voucherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("TblVoucher");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

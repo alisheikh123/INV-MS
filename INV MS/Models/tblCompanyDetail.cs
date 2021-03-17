@@ -26,9 +26,9 @@ namespace INV_MS.Models
         [Display(Name = "Description")]
         public string Description { get; set; }
 
-        [Display(Name = "Arrival Date")]
-        [DataType(DataType.Date)]
-        public DateTime ArrivalDate { get; set; }
+        //[Display(Name = "Arrival Date")]
+        //[DataType(DataType.Date)]
+        //public DateTime ArrivalDate { get; set; }
 
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Phone No ")]
@@ -55,7 +55,7 @@ namespace INV_MS.Models
 
         [Display(Name = "Date of Remaing payment")]
         [DataType(DataType.Date)]
-        public DateTime dateofremainpayment { get; set; }
+        public DateTime? dateofremainpayment { get; set; }
 
     
 

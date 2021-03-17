@@ -53,12 +53,11 @@ namespace INV_MS.Controllers
         public IActionResult Company()
         {
             ViewData["companyId"] = new SelectList(db.tblCompany, "CompanyId", "Name");
+            ViewBag.CompanyList = db.tblCompanyDetail.Include(t => t.TblCompany).ToList();
             return View();
         }
 
-        // POST: CompanyDetails/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create([Bind("Id,companyId,ProductName,Description,ArrivalDate,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] tblCompanyDetail detail)
@@ -90,9 +89,7 @@ namespace INV_MS.Controllers
             return View(tblCompanyDetail);
         }
 
-        // POST: CompanyDetails/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,companyId,ProductName,Description,ArrivalDate,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] tblCompanyDetail tblCompanyDetail)

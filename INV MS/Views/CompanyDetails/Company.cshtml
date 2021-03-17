@@ -4,14 +4,14 @@
 *@
 @{
 }
-<h5 class="text-center">List of Company Detail</h5>
+<h5 class="text-center">Add New Company Detail</h5>
 <div class="row col-md-12">
     <div class="col-md-5">
 
-        <button class="btn btn-secondary btn-xs" asp-action="Index"><i class="fas fa-arrow-alt-circle-left"> Back to List</i> </button>|
+        <a class="btn btn-secondary btn-xs" asp-action="Index" asp-controller="CompanyDetails" ><i class="fas fa-arrow-alt-circle-left"> Back to List</i> </a>|
 
-        <button class="btn btn-primary btn-xs" id="Refresh"><i class="fas fa-undo"> Refresh</i></button>|
-        <button class="btn btn-default btn-xs" id="Reset"><i class="fas fa-undo"> Reset</i></button>
+        <button class="btn btn-primary btn-xs" id="Refresh"><i class="fas fa-undo"> Refresh</i></button>
+ 
 
     </div>
     <div class="col-md-2">
@@ -39,14 +39,14 @@
                         <div class="form-group">
                             <label class="control-label">Company Name</label>
 
-                            <input asp-for="@Model.CompanyNm" class="form-control col-md-8" id="CompanyNm" type="text" />
+                            <input  class="form-control col-md-8" id="CompanyNm" type="text" />
                             <span class="text-danger" id="compnmValidation"></span>
 
                         </div>
                         <div class="form-group">
                             <label class="control-label">Company Code</label>
 
-                            <input asp-for="@Model.CompanyCode" class="form-control col-md-8" id="CompanyCode" type="text" />
+                            <input  class="form-control col-md-8" id="CompanyCode" type="text" />
                             <span class="text-danger" id="compcodeValidation"></span>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
             <div class="col-lg-3">
                 <div class="form-group">
                     <label class="control-label">Company Name</label>&emsp;&emsp;&emsp;&emsp;<i class="fas fa-plus-circle" title="Add New Category" style="color:black" id="addcat"></i>
-                    <select asp-for="@Model.companyId" class="form-control comp" asp-items="ViewBag.companyId">
+                    <select  class="form-control comp" asp-items="ViewBag.companyId">
                         <option value="0">--Select Company--</option>
                     </select>
                 </div>
@@ -73,31 +73,33 @@
             <div class="col-lg-3">
                 <div class="form-group">
                     <label class="control-label">Product Name</label>
-                    <input asp-for="@Model.ProductName" class="form-control itmcode" />
+                    <input class="form-control ProductName" />
                     <span id="ProductNameValidation" class="text-danger"></span>
                 </div>
             </div>
             <div class="col-lg-3">
                 <div class="form-group">
                     <label class="control-label">Description</label>
-                    <input asp-for="@Model.Description" class="form-control Description" />
-                    <span asp-validation-for="Description" class="text-danger"></span>
+                    <input class="form-control Description" />
+                    <span  class="text-danger"></span>
                 </div>
             </div>
+
             <div class="col-lg-3">
                 <div class="form-group">
                     <label class="control-label">Phone No</label>
-                    <input asp-for="@Model.PhoneNo" class="form-control PhoneNo" />
-                    <span asp-validation-for="PhoneNo" class="text-danger"></span>
+                    <input  class="form-control PhoneNo" />
+                    <span  class="text-danger PhoneNoValidation"></span>
                 </div>
             </div>
         </div>
         <div class="row col-lg-12 ">
+
             <div class="col-lg-3">
                 <div class="form-group">
                     <label class="control-label">Total Amount</label>
-                    <input asp-for="@Model.TotalAmount" class="form-control TotalAmount" />
-                    <span asp-validation-for="TotalAmount" class="text-danger"></span>
+                    <input class="form-control TotalAmount" type="number" />
+                    <span  class="text-danger"></span>
                 </div>
             </div>
 
@@ -105,91 +107,96 @@
             <div class="col-lg-3">
                 <div class="form-group">
                     <label class="control-label">Paid Amount</label>
-                    <input asp-for="@Model.PaidAmount" class="form-control PaidAmount" />
-                    <span asp-validation-for="PaidAmount" class="text-danger"></span>
+                    <input class="form-control PaidAmount" type="number"/>
+                    <span  class="text-danger"></span>
                 </div>
             </div>
             <div class="col-lg-3">
                 <div class="form-group">
                     <label class="control-label">Remaining Amount</label>
-                    <input asp-for="@Model.RemainingAmount" class="form-control RemainingAmount" disabled/>
-                    <span asp-validation-for="RemainingAmount" class="text-danger"></span>
+                    <input  class="form-control RemainingAmount" disabled  type="number"/>
+                    <span  class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label class="control-label">Date of Order</label>
+                    <input  class="form-control dateoforder" type="date" />
+                    <span  class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row col-lg-12 ">
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label class="control-label">Date of Payment</label>
+                    <input  class="form-control dateofpayment" type="date" />
+                    <span  class="text-danger"></span>
                 </div>
             </div>
             <div class="col-lg-3">
                 <div class="form-group">
-                    <label class="control-label">Date of Order</label>
-                    <input asp-for="@Model.dateoforder" class="form-control dateoforder" />
-                    <span asp-validation-for="dateoforder" class="text-danger"></span>
-                </div>
-            </div>
-
-        </div>
-        <div class="row col-lg-12 ">
-            <div class="col-lg-4">
-                <div class="form-group">
-                    <label class="control-label">Date of Payment</label>
-                    <input asp-for="@Model.dateofpayment" class="form-control dateofpayment" />
-                    <span asp-validation-for="dateofpayment" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="form-group">
                     <label class="control-label">Date of Remaining Payment</label>
-                    <input asp-for="@Model.dateofremainpayment" class="form-control dateofremainpayment" />
-                    <span asp-validation-for="dateofremainpayment" class="text-danger"></span>
+                    <input  class="form-control dateofremainpayment" type="date"/>
+                    <span  class="text-danger"></span>
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="form-group">
 
-                    <button class="btn btn-success btn-sm " id="saveItems" style="margin-top:35px;"><i class="fa fa-save"> Save</i></button>
+                    <button class="btn btn-success btn-sm " id="savecompDetail" style="margin-top:35px;"><i class="fa fa-save"> Save</i></button>
                 </div>
             </div>
         </div>
     </form>
 </div>
-<table class="table table-bordered table-avatar" id="tableid">
+@*<table class="table table-bordered table-avatar" id="tableid">
     <thead>
         <tr>
 
             <th>Company Name</th>
             <th>Product Name</th>
-            <th>Description</th>
-            <th>PhoneNo</th>
+           
+           
             <th>TotalAmount</th>
+            <th>PaidAmount </th>
             <th>Remaining Amount </th>
             <th>Date of Order </th>
             <th>Date of Payment </th>
-            <th>Date of Remaining Payment </th>
-            <th>Action</th>
-            
-  
+           
+            <th>Action</th>   
+
+
 
         </tr>
-    </thead>
-    <tbody>
-        @*@foreach (var item in ViewBag.ItemList)
-        {*@
-            @*<tr>
-                <td>@item.category.catName</td>
-                <td>@item.ItemCode</td>
-                <td>@item.itemName</td>
-                <td>@item.Unit.unitName</td>
-                <td>@item.Description</td>
-                <td>@item.purchase_Price</td>
-                <td>@item.sale_Price</td>-->
-                                <td>
+    </thead>*@
+    @*<tbody>
+        @foreach (var item in ViewBag.CompanyList)
+        {
+            <tr>
+                <td>@item.TblCompany.Name</td>
+                <td>@item.ProductName</td>
+              
+                
+                <td>@item.TotalAmount</td>
+                <td>@item.PaidAmount</td>
+                <td>@item.RemainingAmount</td>
+                <td>@item.dateoforder</td>
+                <td>@item.dateofpayment</td>
+               
+                <td>
 
-                    <a asp-action="Edit" asp-route-id="@item.itemId" class="btn btn-primary btn-xs"><i class="fa fa-pen"></i> Edit</a>
-                    <a class="btn btn-warning btn-xs" onclick="detailItem(@item.itemId)"><i class="fa fa-question-circle"></i> Details</a>
-                    <a class="btn btn-danger btn-xs" onclick="deleteItem(@item.itemId)"><i class="fa fa-trash"></i> Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-xs"><i class="fa fa-pen"></i> Edit</a>
+                    <a class="btn btn-warning btn-xs" onclick="detailItem(@item.Id)"><i class="fa fa-question-circle"></i> Details</a>
+                    <a class="btn btn-danger btn-xs" onclick="deleteItem(@item.Id)"><i class="fa fa-trash"></i> Delete</a>
                 </td>
 
-            </tr>*@
-        @*}*@
-    </tbody>
-</table>
+            </tr>
+        }
+    </tbody>*@
+@*</table>*@
 <script src="~/js/site.js"></script>
 <script>
     $(document).ready(function () {
@@ -200,40 +207,9 @@
         });
 
 
-            if ($("#log").length) {
-                $(".TotalAmount").keyup(function () {
-                    $.subtract();
-                });
-                $(".PaidAmount").keyup(function () {
-                    $.subtract();
-                });
-            }
-            $.subtract = function () {
-                $(".RemainingAmount").val(parseInt($(".TotalAmount").val()) - parseInt($(".PaidAmount").val()));
-            }
-  
 
     });
     $(".comp").select2();
-   
-    function detailItem(id) {
-        $.ajax({
-            type: "POST",
-            url: "/item/Details",
-            data: { id: id },
-            success: function (response) {
 
-                let str = JSON.stringify(response);
-                let JsonParser = JSON.parse(str);
-                console.log(JsonParser.itemCode, JsonParser.itemName, JsonParser.category.catName)
-                //alert("Item Code="+JsonParser.itemCode+"\nItem Name="+JsonParser.itemName+"\nCategory Name=" JsonParser.category.catName);
 
-            },
-            error: function (ItemCode) {
-                alert(ItemCode);
-            }
-
-        });
-
-    }
 </script>

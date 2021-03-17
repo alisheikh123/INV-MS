@@ -56,7 +56,7 @@ namespace INV_MS.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,companyId,ProductName,Description,ArrivalDate,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] tblCompanyDetail companyDetail)
+        public async Task<IActionResult> Create([Bind("Id,companyId,ProductName,Description,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] tblCompanyDetail companyDetail)
         {
             if (ModelState.IsValid)
             {
@@ -67,12 +67,36 @@ namespace INV_MS.Controllers
             ViewData["companyId"] = new SelectList(_context.tblCompany, "CompanyId", "CompanyrCode", companyDetail.companyId);
             return View(companyDetail);
         }
-
-        [HttpPost]
-        public JsonResult CompDetailCreate([Bind("Id,companyId,ProductName,Description,ArrivalDate,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] tblCompanyDetail companyDetail) 
+      
+        public IActionResult CompDetailCreate()
         {
-            return Json("");
+            ViewBag.CompanyList = _context.tblCompanyDetail.Include(t => t.TblCompany).ToList();
+            return View();
         }
+        [HttpPost]/*,ArrivalDate*/
+        public JsonResult CompDetailCreate([Bind("Id,companyId,ProductName,Description,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] tblCompanyDetail companyDetail) 
+        {
+            var compDetail = _context.tblCompanyDetail;
+            if (ModelState.IsValid)
+            {
+
+                bool checkphonenumber = compDetail.Where(x => x.PhoneNo.Equals(companyDetail.PhoneNo)).Any();
+                if (checkphonenumber == true)
+                {
+                    Json("Phone Number Already Exist*");
+                }
+                else
+                {
+                    _context.Add(companyDetail);
+                    _context.SaveChanges();
+                    return Json("Record Successfully Saved!");
+                }
+            }
+            ViewData["companyId"] = new SelectList(_context.tblCompany, "CompanyId", "CompanyrCode", companyDetail.companyId);
+            
+            return Json("Invalid Record is Exist!");
+        }
+  
         // GET: tblCompanyDetails/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -95,7 +119,7 @@ namespace INV_MS.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,companyId,ProductName,Description,ArrivalDate,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] tblCompanyDetail tblCompanyDetail)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,companyId,ProductName,Description,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] tblCompanyDetail tblCompanyDetail)
         {
             if (id != tblCompanyDetail.Id)
             {
