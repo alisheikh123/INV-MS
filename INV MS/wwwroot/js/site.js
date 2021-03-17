@@ -149,7 +149,36 @@ $("#Refresh").click(function () {
 ///Item Code END
 
 
+$("#AddCompany").click(function (e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    let CompanyNm = $("#CompanyNm").val();
+    let CompanyCode = $("#CompanyCode").val();
+    alert(CompanyNm + CompanyCode);
+    var postData = { Name: CompanyNm, CompanyrCode: CompanyCode, Email:"jshu@gmail.com", Contact:"98867689", Address:"ghqgtygq"};
+    $.ajax({
+        type: "POST",
+        url: "/tblCompanies/Create",
+        data: postData,
+        success: function (result) {
+            alert("hy");
+            if (result != "Company Saved Successfully") {
+                $('#categoryName').val('');
+                $('#Description').val('');
+                $('#catValidation').html(result);
 
+            }
+            else {
+                $("#categoryModal").modal('hide');
+
+            }
+        },
+        error: function () {
+            alert("Error");
+        }
+
+    });
+});
 
 
 

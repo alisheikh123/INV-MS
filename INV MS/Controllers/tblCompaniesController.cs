@@ -53,14 +53,22 @@ namespace INV_MS.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
+      
         public async Task<IActionResult> Create([Bind("CompanyId,CompanyrCode,Name,Email,Contact,Address")] tblCompany tblCompany)
         {
             if (ModelState.IsValid)
             {
-                db.Add(tblCompany);
-                await db.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var companyCodes = db.tblCompany.Where(x => x.CompanyrCode == tblCompany.CompanyrCode).Select(x=>x.CompanyrCode).ToList();
+                if (companyCodes.Count() > 0)
+                {
+                    return Json("Company Code Already Exist!");
+                }
+                else
+                {
+                    db.Add(tblCompany);
+                    await db.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             return View(tblCompany);
         }
