@@ -24,7 +24,14 @@ namespace INV_MS.Controllers
 
         public IActionResult Index()
         {
-           
+            var companyCreated = db.tblCompany.Count();
+            var totalCompanyCounts = db.tblCompanyDetail.Count();
+            var remaingpayment = db.tblCompanyDetail.Where(x => x.RemainingAmount > 0).Select(x=>x.RemainingAmount).Count();
+            var totalpayment = db.tblCompanyDetail.Where(x => x.RemainingAmount == 0).Select(x=>x.RemainingAmount).Count();
+            ViewBag.CompanyCount = totalCompanyCounts;
+            ViewBag.remaingpayment = remaingpayment;
+            ViewBag.totalpayment = totalpayment;
+            ViewBag.companyCreated = companyCreated;
             return View();
         }
         public IActionResult Privacy()

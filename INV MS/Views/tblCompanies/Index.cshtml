@@ -4,12 +4,12 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h4 class="text-center">List of Companies </h4>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary btn-sm">Create New</a>
 </p>
-<table class="table">
+<table class="table" id="mytable">
     <thead>
         <tr>
             <th>
@@ -27,7 +27,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Address)
             </th>
-            <th></th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
@@ -49,11 +49,20 @@
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.CompanyId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.CompanyId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CompanyId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.CompanyId" class="btn btn-primary btn-xs"><i class="fa fa-pen"></i> Edit</a> |
+                <a asp-action="Details" class="btn btn-warning btn-xs"  asp-route-id="@item.CompanyId"><i class="fa fa-question-circle"></i> Details</a> |
+                <a asp-action="Delete" class="btn btn-danger btn-xs"  asp-route-id="@item.CompanyId"><i class="fa fa-trash"></i>  Delete</a>
             </td>
         </tr>
 }
     </tbody>
 </table>
+<script >
+    $(document).ready(function () {
+
+        $("#mytable").DataTable({
+            "lengthMenu": [[10, 10, 50, -1], [10, 10, 50, "All"]],
+            responsive: true
+        });
+    });
+</script>

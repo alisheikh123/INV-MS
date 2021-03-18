@@ -158,7 +158,7 @@ $("#AddCompany").click(function (e) {
     var postData = { Name: CompanyNm, CompanyrCode: CompanyCode, Email: "jshu@gmail.com", Contact: "98867689", Address: "ghqgtygq" };
     $.ajax({
         type: "POST",
-        url: "/tblCompanies/Create",
+        url: "/tblCompanies/CreateCompany",
         data: postData,
         success: function (result) {
 
@@ -192,7 +192,7 @@ if ($("#log").length) {
 $.subtract = function () {
     $(".RemainingAmount").val(parseInt($(".TotalAmount").val()) - parseInt($(".PaidAmount").val()));
 }
-$(".comp").select2();
+//$(".comp").select2();
 
 
 

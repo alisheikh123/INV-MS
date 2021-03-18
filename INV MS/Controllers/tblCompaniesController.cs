@@ -58,6 +58,20 @@ namespace INV_MS.Controllers
         {
             if (ModelState.IsValid)
             {
+               
+                    db.Add(tblCompany);
+                    await db.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+
+            }
+            return View(tblCompany);
+        }  
+        [HttpPost]
+      
+        public async Task<IActionResult> CreateCompany([Bind("CompanyId,CompanyrCode,Name,Email,Contact,Address")] tblCompany tblCompany)
+        {
+            if (ModelState.IsValid)
+            {
                 var companyCodes = db.tblCompany.Where(x => x.CompanyrCode == tblCompany.CompanyrCode).Select(x=>x.CompanyrCode).ToList();
                 if (companyCodes.Count() > 0)
                 {
