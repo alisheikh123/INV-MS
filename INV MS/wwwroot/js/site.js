@@ -192,7 +192,7 @@ if ($("#log").length) {
 $.subtract = function () {
     $(".RemainingAmount").val(parseInt($(".TotalAmount").val()) - parseInt($(".PaidAmount").val()));
 }
-
+$(".comp").select2();
 
 
 
@@ -306,8 +306,7 @@ $('#savecompDetail').click(function (e) {
   //  var dateofArrival = $('.dateofArrival').val();
 
     if (comp == 0 || ProductName == ""  || TotalAmount == 0
-        || TotalAmount == 0.0 || PaidAmount == 0.0 || PaidAmount == 0 ||
-        RemainingAmount == 0.0 || RemainingAmount == 0
+        || TotalAmount == 0.0 || PaidAmount == 0.0 || PaidAmount == 0 
         || dateoforder == "mm/dd/yyyy" || dateofpayment == "mm/dd/yyyy") {
         //alert("Something is Missing in Input Box!");
         toastr.error('Something is Missing in Input Box!');

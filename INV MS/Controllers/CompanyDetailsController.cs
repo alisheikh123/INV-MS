@@ -53,7 +53,7 @@ namespace INV_MS.Controllers
         public IActionResult Company()
         {
             ViewData["companyId"] = new SelectList(db.tblCompany, "CompanyId", "Name");
-            ViewBag.CompanyList = db.tblCompanyDetail.Include(t => t.TblCompany).ToList();
+            ViewBag.CompanyList = db.tblCompanyDetail.Include(t => t.TblCompany)/*.Where(x=>x.RemainingAmount==0 || x.RemainingAmount!=null)*/.ToList();
             return View();
         }
 
@@ -85,7 +85,7 @@ namespace INV_MS.Controllers
             {
                 return NotFound();
             }
-            ViewData["companyId"] = new SelectList(db.tblCompany, "CompanyId", "CompanyrCode", tblCompanyDetail.companyId);
+            ViewData["companyId"] = new SelectList(db.tblCompany, "CompanyId", "Name", tblCompanyDetail.companyId);
             return View(tblCompanyDetail);
         }
 

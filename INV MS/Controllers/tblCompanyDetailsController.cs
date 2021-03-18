@@ -68,6 +68,7 @@ namespace INV_MS.Controllers
             return View(companyDetail);
         }
       
+
         public IActionResult CompDetailCreate()
         {
             ViewBag.CompanyList = _context.tblCompanyDetail.Include(t => t.TblCompany).ToList();
@@ -110,7 +111,7 @@ namespace INV_MS.Controllers
             {
                 return NotFound();
             }
-            ViewData["companyId"] = new SelectList(_context.tblCompany, "CompanyId", "CompanyrCode", tblCompanyDetail.companyId);
+            ViewData["companyId"] = new SelectList(_context.tblCompany, "CompanyId", "Name", tblCompanyDetail.companyId);
             return View(tblCompanyDetail);
         }
 
