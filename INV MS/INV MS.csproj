@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\ItemsController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="C:\Users\ALI\.nuget\packages\extended.wpf.toolkit.fixed\3.5.1.2\contentFiles\any\any\Xceed.Wpf.AvalonDock.pdb" />
     <None Remove="C:\Users\ALI\.nuget\packages\extended.wpf.toolkit.fixed\3.5.1.2\contentFiles\any\any\Xceed.Wpf.AvalonDock.Themes.Aero.pdb" />
     <None Remove="C:\Users\ALI\.nuget\packages\extended.wpf.toolkit.fixed\3.5.1.2\contentFiles\any\any\Xceed.Wpf.AvalonDock.Themes.Metro.pdb" />
