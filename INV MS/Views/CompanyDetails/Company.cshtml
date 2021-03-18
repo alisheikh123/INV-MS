@@ -129,14 +129,14 @@
         </div>
         <div class="row col-lg-12 ">
 
-            <div class="col-lg-3">
+            <div class="col-lg-4">
                 <div class="form-group">
                     <label class="control-label">Date of Payment</label>
                     <input  class="form-control dateofpayment" type="date" />
                     <span  class="text-danger"></span>
                 </div>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-4">
                 <div class="form-group">
                     <label class="control-label">Date of Remaining Payment</label>
                     <input  class="form-control dateofremainpayment" type="date"/>
@@ -152,7 +152,7 @@
         </div>
     </form>
 </div>
-<table class="table table-bordered table-avatar" id="tableid">
+@*<table class="table table-bordered table-avatar" id="tableid">
     <thead>
         <tr>
 
@@ -171,8 +171,8 @@
 
 
         </tr>
-    </thead>
-    <tbody>
+    </thead>*@
+    @*<tbody>
         @foreach (var item in ViewBag.CompanyList)
         {
             <tr>
@@ -195,14 +195,14 @@
 
             </tr>
         }
-    </tbody>
-</table>
+    </tbody>*@
+@*</table>*@
 <script src="~/js/site.js"></script>
 <script>
     $(document).ready(function () {
 
         var tab = $("#tableid").DataTable({
-            "lengthMenu": [[8, 10, 50, -1], [8, 10, 50, "All"]],
+            "lengthMenu": [[4, 10, 50, -1], [4, 10, 50, "All"]],
             responsive: true
         });
 

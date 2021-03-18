@@ -4,47 +4,63 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h4 class="text-center">Create New Company</h4>
 
-<h4>tblCompany</h4>
+
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<form asp-action="Create">
+    <div class="row col-md-12">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="CompanyrCode" class="control-label"></label>
                 <input asp-for="CompanyrCode" class="form-control" />
                 <span asp-validation-for="CompanyrCode" class="text-danger"></span>
             </div>
+
+        </div>
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
+
             </div>
+        </div>
+    </div>
+    <div class="row col-md-12">
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="Contact" class="control-label"></label>
                 <input asp-for="Contact" class="form-control" />
                 <span asp-validation-for="Contact" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
-                <textarea asp-for="Address" class="form-control"></textarea>
+                <input asp-for="Address" class="form-control"/>
                 <span asp-validation-for="Address" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-4">
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-success" style="margin-top:32px;" />
             </div>
-        </form>
+        </div>
+
     </div>
-</div>
+</form>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-primary btn-sm">Back to List</a>
 </div>
 
