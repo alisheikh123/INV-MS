@@ -154,8 +154,11 @@ $("#AddCompany").click(function (e) {
     e.stopImmediatePropagation();
     let CompanyNm = $("#CompanyNm").val();
     let CompanyCode = $("#CompanyCode").val();
+    let Email = $("#Email").val();
+    let Contact = $("#Contact").val();
+    let Address = $("#Address").val();
 
-    var postData = { Name: CompanyNm, CompanyrCode: CompanyCode, Email: "jshu@gmail.com", Contact: "98867689", Address: "ghqgtygq" };
+    var postData = { Name: CompanyNm, CompanyrCode: CompanyCode, Email: Email, Contact: Contact, Address: Address };
     $.ajax({
         type: "POST",
         url: "/tblCompanies/CreateCompany",
