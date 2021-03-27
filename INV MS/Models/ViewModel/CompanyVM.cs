@@ -24,20 +24,23 @@ namespace INV_MS.Models.ViewModel
         public string Description { get; set; }
 
 
-        [DataType(DataType.Date)]
-        public DateTime ArrivalDate { get; set; }
-
     
         public string PhoneNo { get; set; }
 
+        [Required(ErrorMessage = "* please add total amount !")]
         public int TotalAmount { get; set; }
+
 
         public int PaidAmount { get; set; }
 
         public int RemainingAmount { get; set; }
 
+        [Required(ErrorMessage ="* Date of Order is Missing !")]
         [DataType(DataType.Date)]
+        
         public DateTime dateoforder { get; set; }
+
+        [Required(ErrorMessage = "* Date of Payment is Missing !")]
         [DataType(DataType.Date)]
         public DateTime dateofpayment { get; set; }
 

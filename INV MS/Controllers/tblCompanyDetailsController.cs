@@ -86,6 +86,10 @@ namespace INV_MS.Controllers
                 {
                     Json("Phone Number Already Exist*");
                 }
+                else if (companyDetail.PaidAmount==0 || companyDetail.PaidAmount==null) 
+                {
+                    companyDetail.PaidAmount = 0;
+                }
                 else
                 {
                     _context.Add(companyDetail);

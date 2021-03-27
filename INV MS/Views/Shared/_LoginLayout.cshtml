@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Html.Partial("_StylePartialView")
+   
+</head>
+
+<body>
+    <div class="row" style="margin-top:45px;">
+
+        <div class="col-md-5 offset-md-3">
+            <div class="card login-logout-tab">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link" href='/Identity/Account/Login'>Sign In</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href='/Identity/Account/Register'>Sign Up</a>
+                        </li>
+                    </ul>
+
+                </div>
+
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @RenderBody()
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+
+
+
+    </div>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -9,7 +9,7 @@ using INV_MS.Models;
 
 namespace INV_MS.Models
 {
-    public class INVContext: IdentityDbContext
+    public class INVContext: IdentityDbContext<ApplicationUser>
     {
         public INVContext(DbContextOptions<INVContext> options)
      : base(options)

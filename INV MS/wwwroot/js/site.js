@@ -195,8 +195,7 @@ if ($("#log").length) {
 $.subtract = function () {
     $(".RemainingAmount").val(parseInt($(".TotalAmount").val()) - parseInt($(".PaidAmount").val()));
 }
-//$(".comp").select2();
-
+$('.comp').select2();
 
 
 
@@ -308,12 +307,24 @@ $('#savecompDetail').click(function (e) {
     var dateofremainpayment = $('.dateofremainpayment').val();
   //  var dateofArrival = $('.dateofArrival').val();
 
-    if (comp == 0 || ProductName == ""  || TotalAmount == 0
-        || TotalAmount == 0.0 || PaidAmount == 0.0 || PaidAmount == 0 
-        || dateoforder == "mm/dd/yyyy" || dateofpayment == "mm/dd/yyyy") {
-        //alert("Something is Missing in Input Box!");
-        toastr.error('Something is Missing in Input Box!');
+    if (comp == 0) {
+        
+        toastr.error('* Please select the company name !');
     }
+    else if (ProductName == "") {
+        toastr.error('* Please add the Product Name !');
+    }
+    else if (TotalAmount == 0 || TotalAmount == 0.0 ) {
+        toastr.error('* Please add the Total Amount !');
+    }
+    else if (dateoforder == null || dateoforder =="" )
+    {
+        toastr.error('* Please add the the date of Order!');
+    }
+    else if (dateofpayment == null || dateofpayment == "")
+    { 
+        toastr.error('* Please add the Date of Payment !'); }
+    
     else {
         var postData = {
             companyId: comp,
