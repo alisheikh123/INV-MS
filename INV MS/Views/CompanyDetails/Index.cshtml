@@ -7,9 +7,18 @@
 <h5 class="text-center">List of Company Detail</h5>
 
 <p>
-    <a asp-action="Company" class="btn btn-success "><i class="fa fa-plus"></i> New</a>
-    <a asp-action="ListofRemaing" class="btn btn-danger "><i class="fa fa-dollar-sign"></i> Remaing Payment List</a>
-    
+    <div class="row">
+        <a asp-action="Company" class="btn btn-success "><i class="fa fa-plus"></i> New</a> |&nbsp;
+ 
+
+
+        <select class="form-control col-md-2" aria-label="Company List" onchange="list()">
+            <option selected>--Select Type of List--</option>
+            <option value="1" id="received" >Received</option>
+            <option value="2" id="paid">Paid</option>
+
+        </select>
+    </div>
 </p>
 <table class="table table-bordered table-avatar" id="tableid">
     <thead>
@@ -80,6 +89,12 @@
 </table>
 <script src="~/js/site.js"></script>
 <script>
+    function list() {
+        var rece = $("#received").val();
+        var paid = $("#paid").val();
+        
+
+    }
     $(document).ready(function () {
 
         var tab = $("#tableid").DataTable({
