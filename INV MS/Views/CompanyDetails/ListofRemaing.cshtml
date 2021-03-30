@@ -8,8 +8,8 @@
 
 <p>
     <a asp-action="Company" class="btn btn-success "><i class="fa fa-plus"></i> New</a>
-    <a asp-action="ListofRemaing" class="btn btn-danger "><i class="fa fa-dollar-sign"></i> Remaing Payment List</a>
-    
+    <a asp-action="Index" class="btn btn-primary "><i class="fa fa-dollar-sign"></i> &nbsp; Payment List</a>
+
 </p>
 <table class="table table-bordered table-avatar" id="tableid">
     <thead>
@@ -36,7 +36,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.dateofpayment)
             </th>
-         
+
 
             <th>Action</th>
         </tr>
@@ -44,37 +44,37 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TblCompany.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
-       
-            <td>
-                @Html.DisplayFor(modelItem => item.TotalAmount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PaidAmount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RemainingAmount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.dateoforder)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.dateofpayment)
-            </td>
-           
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TblCompany.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
 
-            <td>
-                <a asp-action="Edit" class="btn btn-primary btn-xs" asp-route-id="@item.Id"><i class="fa fa-pen"></i> Edit</a> 
-                <a asp-action="Details" class="btn btn-warning btn-xs" asp-route-id="@item.Id"><i class="fa fa-question-circle"></i>Details</a> 
-                <a asp-action="Delete" class="btn btn-danger btn-xs" asp-route-id="@item.Id"><i class="fa fa-trash"></i> Delete</a>
-            </td>
-        </tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PaidAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RemainingAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dateoforder)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dateofpayment)
+                </td>
+
+
+                <td>
+                    <a asp-action="Edit" class="btn btn-primary btn-xs" asp-route-id="@item.Id"><i class="fa fa-pen"></i> Edit</a>
+                    <a asp-action="Details" class="btn btn-warning btn-xs" asp-route-id="@item.Id"><i class="fa fa-question-circle"></i>Details</a>
+                    <a asp-action="Delete" class="btn btn-danger btn-xs" asp-route-id="@item.Id"><i class="fa fa-trash"></i> Delete</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

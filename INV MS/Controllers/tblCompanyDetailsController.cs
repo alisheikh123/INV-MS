@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using INV_MS.Models;
+using INV_MS.Models.ViewModel;
 
 namespace INV_MS.Controllers
 {
@@ -74,33 +75,61 @@ namespace INV_MS.Controllers
             ViewBag.CompanyList = _context.tblCompanyDetail.Include(t => t.TblCompany).ToList();
             return View();
         }
-        [HttpPost]/*,ArrivalDate*/
-        public JsonResult CompDetailCreate([Bind("Id,companyId,ProductName,Description,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] tblCompanyDetail companyDetail) 
+        [HttpPost]
+        public JsonResult CompDetailCreate([Bind("Id,companyId,ProductName,Description,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] CompanyVM vm) 
         {
+            tblCompanyDetail model = new tblCompanyDetail();
+            tblHIstoryDetail model2 = new tblHIstoryDetail();
             var compDetail = _context.tblCompanyDetail;
             if (ModelState.IsValid)
             {
-
-                bool checkphonenumber = compDetail.Where(x => x.PhoneNo.Equals(companyDetail.PhoneNo)).Any();
+                bool checkphonenumber = compDetail.Where(x => x.PhoneNo.Equals(vm.PhoneNo)).Any();
                 if (checkphonenumber == true)
                 {
                     Json("Phone Number Already Exist*");
                 }
-                else if (companyDetail.PaidAmount==0 || companyDetail.PaidAmount==null) 
+                else if (vm.PaidAmount == 0 || vm.PaidAmount == null)
                 {
-                    companyDetail.PaidAmount = 0;
-                }
+                    vm.PaidAmount = 0;
+                }     
                 else
                 {
-                    _context.Add(companyDetail);
+                    model.companyId = vm.companyId; 
+                    model.ProductName = vm.ProductName; 
+                    model.Description = vm.Description; 
+                    model.PhoneNo = vm.PhoneNo; 
+                    model.TotalAmount = vm.TotalAmount; 
+                    model.PaidAmount = vm.PaidAmount; 
+                    model.RemainingAmount = vm.RemainingAmount; 
+                    model.dateoforder = vm.dateoforder; 
+                    model.dateofpayment = vm.dateofpayment; 
+                    model.dateofremainpayment = vm.dateofremainpayment;
+
+                    //History Detail
+                    model2.CompanyDetailId = vm.companyId.GetValueOrDefault(0); 
+                    model2.ProductName = vm.ProductName; 
+                    model2.Description = vm.Description; 
+                    model2.PhoneNo = vm.PhoneNo; 
+                    model2.TotalAmount = vm.TotalAmount; 
+                    model2.PaidAmount = vm.PaidAmount; 
+                    model2.RemainingAmount = vm.RemainingAmount; 
+                    model2.dateoforder = vm.dateoforder; 
+                    model2.dateofpayment = vm.dateofpayment; 
+                    model2.dateofremainpayment = vm.dateofremainpayment; 
+                    model2.CreatedDate = DateTime.Now;
+
+
+                    _context.tblCompanyDetail.Add(model);
+                    _context.tblHIstoryDetail.Add(model2);
                     _context.SaveChanges();
                     return Json("Record Successfully Saved!");
                 }
             }
-            ViewData["companyId"] = new SelectList(_context.tblCompany, "CompanyId", "CompanyrCode", companyDetail.companyId);
+            ViewData["companyId"] = new SelectList(_context.tblCompany, "CompanyId", "CompanyrCode", vm.companyId);
             
             return Json("Invalid Record is Exist!");
-        }
+        } 
+      
   
         // GET: tblCompanyDetails/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -124,9 +153,11 @@ namespace INV_MS.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,companyId,ProductName,Description,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] tblCompanyDetail tblCompanyDetail)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,companyId,ProductName,Description,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] CompanyVM vm)
         {
-            if (id != tblCompanyDetail.Id)
+            tblCompanyDetail model = new tblCompanyDetail();
+            tblHIstoryDetail model2 = new tblHIstoryDetail();
+            if (id != model.Id)
             {
                 return NotFound();
             }
@@ -135,12 +166,39 @@ namespace INV_MS.Controllers
             {
                 try
                 {
-                    _context.Update(tblCompanyDetail);
+                    model.companyId = vm.companyId;
+                    model.ProductName = vm.ProductName;
+                    model.Description = vm.Description;
+                    model.PhoneNo = vm.PhoneNo;
+                    model.TotalAmount = vm.TotalAmount;
+                    model.PaidAmount = vm.PaidAmount;
+                    model.RemainingAmount = vm.RemainingAmount;
+                    model.dateoforder = vm.dateoforder;
+                    model.dateofpayment = vm.dateofpayment;
+                    model.dateofremainpayment = vm.dateofremainpayment;
+
+                    //History Detail
+                    model2.CompanyDetailId = vm.companyId.GetValueOrDefault(0);
+                    model2.ProductName = vm.ProductName;
+                    model2.Description = vm.Description;
+                    model2.PhoneNo = vm.PhoneNo;
+                    model2.TotalAmount = vm.TotalAmount;
+                    model2.PaidAmount = vm.PaidAmount;
+                    model2.RemainingAmount = vm.RemainingAmount;
+                    model2.dateoforder = vm.dateoforder;
+                    model2.dateofpayment = vm.dateofpayment;
+                    model2.dateofremainpayment = vm.dateofremainpayment;
+                    model2.CreatedDate = DateTime.Now;
+
+
+
+                    _context.Update(model);
+                    _context.Add(model2);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!tblCompanyDetailExists(tblCompanyDetail.Id))
+                    if (!tblCompanyDetailExists(model.Id))
                     {
                         return NotFound();
                     }
@@ -151,8 +209,8 @@ namespace INV_MS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["companyId"] = new SelectList(_context.tblCompany, "CompanyId", "CompanyrCode", tblCompanyDetail.companyId);
-            return View(tblCompanyDetail);
+            ViewData["companyId"] = new SelectList(_context.tblCompany, "CompanyId", "CompanyrCode", model.companyId);
+            return View(model);
         }
 
         // GET: tblCompanyDetails/Delete/5

@@ -36,14 +36,14 @@ namespace INV_MS.Models
 
         [Required(ErrorMessage = "*Required Total Amount")]
         [Display(Name = "Total Amount ")]
-        public int TotalAmount { get; set; }
+        public decimal TotalAmount { get; set; }
 
         [Required(ErrorMessage = "*Required Paid Amount")]
         [Display(Name = "Paid Amount")]
-        public int PaidAmount { get; set; }
+        public decimal PaidAmount { get; set; }
 
         [Display(Name = "Remaining Balance")]
-        public int RemainingAmount { get; set; }
+        public decimal RemainingAmount { get; set; }
 
         [Display(Name = "Date of Order ")]
         [DataType(DataType.Date)]

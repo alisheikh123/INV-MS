@@ -28,12 +28,12 @@ namespace INV_MS.Models.ViewModel
         public string PhoneNo { get; set; }
 
         [Required(ErrorMessage = "* please add total amount !")]
-        public int TotalAmount { get; set; }
+        public decimal TotalAmount { get; set; }
 
 
-        public int PaidAmount { get; set; }
+        public decimal PaidAmount { get; set; }
 
-        public int RemainingAmount { get; set; }
+        public decimal RemainingAmount { get; set; }
 
         [Required(ErrorMessage ="* Date of Order is Missing !")]
         [DataType(DataType.Date)]
@@ -45,6 +45,6 @@ namespace INV_MS.Models.ViewModel
         public DateTime dateofpayment { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime dateofremainpayment { get; set; }
+        public DateTime? dateofremainpayment { get; set; }
     }
 }

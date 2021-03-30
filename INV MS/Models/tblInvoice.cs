@@ -21,11 +21,11 @@ namespace Inventory_Management_Systems.Models
         [Display(Name = "Invoice Type:")]
         public InvoicesType Invoice_type { get; set; }
 
-        [Display(Name = "Payment Mode :")]      
+        [Display(Name = "Payment Mode :")]
         public paymentMode payment_Mode { get; set; }
 
         [Required(ErrorMessage = "*Required Invoice Date ")]
-        [DataType(DataType.Date),DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]       
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         [Display(Name = "Invoice Date :")]
         public DateTime invoice_Date { get; set; }
 
@@ -44,7 +44,7 @@ namespace Inventory_Management_Systems.Models
         public int accountId { get; set; }
 
 
-      
+
         [Display(Name = "Customer Name :")]
         public int customerName { get; set; }
 
@@ -80,9 +80,9 @@ namespace Inventory_Management_Systems.Models
     }
     public enum paymentMode
     {
-        Cheque =0,
+        Cheque = 0,
         Cash = 1,
-        Credit_Card=2
+        Credit_Card = 2
 
     }
 }

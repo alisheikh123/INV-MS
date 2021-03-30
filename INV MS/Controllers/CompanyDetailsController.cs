@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using INV_MS.Models;
+using INV_MS.Models.ViewModel;
 
 namespace INV_MS.Controllers
 {
@@ -22,7 +23,12 @@ namespace INV_MS.Controllers
         public async Task<IActionResult> Index()
         {
             var iNVContext = db.tblCompanyDetail.Include(t => t.TblCompany);
-            return View(await iNVContext.ToListAsync());
+            return View(await iNVContext.Where(x=>x.RemainingAmount==0).ToListAsync());
+        }
+        public async Task<IActionResult> ListofRemaing()
+        {
+            var iNVContext = db.tblCompanyDetail.Include(t => t.TblCompany);
+            return View(await iNVContext.Where(x=>x.RemainingAmount!=0).ToListAsync());
         }
 
         // GET: CompanyDetails/Details/5
@@ -92,9 +98,11 @@ namespace INV_MS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,companyId,ProductName,Description,ArrivalDate,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] tblCompanyDetail tblCompanyDetail)
+        public ActionResult Edit(int id, [Bind("Id,companyId,ProductName,Description,ArrivalDate,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] CompanyVM vm)
         {
-            if (id != tblCompanyDetail.Id)
+            tblCompanyDetail model = new tblCompanyDetail();
+            tblHIstoryDetail model2 = new tblHIstoryDetail();
+            if (id != vm.Id)
             {
                 return NotFound();
             }
@@ -103,12 +111,41 @@ namespace INV_MS.Controllers
             {
                 try
                 {
-                    db.Update(tblCompanyDetail);
-                    await db.SaveChangesAsync();
+                    model.companyId = vm.companyId;
+                    model.ProductName = vm.ProductName;
+                    model.Description = vm.Description;
+                    model.PhoneNo = vm.PhoneNo;
+                    model.TotalAmount = vm.TotalAmount;
+                    model.PaidAmount = vm.PaidAmount;
+                    model.RemainingAmount = vm.RemainingAmount;
+                    model.dateoforder = vm.dateoforder;
+                    model.dateofpayment = vm.dateofpayment;
+                    model.dateofremainpayment = vm.dateofremainpayment;
+
+                    //History Detail
+                    model2.CompanyDetailId = vm.companyId.GetValueOrDefault(0);
+                    model2.ProductName = vm.ProductName;
+                    model2.Description = vm.Description;
+                    model2.PhoneNo = vm.PhoneNo;
+                    model2.TotalAmount = vm.TotalAmount;
+                    model2.PaidAmount = vm.PaidAmount;
+                    model2.RemainingAmount = vm.RemainingAmount;
+                    model2.dateoforder = vm.dateoforder;
+                    model2.dateofpayment = vm.dateofpayment;
+                    model2.dateofremainpayment = vm.dateofremainpayment;
+                    model2.DateofEditing = DateTime.Now;
+
+
+
+                   
+                    
+                    db.tblCompanyDetail.Update(model);
+                    db.tblHIstoryDetail.Add(model2);
+                    db.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!tblCompanyDetailExists(tblCompanyDetail.Id))
+                    if (!tblCompanyDetailExists(model.Id))
                     {
                         return NotFound();
                     }
@@ -119,8 +156,8 @@ namespace INV_MS.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["companyId"] = new SelectList(db.tblCompany, "CompanyId", "CompanyrCode", tblCompanyDetail.companyId);
-            return View(tblCompanyDetail);
+            ViewData["companyId"] = new SelectList(db.tblCompany, "CompanyId", "CompanyrCode", model.companyId);
+            return View(model);
         }
 
         // GET: CompanyDetails/Delete/5

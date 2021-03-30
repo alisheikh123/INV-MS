@@ -28,6 +28,7 @@ namespace INV_MS.Models
         public DbSet<tblVoucher> tblVoucher { get; set; }
 
         public DbSet<tblVoucherDetail> tblVoucherDetail { get; set; }
+        public DbSet<tblHIstoryDetail> tblHIstoryDetail { get; set; }
 
         public DbSet<INV_MS.Models.tblCompanyDetail> tblCompanyDetail { get; set; }
         //protected override void OnConfiguring(DbContextOptionsBuilder options)

@@ -47,7 +47,8 @@
         <div class="col-lg-3">
             <div class="form-group">
                 <label asp-for="TotalAmount" class="control-label"></label>
-                <input asp-for="TotalAmount" class="form-control TotalAmount" />
+                <input asp-for="TotalAmount" class="form-control TotalAmount" disabled />
+                <input asp-for="TotalAmount" class="form-control TotalAmount" hidden/>
                 <span asp-validation-for="TotalAmount" class="text-danger"></span>
             </div>
         </div>
@@ -61,7 +62,8 @@
         <div class="col-lg-3">
             <div class="form-group">
                 <label asp-for="RemainingAmount" class="control-label"></label>
-                <input asp-for="RemainingAmount" class="form-control RemainingAmount" />
+                <input asp-for="RemainingAmount" class="form-control RemainingAmount" disabled/>
+                <input asp-for="RemainingAmount" class="form-control RemainingAmount" hidden/>
                 <span asp-validation-for="RemainingAmount" class="text-danger"></span>
             </div>
         </div>
