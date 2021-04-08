@@ -1,13 +1,14 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@{
-}
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="/Home/Index" class="brand-link text-center">
-      
-        <span class="brand-text font-weight-bold text-center">Butt Cash & Carry MS</span>
+
+        <span class="brand-text font-weight-bold text-center">INV MS</span>
     </a>
 
     <!-- Sidebar -->
@@ -17,9 +18,14 @@
             <div class="image">
                 <img src="~/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
             </div>
-            <div class="info">
-                <a href="#" class="d-block">Muhammad Awais</a>
-            </div>
+            @if (SignInManager.IsSignedIn(User)) 
+            {
+                <div class="info">
+                    <a href="#" class="d-block">@UserManager.GetUserName(User)</a>
+                </div>
+            }
+            
+
         </div>
 
 
@@ -48,47 +54,61 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a asp-controller="tblCompanies" asp-action="Create" class="nav-link">
-                                <i class="far fa-dot-circle nav-icon"></i>
+                                <i class="far fa-building nav-icon"></i>
                                 <p>Add New Company</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a asp-controller="CompanyDetails" asp-action="Company" class="nav-link">
-                                <i class="far fa-dot-circle nav-icon"></i>
+                                <i class="far fa-address-book nav-icon"></i>
                                 <p>Add Company Detail </p>
                             </a>
                         </li>
 
+                        <li class="nav-item">
+                            <a asp-controller="CompanyDetails" asp-action="List" class="nav-link">
+                                <i class="far fa-address-card nav-icon"></i>
+                                <p>All Company Details </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="CompanyDetails" asp-action="History" class="nav-link">
+                                <i class="fas fa-book nav-icon"></i>
+                                <p>History of Company Details </p>
+                            </a>
+                        </li>
+                      
+
                     </ul>
 
-                </li> 
+                </li>
 
-
+                <partial name="_LoginPartial" />
                 @*<li class="nav-item">
-                    <a href="#" class="nav-link">
-                        &nbsp; <i class="fas fa-list-ul"></i>
-                        <p>
-                            Category
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a asp-controller="Category" asp-action="Create" class="nav-link">
-                                <i class="far fa-dot-circle nav-icon"></i>
-                                <p>Add New Category</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-controller="Category" asp-action="Index" class="nav-link">
-                                <i class="far fa-dot-circle nav-icon"></i>
-                                <p>View/Update/Delete </p>
-                            </a>
-                        </li>
+                        <a href="#" class="nav-link">
+                            &nbsp; <i class="fas fa-list-ul"></i>
+                            <p>
+                                Category
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a asp-controller="Category" asp-action="Create" class="nav-link">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>Add New Category</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="Category" asp-action="Index" class="nav-link">
+                                    <i class="far fa-dot-circle nav-icon"></i>
+                                    <p>View/Update/Delete </p>
+                                </a>
+                            </li>
 
-                    </ul>
+                        </ul>
 
-                </li>*@
+                    </li>*@
 
                 @* Category End *@
                 @* Product Start *@
@@ -128,7 +148,6 @@
                     </ul>
 
                 </li>-->
-
                 @* Unit End *@
                 @* Account Start *@
                 <!--<li class="nav-item">
@@ -191,7 +210,7 @@
 
                     </ul>
                 </li>-->
-                @* Account End *@  
+                @* Account End *@
                 @* Report Start *@
                 <!--<li class="nav-item">
                     <a href="#" class="nav-link">
@@ -222,7 +241,7 @@
                                         <i class="far fa-dot-circle nav-icon"></i>
                                         <p>Product Wise Report </p>
                                     </a>
-                                </li> 
+                                </li>
                                 <li class="nav-item">
                                     <a asp-controller="#" asp-action="#" class="nav-link">
                                         <i class="far fa-dot-circle nav-icon"></i>

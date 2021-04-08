@@ -26,7 +26,8 @@ namespace INV_MS.Models
         public decimal TotalAmount { get; set; }
 
 
-        public decimal PaidAmount { get; set; }
+        public decimal firstrecevable { get; set; }
+        public decimal secondrecevable { get; set; }
 
 
         public decimal RemainingAmount { get; set; }
@@ -37,7 +38,7 @@ namespace INV_MS.Models
         public DateTime? dateofpayment { get; set; }
 
         public DateTime? dateofremainpayment { get; set; }
-
+        public int? CreatedBy { get; set; }
         public DateTime? CreatedDate { get; set; }
         public int? EditedBy { get; set; }
         public string ReasonofEditing { get; set; }

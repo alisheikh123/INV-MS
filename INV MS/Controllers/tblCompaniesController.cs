@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using INV_MS.Models;
 using Inventory_Management_Systems.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace INV_MS.Controllers
 {
+    [Authorize]
     public class tblCompaniesController : Controller
     {
         private readonly INVContext db;

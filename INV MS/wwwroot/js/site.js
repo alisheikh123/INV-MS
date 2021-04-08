@@ -305,26 +305,25 @@ $('#savecompDetail').click(function (e) {
     var dateoforder = $('.dateoforder').val();
     var dateofpayment = $('.dateofpayment').val();
     var dateofremainpayment = $('.dateofremainpayment').val();
-  //  var dateofArrival = $('.dateofArrival').val();
+    //  var dateofArrival = $('.dateofArrival').val();
 
     if (comp == 0) {
-        
+
         toastr.error('* Please select the company name !');
     }
     else if (ProductName == "") {
         toastr.error('* Please add the Product Name !');
     }
-    else if (TotalAmount == 0 || TotalAmount == 0.0 ) {
+    else if (TotalAmount == 0 || TotalAmount == 0.0) {
         toastr.error('* Please add the Total Amount !');
     }
-    else if (dateoforder == null || dateoforder =="" )
-    {
+    else if (dateoforder == null || dateoforder == "") {
         toastr.error('* Please add the the date of Order!');
     }
-    else if (dateofpayment == null || dateofpayment == "")
-    { 
-        toastr.error('* Please add the Date of Payment !'); }
-    
+    else if (dateofpayment == null || dateofpayment == "") {
+        toastr.error('* Please add the Date of Payment !');
+    }
+
     else {
         var postData = {
             companyId: comp,
@@ -337,11 +336,11 @@ $('#savecompDetail').click(function (e) {
             dateoforder: dateoforder,
             dateofpayment: dateofpayment,
             dateofremainpayment: dateofremainpayment,
-          
+
 
         };
         $.ajax({
-            url: "/tblCompanyDetails/CompDetailCreate",
+            url: "/CompanyDetails/CompDetailCreate",
             type: "POST",
             dataType: 'json',
             data: postData,
@@ -367,5 +366,45 @@ $('#savecompDetail').click(function (e) {
 });
 
 
+//Drodown Selection of Payable and Receivable in CompanyDetails
+$("[name='selection']").change(function () {
+    debugger;
+    //var result = "";
+    $("#tableid").val("");
+    var selectionsvalue = $("#selectType option:selected").attr('value');
+    $.ajax({
+
+        method: "GET",
+        url: "/CompanyDetails/Lists",
+        data: { values: selectionsvalue },
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        success: function (response) {
+            
+            debugger;
+            //$.each(response[], function (index, value) {
+               
+            //    result +=
+            //       // '<b>Company ID : </b>' + Index.companyId + '<br/>' +
+            //        '<b> ProductName :</b>' + value + '<br/>' +
+            //        '<b> TotalAmount :</lb>' + value.TotalAmount + '<br/>' +
+            //        '<b> PaidAmount :</b>' + value.PaidAmount + '<hr/>';
+            //        '<b> Remaining Amount :</b>' + value.RemainingAmount + '<hr/>';
+            //        '<b> Date of Order :</b>' + value.dateoforder + '<hr/>';
+            //    '<b> Date of Payment :</b>' + value.dateofpayment + '<hr/>';
 
 
+            //});
+            for (var i in response) {
+                console.log(response[i].value);
+            }
+            $("#tableid tbody").html(response)
+            $("#results").append(response);
+            console.log(response);
+        },
+        error: function (response) {
+            alert("Error");
+        }
+
+    });
+});

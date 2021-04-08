@@ -1,0 +1,175 @@
+﻿@model IEnumerable<INV_MS.Models.tblCompanyDetail>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h5 class="text-center">List of Company Detail</h5>
+
+<p>
+    <div class="row col-md-12">
+
+        <div class="col-md-0">
+            &nbsp;&nbsp;<a asp-action="Company" class="btn btn-success "><i class="fa fa-plus"></i></a>
+
+
+        </div>
+        <div class="col-md-8" style="float:left;">
+            <select class="form-control col-md-4" name="selection" id="selectType">
+                <option value="0">--Select Type--</option>
+                <option value="1" name="Payable"> Payable </option>
+                <option value="2" name="Receivable"> Receivable</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <a asp-action="" class="btn btn-info" style="float:right;"><i class="fas fa-file-pdf"></i></a>
+            
+        </div>
+
+
+
+
+    </div>
+</p>
+
+
+
+
+
+<table class="table table-bordered table-avatar" id="tableid">
+    <thead>
+        <tr>
+            <th>
+                Company Name
+            </th>
+            <th>
+                Product Name
+            </th>
+
+            <th>
+                Total Amount
+            </th>
+            <th>
+                Paid Amount
+            </th>
+            <th>
+                Remaining Amount
+            </th>
+            <th>
+                Date of Order
+            </th>
+            <th>
+                Date of Payment
+            </th>
+
+
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @*@if (ViewBag.List != null)
+        {*@
+            @foreach (var items in Model)
+            {
+                <tr>
+                    <td>
+                        @items.TblCompany.Name
+                    </td>
+                    <td>
+                        @items.ProductName
+                    </td>
+
+                    <td>
+                        @items.TotalAmount
+                    </td>
+                    <td>
+                        @items.PaidAmount
+                    </td>
+                    <td>
+                        @items.RemainingAmount
+                    </td>
+                    <td>
+                        @items.dateoforder
+                    </td>
+                    <td>
+                        @items.dateofpayment
+                    </td>
+
+
+                    <td>
+                        <a asp-action="Edit" class="btn btn-primary btn-xs" asp-route-id="@items.Id"><i class="fa fa-pen"></i> Edit</a>
+                        <a asp-action="Details" class="btn btn-warning btn-xs" asp-route-id="@items.Id"><i class="fa fa-question-circle"></i>Details</a>
+                        <a asp-action="Delete" class="btn btn-danger btn-xs" asp-route-id="@items.Id"><i class="fa fa-trash"></i> Delete</a>
+                        <a asp-action="History" class="btn btn-info btn-xs" asp-route-id="@items.Id"><i class="fa fa-book-open"></i> History</a>
+                    </td>
+                </tr>
+            }
+
+        @*}
+
+        else
+        {
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        }*@
+
+
+
+
+    </tbody>
+</table>
+
+<script src="~/js/site.js"></script>
+<script type="text/javascript">
+
+
+    function list() {
+        debugger;
+        var rece = $("#received").val();
+        var paid = $("#paid").val();
+
+
+        $.ajax({
+            url: "/CompanyDetails/ListofRemaing",
+            type: "GET",
+            data: { ReceivableID: rece, PayableId: paid },
+            success: function (output) {
+                alert("hy");
+
+            },
+            error: function (output) {
+
+
+            }
+
+        });
+
+
+
+
+
+
+    }
+    $(document).ready(function () {
+
+        var tab = $("#tableid").DataTable({
+            "lengthMenu": [[6, 10, 50, -1], [6, 10, 50, "All"]],
+            responsive: true
+        });
+
+
+
+    });
+
+
+
+
+</script>

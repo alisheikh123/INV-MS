@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace INV_MS.Controllers
 {
-    
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

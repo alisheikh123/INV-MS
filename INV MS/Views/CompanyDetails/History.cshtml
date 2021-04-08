@@ -1,0 +1,89 @@
+﻿@model IEnumerable<INV_MS.Models.tblHIstoryDetail>
+
+<h5 class="text-center">History of Company Detail</h5>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered" id="historytable">
+            <thead>
+                <tr>
+                    <th>Company Name</th>
+                    <th>Product Name</th>
+                    <th>Description</th>
+                    <th>Total Amount</th>
+                    <th>First Receivable </th>
+                    <th>Second Receivable</th>
+                    <th>Remaing Amount</th>
+                    <th>Date of Order</th>
+                    <th>Date of Payment</th>
+                    <th>Date of Remaining Payment</th>
+                    <th>Created Date</th>
+                    <th>Date of Updating</th>
+                    <th>Created By</th>
+                    <th>Edit By</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @item.CompanyDetailId
+                    </td>
+                    <td>
+                        @item.ProductName
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.TotalAmount
+                    </td>
+                    <td>
+                        @item.firstrecevable
+                    </td>
+                    <td>
+                        @item.secondrecevable
+                    </td>
+                    <td>
+                        @item.RemainingAmount)
+                    </td>
+                    <td>
+                        @item.dateoforder
+                    </td>
+                    <td>
+                        @item.EditedBy
+                    </td>
+                    <td>
+                        @item.dateoforder
+                    </td>
+                    <td>
+                        @item.dateofpayment
+                    </td>
+                    <td>@item.dateofremainpayment</td>
+                    <td>@item.CreatedDate</td>
+                    <td>@item.DateofEditing</td>
+                    <td></td>
+
+
+
+                </tr>
+                }
+                </tbody>
+        </table>
+
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+        var tab = $("#historytable").DataTable({
+            "lengthMenu": [[8, 10, 50, -1], [8, 10, 50, "All"]],
+            responsive: true
+        });
+
+
+    });
+
+</script>

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using INV_MS.Models;
 using INV_MS.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace INV_MS.Controllers
 {
+    [Authorize]
     public class CompanyDetailsController : Controller
     {
         private readonly INVContext db;
@@ -18,17 +20,138 @@ namespace INV_MS.Controllers
         {
             db = context;
         }
+      
+        public ActionResult List()
+        {
+        
 
-        // GET: CompanyDetails
-        public async Task<IActionResult> Index()
-        {
-            var iNVContext = db.tblCompanyDetail.Include(t => t.TblCompany);
-            return View(await iNVContext.Where(x=>x.RemainingAmount==0).ToListAsync());
+                var List = db.tblCompanyDetail.Include(t => t.TblCompany).ToList(); 
+                return View(List);
+            
         }
-        public async Task<IActionResult> ListofRemaing()
+        // GET: CompanyDetails
+        //public ActionResult List(string value)
+        //{ 
+        //    CompanyVM companyVM = new CompanyVM();
+        //    IEnumerable<tblCompanyDetail> modelList = new List<tblCompanyDetail>();
+
+        //    // On --Select Type Selection--
+        //    if (value==null) {
+
+        //       ViewBag.List = null;
+        //        return View();
+
+        //    }
+        //    if (value=="0") 
+        //    {
+        //        return Json("Please Select the Type");
+        //    }
+        //    //Payable
+        //    if (value=="1") 
+        //    {
+        //        var List =  db.tblCompanyDetail.Include(t => t.TblCompany).Where(x => x.RemainingAmount == 0).ToList();
+        //        modelList = List.Select(x => new tblCompanyDetail() {
+        //            companyId = x.companyId,
+        //            ProductName = x.ProductName,
+        //            TotalAmount = x.TotalAmount,
+        //            PaidAmount = x.PaidAmount,
+        //            RemainingAmount = x.RemainingAmount,
+        //            dateoforder = x.dateoforder,
+        //            dateofpayment = x.dateofpayment
+
+                
+        //        });
+        //        ViewBag.List = List;
+        //        return Json(new { response = modelList }, System.Web.Mvc.JsonRequestBehavior.AllowGet);
+        //    }
+        //    //Receivable
+        //    if (value=="2") 
+        //    {
+        //        var List = db.tblCompanyDetail.Include(t => t.TblCompany).Where(x => x.RemainingAmount != 0).ToList();
+        //        modelList = List.Select(x => new tblCompanyDetail()
+        //        {
+        //            companyId = x.companyId,
+        //            ProductName = x.ProductName,
+        //            TotalAmount = x.TotalAmount,
+        //            PaidAmount = x.PaidAmount,
+        //            RemainingAmount = x.RemainingAmount,
+        //            dateoforder = x.dateoforder,
+        //            dateofpayment = x.dateofpayment
+
+
+        //        });
+        //        ViewBag.List = List;
+        //        return Json(new { response = modelList }, System.Web.Mvc.JsonRequestBehavior.AllowGet);
+        //    }
+        //    return View();
+           
+        //}
+        
+        public JsonResult Lists(string values)
         {
-            var iNVContext = db.tblCompanyDetail.Include(t => t.TblCompany);
-            return View(await iNVContext.Where(x=>x.RemainingAmount!=0).ToListAsync());
+            CompanyVM companyVM = new CompanyVM();
+            IEnumerable<tblCompanyDetail> modelList = new List<tblCompanyDetail>();
+
+            // On --Select Type Selection--
+         
+            if (values == "0")
+            {
+                return Json("Please Select the Type");
+            }
+            //Payable
+            if (values == "1")
+            {
+                var List = db.tblCompanyDetail.Include(t => t.TblCompany).Where(x => x.RemainingAmount == 0).ToList();
+                modelList = List.Select(x => new tblCompanyDetail()
+                {
+                   // companyId = x.companyId,
+                    ProductName = x.ProductName,
+                    TotalAmount = x.TotalAmount,
+                    PaidAmount = x.PaidAmount,
+                    RemainingAmount = x.RemainingAmount,
+                    dateoforder = x.dateoforder,
+                    dateofpayment = x.dateofpayment
+
+
+                });
+                ViewBag.List = List;
+                return Json(new { response = modelList });
+            }
+            //Receivable
+            if (values == "2")
+            {
+                var List = db.tblCompanyDetail.Include(t => t.TblCompany).Where(x => x.RemainingAmount != 0).ToList();
+                modelList = List.Select(x => new tblCompanyDetail()
+                {
+                   // companyId = x.companyId,
+                    ProductName = x.ProductName,
+                    TotalAmount = x.TotalAmount,
+                    PaidAmount = x.PaidAmount,
+                    RemainingAmount = x.RemainingAmount,
+                    dateoforder = x.dateoforder,
+                    dateofpayment = x.dateofpayment
+
+
+                });
+                ViewBag.List = List;
+                return Json(new { response = modelList });
+            }
+            return Json("Full");
+
+        }
+
+        public ActionResult History()
+        {
+            var CompHistoryList = db.tblHIstoryDetail.ToList();
+           // ViewBag.CompHistoryList = CompHistoryList;
+            return View(CompHistoryList);
+        } 
+        [HttpPost]
+        public ActionResult History(int Id)
+        {
+            var CompHistoryList = db.tblHIstoryDetail.Where(x => x.HistoryId == Id).ToList();
+           // ViewBag.CompHistoryList = CompHistoryList;
+            return View(CompHistoryList);
         }
 
         // GET: CompanyDetails/Details/5
@@ -61,6 +184,66 @@ namespace INV_MS.Controllers
             ViewData["companyId"] = new SelectList(db.tblCompany, "CompanyId", "Name");
             ViewBag.CompanyList = db.tblCompanyDetail.Include(t => t.TblCompany)/*.Where(x=>x.RemainingAmount==0 || x.RemainingAmount!=null)*/.ToList();
             return View();
+        }
+
+        public IActionResult CompDetailCreate()
+        {
+            ViewBag.CompanyList = db.tblCompanyDetail.Include(t => t.TblCompany).ToList();
+            return View();
+        }
+        [HttpPost]
+        public JsonResult CompDetailCreate([Bind("Id,companyId,ProductName,Description,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] CompanyVM vm)
+        {
+            tblCompanyDetail model = new tblCompanyDetail();
+            tblHIstoryDetail model2 = new tblHIstoryDetail();
+            var compDetail = db.tblCompanyDetail;
+            if (ModelState.IsValid)
+            {
+                bool checkphonenumber = compDetail.Where(x => x.PhoneNo.Equals(vm.PhoneNo)).Any();
+                if (checkphonenumber == true)
+                {
+                    Json("Phone Number Already Exist*");
+                }
+                else if (vm.PaidAmount == 0 || vm.PaidAmount == null)
+                {
+                    vm.PaidAmount = 0;
+                }
+                else
+                {
+                    model.companyId = vm.companyId;
+                    model.ProductName = vm.ProductName;
+                    model.Description = vm.Description;
+                    model.PhoneNo = vm.PhoneNo;
+                    model.TotalAmount = vm.TotalAmount;
+                    model.PaidAmount = vm.PaidAmount;
+                    model.RemainingAmount = vm.RemainingAmount;
+                    model.dateoforder = vm.dateoforder;
+                    model.dateofpayment = vm.dateofpayment;
+                    model.dateofremainpayment = vm.dateofremainpayment;
+
+                    //History Detail
+                    model2.CompanyDetailId = vm.companyId.GetValueOrDefault(0);
+                    model2.ProductName = vm.ProductName;
+                    model2.Description = vm.Description;
+                    model2.PhoneNo = vm.PhoneNo;
+                    model2.TotalAmount = vm.TotalAmount;
+                    model2.firstrecevable = vm.PaidAmount;
+                    model2.RemainingAmount = vm.RemainingAmount;
+                    model2.dateoforder = vm.dateoforder;
+                    model2.dateofpayment = vm.dateofpayment;
+                    model2.dateofremainpayment = vm.dateofremainpayment;
+                    model2.CreatedDate = DateTime.Now;
+
+
+                    db.tblCompanyDetail.Add(model);
+                    db.tblHIstoryDetail.Add(model2);
+                    db.SaveChanges();
+                    return Json("Record Successfully Saved!");
+                }
+            }
+            ViewData["companyId"] = new SelectList(db.tblCompany, "CompanyId", "CompanyrCode", vm.companyId);
+
+            return Json("Invalid Record is Exist!");
         }
 
 
@@ -128,7 +311,7 @@ namespace INV_MS.Controllers
                     model2.Description = vm.Description;
                     model2.PhoneNo = vm.PhoneNo;
                     model2.TotalAmount = vm.TotalAmount;
-                    model2.PaidAmount = vm.PaidAmount;
+                    model2.firstrecevable = vm.PaidAmount;
                     model2.RemainingAmount = vm.RemainingAmount;
                     model2.dateoforder = vm.dateoforder;
                     model2.dateofpayment = vm.dateofpayment;

@@ -6,10 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using INV_MS.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace INV_MS.Models
 {
-    public class INVContext: IdentityDbContext<ApplicationUser>
+    public class INVContext: IdentityDbContext<IdentityUser>
     {
         public INVContext(DbContextOptions<INVContext> options)
      : base(options)
@@ -29,6 +30,7 @@ namespace INV_MS.Models
 
         public DbSet<tblVoucherDetail> tblVoucherDetail { get; set; }
         public DbSet<tblHIstoryDetail> tblHIstoryDetail { get; set; }
+        public DbSet<IdentityUser> IdentityUser { get; set; }
 
         public DbSet<INV_MS.Models.tblCompanyDetail> tblCompanyDetail { get; set; }
         //protected override void OnConfiguring(DbContextOptionsBuilder options)

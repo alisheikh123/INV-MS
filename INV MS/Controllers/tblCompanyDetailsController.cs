@@ -111,7 +111,7 @@ namespace INV_MS.Controllers
                     model2.Description = vm.Description; 
                     model2.PhoneNo = vm.PhoneNo; 
                     model2.TotalAmount = vm.TotalAmount; 
-                    model2.PaidAmount = vm.PaidAmount; 
+                    model2.firstrecevable = vm.PaidAmount; 
                     model2.RemainingAmount = vm.RemainingAmount; 
                     model2.dateoforder = vm.dateoforder; 
                     model2.dateofpayment = vm.dateofpayment; 
@@ -183,7 +183,7 @@ namespace INV_MS.Controllers
                     model2.Description = vm.Description;
                     model2.PhoneNo = vm.PhoneNo;
                     model2.TotalAmount = vm.TotalAmount;
-                    model2.PaidAmount = vm.PaidAmount;
+                    model2.firstrecevable = vm.PaidAmount;
                     model2.RemainingAmount = vm.RemainingAmount;
                     model2.dateoforder = vm.dateoforder;
                     model2.dateofpayment = vm.dateofpayment;

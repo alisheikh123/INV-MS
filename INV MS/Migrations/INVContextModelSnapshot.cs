@@ -29,8 +29,8 @@ namespace INV_MS.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PaidAmount")
-                        .HasColumnType("int");
+                    b.Property<decimal>("PaidAmount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("PhoneNo")
                         .HasColumnType("nvarchar(max)");
@@ -39,11 +39,11 @@ namespace INV_MS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RemainingAmount")
-                        .HasColumnType("int");
+                    b.Property<decimal>("RemainingAmount")
+                        .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("TotalAmount")
-                        .HasColumnType("int");
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("companyId")
                         .IsRequired()
@@ -63,6 +63,68 @@ namespace INV_MS.Migrations
                     b.HasIndex("companyId");
 
                     b.ToTable("tblCompanyDetail");
+                });
+
+            modelBuilder.Entity("INV_MS.Models.tblHIstoryDetail", b =>
+                {
+                    b.Property<int>("HistoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CompanyDetailId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateofEditing")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("EditedBy")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PhoneNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ReasonofEditing")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("RemainingAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("dateoforder")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("dateofpayment")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("dateofremainpayment")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("firstrecevable")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("secondrecevable")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("HistoryId");
+
+                    b.HasIndex("CompanyDetailId");
+
+                    b.ToTable("tblHIstoryDetail");
                 });
 
             modelBuilder.Entity("Inventory_Management_Systems.Models.Customer", b =>
@@ -593,6 +655,17 @@ namespace INV_MS.Migrations
                     b.HasOne("Inventory_Management_Systems.Models.tblCompany", "TblCompany")
                         .WithMany()
                         .HasForeignKey("companyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TblCompany");
+                });
+
+            modelBuilder.Entity("INV_MS.Models.tblHIstoryDetail", b =>
+                {
+                    b.HasOne("Inventory_Management_Systems.Models.tblCompany", "TblCompany")
+                        .WithMany()
+                        .HasForeignKey("CompanyDetailId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
