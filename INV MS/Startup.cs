@@ -1,5 +1,6 @@
 using INV_MS.Areas.Identity.Pages;
 using INV_MS.Models;
+using INV_MS.Models.TransportModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -67,6 +68,8 @@ namespace INV_MS
 
             // using Microsoft.AspNetCore.Identity.UI.Services;
             services.AddSingleton<IEmailSender, EmailSender>();
+            services.AddScoped<tblPaymentHistory>();
+            services.AddScoped<tblTransportPaymentHistory>();
 
 
         }

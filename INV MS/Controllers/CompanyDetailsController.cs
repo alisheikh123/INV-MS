@@ -15,10 +15,12 @@ namespace INV_MS.Controllers
     public class CompanyDetailsController : Controller
     {
         private readonly INVContext db;
+        private readonly tblPaymentHistory tblPaymentHistory;
 
-        public CompanyDetailsController(INVContext context)
+        public CompanyDetailsController(INVContext context, tblPaymentHistory _tblPaymentHistory)
         {
             db = context;
+            tblPaymentHistory = _tblPaymentHistory;
         }
       
         public ActionResult List()
@@ -29,63 +31,7 @@ namespace INV_MS.Controllers
                 return View(List);
             
         }
-        // GET: CompanyDetails
-        //public ActionResult List(string value)
-        //{ 
-        //    CompanyVM companyVM = new CompanyVM();
-        //    IEnumerable<tblCompanyDetail> modelList = new List<tblCompanyDetail>();
-
-        //    // On --Select Type Selection--
-        //    if (value==null) {
-
-        //       ViewBag.List = null;
-        //        return View();
-
-        //    }
-        //    if (value=="0") 
-        //    {
-        //        return Json("Please Select the Type");
-        //    }
-        //    //Payable
-        //    if (value=="1") 
-        //    {
-        //        var List =  db.tblCompanyDetail.Include(t => t.TblCompany).Where(x => x.RemainingAmount == 0).ToList();
-        //        modelList = List.Select(x => new tblCompanyDetail() {
-        //            companyId = x.companyId,
-        //            ProductName = x.ProductName,
-        //            TotalAmount = x.TotalAmount,
-        //            PaidAmount = x.PaidAmount,
-        //            RemainingAmount = x.RemainingAmount,
-        //            dateoforder = x.dateoforder,
-        //            dateofpayment = x.dateofpayment
-
-                
-        //        });
-        //        ViewBag.List = List;
-        //        return Json(new { response = modelList }, System.Web.Mvc.JsonRequestBehavior.AllowGet);
-        //    }
-        //    //Receivable
-        //    if (value=="2") 
-        //    {
-        //        var List = db.tblCompanyDetail.Include(t => t.TblCompany).Where(x => x.RemainingAmount != 0).ToList();
-        //        modelList = List.Select(x => new tblCompanyDetail()
-        //        {
-        //            companyId = x.companyId,
-        //            ProductName = x.ProductName,
-        //            TotalAmount = x.TotalAmount,
-        //            PaidAmount = x.PaidAmount,
-        //            RemainingAmount = x.RemainingAmount,
-        //            dateoforder = x.dateoforder,
-        //            dateofpayment = x.dateofpayment
-
-
-        //        });
-        //        ViewBag.List = List;
-        //        return Json(new { response = modelList }, System.Web.Mvc.JsonRequestBehavior.AllowGet);
-        //    }
-        //    return View();
-           
-        //}
+       
         
         public JsonResult Lists(string values)
         {
@@ -101,14 +47,14 @@ namespace INV_MS.Controllers
             //Payable
             if (values == "1")
             {
-                var List = db.tblCompanyDetail.Include(t => t.TblCompany).Where(x => x.RemainingAmount == 0).ToList();
+                var List = db.tblCompanyDetail.Include(t => t.TblCompany).ToList();
                 modelList = List.Select(x => new tblCompanyDetail()
                 {
                    // companyId = x.companyId,
                     ProductName = x.ProductName,
                     TotalAmount = x.TotalAmount,
-                    PaidAmount = x.PaidAmount,
-                    RemainingAmount = x.RemainingAmount,
+                    //PaidAmount = x.PaidAmount,
+                    //RemainingAmount = x.RemainingAmount,
                     dateoforder = x.dateoforder,
                     dateofpayment = x.dateofpayment
 
@@ -120,14 +66,14 @@ namespace INV_MS.Controllers
             //Receivable
             if (values == "2")
             {
-                var List = db.tblCompanyDetail.Include(t => t.TblCompany).Where(x => x.RemainingAmount != 0).ToList();
+                var List = db.tblCompanyDetail.Include(t => t.TblCompany).ToList();
                 modelList = List.Select(x => new tblCompanyDetail()
                 {
                    // companyId = x.companyId,
                     ProductName = x.ProductName,
                     TotalAmount = x.TotalAmount,
-                    PaidAmount = x.PaidAmount,
-                    RemainingAmount = x.RemainingAmount,
+                    //PaidAmount = x.PaidAmount,
+                    //RemainingAmount = x.RemainingAmount,
                     dateoforder = x.dateoforder,
                     dateofpayment = x.dateofpayment
 
@@ -140,18 +86,88 @@ namespace INV_MS.Controllers
 
         }
 
-        public ActionResult History()
+
+        public ActionResult TodayPaymentList()
         {
-            var CompHistoryList = db.tblHIstoryDetail.ToList();
-           // ViewBag.CompHistoryList = CompHistoryList;
-            return View(CompHistoryList);
-        } 
+
+            var currentDateString = DateTime.UtcNow.ToString("yyyy-MM-dd");
+            ViewBag.companyList = new SelectList(db.tblCompany.ToList(), "CompanyId", "Name");
+            var currentdate = Convert.ToDateTime(currentDateString);
+            var List = db.tblCompanyDetail.Include(t => t.TblCompany).Where(x => x.dateofpayment == currentdate).ToList();
+
+            return View(List);
+
+        }
+
         [HttpPost]
-        public ActionResult History(int Id)
+        public IActionResult TodayPaymentList(DateTime fromDate, DateTime toDate)
         {
-            var CompHistoryList = db.tblHIstoryDetail.Where(x => x.HistoryId == Id).ToList();
-           // ViewBag.CompHistoryList = CompHistoryList;
-            return View(CompHistoryList);
+            var List = db.tblCompanyDetail;
+            if (fromDate == toDate)
+            {
+                var getList = List.Include(t => t.TblCompany).Where(x => x.dateofpayment == fromDate || x.dateoforder == toDate)
+                                        .Select(x => new { companyName = x.TblCompany.Name, productName=x.ProductName, totalAmount = x.TotalAmount, dateofOrder=x.dateoforder, dateofPayment = x.dateofpayment }).ToList();
+
+                return Json(getList);
+            }
+            else {
+                var getDoubleFilter = List.Include(t => t.TblCompany).Where(x => x.dateofpayment >= fromDate && x.dateofpayment <= toDate)
+                  .Select(x => new { companyName = x.TblCompany.Name, productName = x.ProductName, totalAmount = x.TotalAmount, dateofOrder = x.dateoforder, dateofPayment = x.dateofpayment }).ToList();
+                return Json(getDoubleFilter);
+            }
+
+            
+
+        }
+
+
+        [HttpGet]
+        public ActionResult PaymentDetail(int Id)
+        {
+            var compDetailById = db.tblCompanyDetail.Include(x=>x.TblCompany).Where(x => x.Id == Id).ToList();
+            return View(compDetailById);
+        }
+        [HttpPost]
+        public ActionResult PaymentDetail(paymentHistoryDTO model)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var cdTotalReceiveable = db.tblCompanyDetail.Find(model.companyDetailId);
+
+                if (cdTotalReceiveable.TotalAmountReceived == null)
+                {
+                    cdTotalReceiveable.TotalAmountReceived = model.PaidAmount;
+                }
+                else {
+
+                    cdTotalReceiveable.TotalAmountReceived = cdTotalReceiveable.TotalAmountReceived + model.PaidAmount;
+                }
+               
+                
+                tblPaymentHistory.companyName = model.companyName;
+                tblPaymentHistory.ProductName = model.ProductName;
+                tblPaymentHistory.dateoforder = model.dateoforder;
+                tblPaymentHistory.dateofpayment = model.dateofpayment;
+                tblPaymentHistory.dateofremainpayment = model.dateofremainpayment;
+                tblPaymentHistory.Description = model.Description;
+                tblPaymentHistory.PaidAmount = model.PaidAmount;
+                tblPaymentHistory.RemainingAmount = model.RemainingAmount;
+                tblPaymentHistory.TotalAmount = model.TotalAmount;
+                tblPaymentHistory.TotalAmountReceived = tblPaymentHistory.TotalAmountReceived+ model.PaidAmount;
+                
+                db.tblPaymentHistories.Add(tblPaymentHistory);
+                db.Entry(cdTotalReceiveable).State = EntityState.Modified;
+                db.SaveChanges();
+                return Json("Payment Succeefully Added!");
+
+
+
+            }
+            else { 
+            
+            }
+            return View();
         }
 
         // GET: CompanyDetails/Details/5
@@ -191,65 +207,33 @@ namespace INV_MS.Controllers
             ViewBag.CompanyList = db.tblCompanyDetail.Include(t => t.TblCompany).ToList();
             return View();
         }
+        //,PaidAmount,RemainingAmount,,dateofremainpayment
         [HttpPost]
-        public JsonResult CompDetailCreate([Bind("Id,companyId,ProductName,Description,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] CompanyVM vm)
+        public JsonResult CompDetailCreate([Bind("Id,companyId,ProductName,Description,PhoneNo,TotalAmount,dateoforder,dateofpayment")] CompanyVM vm)
         {
             tblCompanyDetail model = new tblCompanyDetail();
-            tblHIstoryDetail model2 = new tblHIstoryDetail();
-            var compDetail = db.tblCompanyDetail;
             if (ModelState.IsValid)
             {
-                bool checkphonenumber = compDetail.Where(x => x.PhoneNo.Equals(vm.PhoneNo)).Any();
-                if (checkphonenumber == true)
-                {
-                    Json("Phone Number Already Exist*");
-                }
-                else if (vm.PaidAmount == 0 || vm.PaidAmount == null)
-                {
-                    vm.PaidAmount = 0;
-                }
-                else
-                {
                     model.companyId = vm.companyId;
                     model.ProductName = vm.ProductName;
                     model.Description = vm.Description;
                     model.PhoneNo = vm.PhoneNo;
                     model.TotalAmount = vm.TotalAmount;
-                    model.PaidAmount = vm.PaidAmount;
-                    model.RemainingAmount = vm.RemainingAmount;
                     model.dateoforder = vm.dateoforder;
                     model.dateofpayment = vm.dateofpayment;
-                    model.dateofremainpayment = vm.dateofremainpayment;
-
-                    //History Detail
-                    model2.CompanyDetailId = vm.companyId.GetValueOrDefault(0);
-                    model2.ProductName = vm.ProductName;
-                    model2.Description = vm.Description;
-                    model2.PhoneNo = vm.PhoneNo;
-                    model2.TotalAmount = vm.TotalAmount;
-                    model2.firstrecevable = vm.PaidAmount;
-                    model2.RemainingAmount = vm.RemainingAmount;
-                    model2.dateoforder = vm.dateoforder;
-                    model2.dateofpayment = vm.dateofpayment;
-                    model2.dateofremainpayment = vm.dateofremainpayment;
-                    model2.CreatedDate = DateTime.Now;
-
-
                     db.tblCompanyDetail.Add(model);
-                    db.tblHIstoryDetail.Add(model2);
                     db.SaveChanges();
                     return Json("Record Successfully Saved!");
-                }
+                
             }
             ViewData["companyId"] = new SelectList(db.tblCompany, "CompanyId", "CompanyrCode", vm.companyId);
 
             return Json("Invalid Record is Exist!");
         }
 
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("Id,companyId,ProductName,Description,ArrivalDate,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] tblCompanyDetail detail)
+        public IActionResult Create([Bind("Id,companyId,ProductName,Description,ArrivalDate,PhoneNo,TotalAmount,dateoforder,dateofpayment")] tblCompanyDetail detail)
         {
             if (ModelState.IsValid)
             {
@@ -280,11 +264,9 @@ namespace INV_MS.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, [Bind("Id,companyId,ProductName,Description,ArrivalDate,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] CompanyVM vm)
+        public ActionResult Edit(int id, [Bind("Id,companyId,ProductName,Description,PhoneNo,TotalAmount,TotalAmountReceived,dateoforder,dateofpayment")] tblCompanyDetail vm)
         {
-            tblCompanyDetail model = new tblCompanyDetail();
-            tblHIstoryDetail model2 = new tblHIstoryDetail();
+          
             if (id != vm.Id)
             {
                 return NotFound();
@@ -294,41 +276,12 @@ namespace INV_MS.Controllers
             {
                 try
                 {
-                    model.companyId = vm.companyId;
-                    model.ProductName = vm.ProductName;
-                    model.Description = vm.Description;
-                    model.PhoneNo = vm.PhoneNo;
-                    model.TotalAmount = vm.TotalAmount;
-                    model.PaidAmount = vm.PaidAmount;
-                    model.RemainingAmount = vm.RemainingAmount;
-                    model.dateoforder = vm.dateoforder;
-                    model.dateofpayment = vm.dateofpayment;
-                    model.dateofremainpayment = vm.dateofremainpayment;
-
-                    //History Detail
-                    model2.CompanyDetailId = vm.companyId.GetValueOrDefault(0);
-                    model2.ProductName = vm.ProductName;
-                    model2.Description = vm.Description;
-                    model2.PhoneNo = vm.PhoneNo;
-                    model2.TotalAmount = vm.TotalAmount;
-                    model2.firstrecevable = vm.PaidAmount;
-                    model2.RemainingAmount = vm.RemainingAmount;
-                    model2.dateoforder = vm.dateoforder;
-                    model2.dateofpayment = vm.dateofpayment;
-                    model2.dateofremainpayment = vm.dateofremainpayment;
-                    model2.DateofEditing = DateTime.Now;
-
-
-
-                   
-                    
-                    db.tblCompanyDetail.Update(model);
-                    db.tblHIstoryDetail.Add(model2);
+                    db.Update(vm);
                     db.SaveChanges();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!tblCompanyDetailExists(model.Id))
+                    if (!tblCompanyDetailExists(vm.Id))
                     {
                         return NotFound();
                     }
@@ -337,10 +290,10 @@ namespace INV_MS.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(List));
             }
-            ViewData["companyId"] = new SelectList(db.tblCompany, "CompanyId", "CompanyrCode", model.companyId);
-            return View(model);
+            ViewData["companyId"] = new SelectList(db.tblCompany, "CompanyId", "CompanyrCode", vm.companyId);
+            return View(vm);
         }
 
         // GET: CompanyDetails/Delete/5
@@ -370,12 +323,19 @@ namespace INV_MS.Controllers
             var tblCompanyDetail = await db.tblCompanyDetail.FindAsync(id);
             db.tblCompanyDetail.Remove(tblCompanyDetail);
             await db.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(List));
         }
 
         private bool tblCompanyDetailExists(int id)
         {
             return db.tblCompanyDetail.Any(e => e.Id == id);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> getProduct(int companyId) 
+        {
+            var productofCompanies = db.tblCompanyDetail.Where(x => x.companyId == companyId).Select(x=>new { x.Id,x.ProductName}).ToList();
+            return Json(productofCompanies);
         }
     }
 }

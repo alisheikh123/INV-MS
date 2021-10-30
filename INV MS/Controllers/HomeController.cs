@@ -27,13 +27,23 @@ namespace INV_MS.Controllers
         public IActionResult Index()
         {
             var companyCreated = db.tblCompany.Count();
+            var TotalDriver = db.tblDriver.Count();
+            var TotalVehicle = db.tblVehicle.Count();
             var totalCompanyCounts = db.tblCompanyDetail.Count();
-            var remaingpayment = db.tblCompanyDetail.Where(x => x.RemainingAmount > 0).Select(x=>x.RemainingAmount).Count();
-            var totalpayment = db.tblCompanyDetail.Where(x => x.RemainingAmount == 0).Select(x=>x.RemainingAmount).Count();
+            var TotalProfit = db.tblExpenses.Select(x => x.TotalProfit).Sum();
+            var TotalAmount = db.tblExpenses.Select(x => x.TotalAmount).Sum();
+            var Expense = TotalAmount - TotalProfit;
+            //var remaingpayment = db.tblPaymentHistories.Where(x => x.RemainingAmount > 0).Select(x => x.RemainingAmount).Count();
+            //var totalpayment = db.tblCompanyDetail.Where(x => x.RemainingAmount == 0).Select(x => x.RemainingAmount).Count();
             ViewBag.CompanyCount = totalCompanyCounts;
-            ViewBag.remaingpayment = remaingpayment;
-            ViewBag.totalpayment = totalpayment;
+            ViewBag.TotalDriver = TotalDriver;
+            ViewBag.TotalVehicle = TotalVehicle;
+            ViewBag.Expense = Expense;
+            //ViewBag.remaingpayment = remaingpayment;
+            //ViewBag.totalpayment = totalpayment;
             ViewBag.companyCreated = companyCreated;
+            ViewBag.TotalAmount = TotalAmount;
+            ViewBag.TotalProfit = TotalProfit;
             return View();
         }
         public IActionResult Privacy()

@@ -48,7 +48,7 @@
         <dd class="col-sm-7">
             @Html.DisplayFor(model => model.TotalAmount)
         </dd>
-        <dt class="col-sm-5">
+        @*<dt class="col-sm-5">
             @Html.DisplayNameFor(model => model.PaidAmount)
         </dt>
         <dd class="col-sm-7">
@@ -59,7 +59,7 @@
         </dt>
         <dd class="col-sm-7">
             @Html.DisplayFor(model => model.RemainingAmount)
-        </dd>
+        </dd>*@
         <dt class="col-sm-5">
             @Html.DisplayNameFor(model => model.dateoforder)
         </dt>
@@ -72,16 +72,11 @@
         <dd class="col-sm-7">
             @Html.DisplayFor(model => model.dateofpayment)
         </dd>
-        <dt class="col-sm-5">
-            @Html.DisplayNameFor(model => model.dateofremainpayment)
-        </dt>
-        <dd class="col-sm-7">
-            @Html.DisplayFor(model => model.dateofremainpayment)
-        </dd>
+        
 
     </dl>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-sm btn-warning">Edit</a> |
-    <a asp-action="Index" class="btn btn-sm btn-primary">Back to List</a>
+    <a asp-action="List" class="btn btn-sm btn-primary">Back to List</a>
 </div>

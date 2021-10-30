@@ -4,13 +4,26 @@
 @{
     ViewData["Title"] = "Login";
 }
+<style>
+    .block {
+        display: block;
+        width: 100%;
+        border: none;
+        background-color:dodgerblue;
+        padding: 5px 18px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: center;
+    }
+</style>
 <hr />
-<h1 class="text-center" style="font-family:'Palatino Linotype'">Butt Cash & Carry</h1>
+<h1 class="text-center" style="font-family:'Palatino Linotype'">Hafiz Shafique Doger Goods</h1>
 <hr />
 <h3 class="text-center">@ViewData["Title"]</h3>
 <div class="row">
+
     <div class="col-md-10">
-        <section style="margin-left:105px;">
+        <section style="margin-left:100px;">
 
             <form id="account" method="post">
 
@@ -35,7 +48,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Log in</button>
+                    <button type="submit" class="btn btn-primary btn-sm block">SIGN IN <i class="fas fa-sign-in-alt"></i></button>
                 </div>
                 @*<div class="form-group">
                         <p>

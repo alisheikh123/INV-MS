@@ -1,0 +1,64 @@
+﻿@model INV_MS.Models.TransportModel.tblVehicle
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+
+
+<h4 class="text-center py-3"><strong>Create New Vehicle Detail</strong></h4>
+
+
+<hr />
+<form asp-action="Create">
+    <div class="row col-md-12">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Vehicle Name</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="VehicleNo" class="control-label"></label>
+                <input asp-for="VehicleNo" class="form-control" />
+                <span asp-validation-for="VehicleNo" class="text-danger"></span>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="OwnerName" class="control-label"></label>
+                <input asp-for="OwnerName" class="form-control" />
+                <span asp-validation-for="OwnerName" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row col-md-12">
+       
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="ContactNumber" class="control-label"></label>
+                <input asp-for="ContactNumber" class="form-control" />
+                <span asp-validation-for="ContactNumber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-success btn-sm" style="margin-top:32px;" />
+                <a asp-action="Index" class="btn btn-primary btn-sm " style="margin-top:32px;">Back to List</a>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

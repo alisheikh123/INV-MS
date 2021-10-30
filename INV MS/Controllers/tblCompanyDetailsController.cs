@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using INV_MS.Models;
 using INV_MS.Models.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace INV_MS.Controllers
 {
+    [Authorize]
     public class tblCompanyDetailsController : Controller
     {
         private readonly INVContext _context;
@@ -79,7 +81,6 @@ namespace INV_MS.Controllers
         public JsonResult CompDetailCreate([Bind("Id,companyId,ProductName,Description,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] CompanyVM vm) 
         {
             tblCompanyDetail model = new tblCompanyDetail();
-            tblHIstoryDetail model2 = new tblHIstoryDetail();
             var compDetail = _context.tblCompanyDetail;
             if (ModelState.IsValid)
             {
@@ -87,40 +88,22 @@ namespace INV_MS.Controllers
                 if (checkphonenumber == true)
                 {
                     Json("Phone Number Already Exist*");
-                }
-                else if (vm.PaidAmount == 0 || vm.PaidAmount == null)
-                {
-                    vm.PaidAmount = 0;
-                }     
+                }  
                 else
                 {
                     model.companyId = vm.companyId; 
                     model.ProductName = vm.ProductName; 
                     model.Description = vm.Description; 
                     model.PhoneNo = vm.PhoneNo; 
-                    model.TotalAmount = vm.TotalAmount; 
-                    model.PaidAmount = vm.PaidAmount; 
-                    model.RemainingAmount = vm.RemainingAmount; 
+                    model.TotalAmount = vm.TotalAmount;  
                     model.dateoforder = vm.dateoforder; 
                     model.dateofpayment = vm.dateofpayment; 
-                    model.dateofremainpayment = vm.dateofremainpayment;
 
-                    //History Detail
-                    model2.CompanyDetailId = vm.companyId.GetValueOrDefault(0); 
-                    model2.ProductName = vm.ProductName; 
-                    model2.Description = vm.Description; 
-                    model2.PhoneNo = vm.PhoneNo; 
-                    model2.TotalAmount = vm.TotalAmount; 
-                    model2.firstrecevable = vm.PaidAmount; 
-                    model2.RemainingAmount = vm.RemainingAmount; 
-                    model2.dateoforder = vm.dateoforder; 
-                    model2.dateofpayment = vm.dateofpayment; 
-                    model2.dateofremainpayment = vm.dateofremainpayment; 
-                    model2.CreatedDate = DateTime.Now;
+                   
 
 
                     _context.tblCompanyDetail.Add(model);
-                    _context.tblHIstoryDetail.Add(model2);
+                    //_context.tblHIstoryDetail.Add(model2);
                     _context.SaveChanges();
                     return Json("Record Successfully Saved!");
                 }
@@ -156,7 +139,7 @@ namespace INV_MS.Controllers
         public async Task<IActionResult> Edit(int id, [Bind("Id,companyId,ProductName,Description,PhoneNo,TotalAmount,PaidAmount,RemainingAmount,dateoforder,dateofpayment,dateofremainpayment")] CompanyVM vm)
         {
             tblCompanyDetail model = new tblCompanyDetail();
-            tblHIstoryDetail model2 = new tblHIstoryDetail();
+            //tblHIstoryDetail model2 = new tblHIstoryDetail();
             if (id != model.Id)
             {
                 return NotFound();
@@ -171,29 +154,9 @@ namespace INV_MS.Controllers
                     model.Description = vm.Description;
                     model.PhoneNo = vm.PhoneNo;
                     model.TotalAmount = vm.TotalAmount;
-                    model.PaidAmount = vm.PaidAmount;
-                    model.RemainingAmount = vm.RemainingAmount;
                     model.dateoforder = vm.dateoforder;
                     model.dateofpayment = vm.dateofpayment;
-                    model.dateofremainpayment = vm.dateofremainpayment;
-
-                    //History Detail
-                    model2.CompanyDetailId = vm.companyId.GetValueOrDefault(0);
-                    model2.ProductName = vm.ProductName;
-                    model2.Description = vm.Description;
-                    model2.PhoneNo = vm.PhoneNo;
-                    model2.TotalAmount = vm.TotalAmount;
-                    model2.firstrecevable = vm.PaidAmount;
-                    model2.RemainingAmount = vm.RemainingAmount;
-                    model2.dateoforder = vm.dateoforder;
-                    model2.dateofpayment = vm.dateofpayment;
-                    model2.dateofremainpayment = vm.dateofremainpayment;
-                    model2.CreatedDate = DateTime.Now;
-
-
-
                     _context.Update(model);
-                    _context.Add(model2);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

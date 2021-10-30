@@ -11,7 +11,7 @@
 
 
         <button class="btn btn-primary btn-xs" id="Refresh"><i class="fas fa-undo"> Refresh</i></button> &nbsp;
-        <a class="btn btn-outline-secondary btn-xs" asp-controller="CompanyDetails" asp-action="List"><i class="fas fa-arrow-alt-circle-left"> All Company Details</i></a> 
+        <a class="btn btn-outline-secondary btn-xs" asp-controller="CompanyDetails" asp-action="List"><i class="fas fa-arrow-alt-circle-left"> All Company Details</i></a>
 
 
     </div>
@@ -22,6 +22,7 @@
 
     </div>
     <br /><br />
+    @Html.Hidden("RedirectTo", Url.Action("List", "CompanyDetails"))
     <form id="log">
 
 
@@ -40,31 +41,32 @@
                         <div class="form-group">
                             <label class="control-label">Company Name</label>
 
-                            <input  class="form-control col-md-8" id="CompanyNm" type="text" />
+                            <input class="form-control col-md-8" id="CompanyNm" type="text" />
                             <span class="text-danger" id="compnmValidation"></span>
 
                         </div>
                         <div class="form-group">
                             <label class="control-label">Company Code</label>
 
-                            <input  class="form-control col-md-8" id="CompanyCode" type="text" />
+                            <input class="form-control col-md-8" id="CompanyCode" type="text" />
                             <span class="text-danger" id="compcodeValidation"></span>
-                        </div>  <div class="form-group">
-                                    <label class="control-label">Email</label>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Email</label>
 
-                            <input  class="form-control col-md-8" id="Email" type="text" />
+                            <input class="form-control col-md-8" id="Email" type="text" />
                             <span class="text-danger" id="EmailValidation"></span>
-                        </div> 
+                        </div>
                         <div class="form-group">
                             <label class="control-label">Contact</label>
 
-                            <input  class="form-control col-md-8" id="Contact" type="number" />
+                            <input class="form-control col-md-8" id="Contact" type="number" />
                             <span class="text-danger" id="ContactValidation"></span>
-                        </div> 
+                        </div>
                         <div class="form-group">
                             <label class="control-label">Address</label>
 
-                            <input  class="form-control col-md-8" id="Address" type="text" />
+                            <input class="form-control col-md-8" id="Address" type="text" />
                             <span class="text-danger" id="AddressValidation"></span>
                         </div>
                     </div>
@@ -82,7 +84,7 @@
             <div class="col-lg-3">
                 <div class="form-group">
                     <label class="control-label">Company Name</label>&emsp;&emsp;&emsp;&emsp;<i class="fas fa-plus-circle" title="Add New Company" style="color:black" id="addcat"></i>
-                    <select  class="form-control comp" asp-items="ViewBag.companyId">
+                    <select class="form-control comp" asp-items="ViewBag.companyId">
                         <option value="0">--Select Company--</option>
                     </select>
                 </div>
@@ -99,15 +101,14 @@
                 <div class="form-group">
                     <label class="control-label">Description</label>
                     <input class="form-control Description" />
-                    <span  class="text-danger"></span>
+                    <span class="text-danger"></span>
                 </div>
             </div>
 
             <div class="col-lg-3">
                 <div class="form-group">
                     <label class="control-label">Phone No</label>
-                    <input  class="form-control PhoneNo" type="number" />
-                    <span  class="text-danger PhoneNoValidation"></span>
+                    <input class="form-control PhoneNo" type="number" />
                 </div>
             </div>
         </div>
@@ -117,104 +118,51 @@
                 <div class="form-group">
                     <label class="control-label">Total Amount</label>
                     <input class="form-control TotalAmount" type="number" />
-                    <span  class="text-danger"></span>
+                    <span class="text-danger"></span>
                 </div>
             </div>
 
 
-            <div class="col-lg-3">
-                <div class="form-group">
-                    <label class="control-label">Paid Amount</label>
-                    <input class="form-control PaidAmount" type="number"/>
-                    <span  class="text-danger"></span>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="form-group">
-                    <label class="control-label">Remaining Amount</label>
-                    <input  class="form-control RemainingAmount" disabled  type="number"/>
-                    <span  class="text-danger"></span>
-                </div>
-            </div>
+            @*<div class="col-lg-3">
+                    <div class="form-group">
+                        <label class="control-label">Paid Amount</label>
+                        <input class="form-control PaidAmount" type="number"/>
+                        <span  class="text-danger"></span>
+                    </div>
+                </div>*@
+            @*<div class="col-lg-3">
+                    <div class="form-group">
+                        <label class="control-label">Remaining Amount</label>
+                        <input  class="form-control RemainingAmount" disabled  type="number"/>
+                        <span  class="text-danger"></span>
+                    </div>
+                </div>*@
 
             <div class="col-lg-3">
                 <div class="form-group">
                     <label class="control-label">Date of Order</label>
-                    <input  class="form-control dateoforder" type="date" />
-                    <span  class="text-danger"></span>
+                    <input class="form-control dateoforder" type="date" />
+                    <span class="text-danger"></span>
                 </div>
             </div>
-        </div>
-        <div class="row col-lg-12 ">
-
-            <div class="col-lg-4">
+            <div class="col-lg-3">
                 <div class="form-group">
                     <label class="control-label">Date of Payment</label>
-                    <input  class="form-control dateofpayment" type="date" />
-                    <span  class="text-danger"></span>
+                    <input class="form-control dateofpayment" type="date" />
+                    <span class="text-danger"></span>
                 </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-3">
                 <div class="form-group">
-                    <label class="control-label">Date of Remaining Payment</label>
-                    <input  class="form-control dateofremainpayment" type="date"/>
-                    <span  class="text-danger"></span>
-                </div>
-            </div>
-            <div class="col-lg-2">
-                <div class="form-group">
-
                     <button class="btn btn-success btn-sm " id="savecompDetail" style="margin-top:35px;"><i class="fa fa-save"> Save</i></button>
+
                 </div>
             </div>
         </div>
+
     </form>
 </div>
-@*<table class="table table-bordered table-avatar" id="tableid">
-    <thead>
-        <tr>
 
-            <th>Company Name</th>
-            <th>Product Name</th>
-           
-           
-            <th>TotalAmount</th>
-            <th>PaidAmount </th>
-            <th>Remaining Amount </th>
-            <th>Date of Order </th>
-            <th>Date of Payment </th>
-           
-            <th>Action</th>   
-
-
-
-        </tr>
-    </thead>*@
-    @*<tbody>
-        @foreach (var item in ViewBag.CompanyList)
-        {
-            <tr>
-                <td>@item.TblCompany.Name</td>
-                <td>@item.ProductName</td>
-              
-                
-                <td>@item.TotalAmount</td>
-                <td>@item.PaidAmount</td>
-                <td>@item.RemainingAmount</td>
-                <td>@item.dateoforder</td>
-                <td>@item.dateofpayment</td>
-               
-                <td>
-
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-xs"><i class="fa fa-pen"></i> Edit</a>
-                    <a class="btn btn-warning btn-xs" onclick="detailItem(@item.Id)"><i class="fa fa-question-circle"></i> Details</a>
-                    <a class="btn btn-danger btn-xs" onclick="deleteItem(@item.Id)"><i class="fa fa-trash"></i> Delete</a>
-                </td>
-
-            </tr>
-        }
-    </tbody>*@
-@*</table>*@
 <script src="~/js/site.js"></script>
 <script>
     $(document).ready(function () {

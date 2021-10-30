@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create";
 }
 
-<h4 class="text-center">Create New Company</h4>
+<h4 class="text-center py-3"><strong>Create New Company</strong></h4>
 
 
 <hr />
@@ -22,12 +22,12 @@
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
+                <label asp-for="Name" class="control-label">Company Name</label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4" hidden>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control" />
@@ -35,8 +35,6 @@
 
             </div>
         </div>
-    </div>
-    <div class="row col-md-12">
         <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="Contact" class="control-label"></label>
@@ -44,6 +42,9 @@
                 <span asp-validation-for="Contact" class="text-danger"></span>
             </div>
         </div>
+    </div>
+    <div class="row col-md-12">
+     
         <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="Address" class="control-label"></label>
@@ -53,14 +54,13 @@
         </div>
         <div class="col-md-4">
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-success" style="margin-top:32px;" />
+                <input type="submit" value="Create" class="btn btn-success btn-sm" style="margin-top:32px;" />
+                <a asp-action="Index" class="btn btn-primary btn-sm " style="margin-top:32px;">Back to List</a>
             </div>
         </div>
 
     </div>
 </form>
 
-<div>
-    <a asp-action="Index" class="btn btn-primary btn-sm">Back to List</a>
-</div>
+
 

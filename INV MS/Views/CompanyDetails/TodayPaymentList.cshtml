@@ -1,0 +1,240 @@
+﻿@model IEnumerable<INV_MS.Models.tblCompanyDetail>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4 class="text-center py-3"><strong>Today Remaining Payments</strong></h4>
+
+<p>
+    <div class="row col-md-12">
+        <div class="col-md-3">
+            &nbsp;&nbsp;<label>Company :</label>
+            @*<select id="drpcomp" class="form-control" asp-items="@(new SelectListItem(ViewBag.companyList, "Name", "CompanyId"))">
+            <option value="">--Select--</option>
+        </select>*@
+        @Html.DropDownList("CompanyList", ViewBag.companyList as SelectList, new { @class = "form-control drpcompany" })
+        </div>
+        <div class="col-md-3">
+            &nbsp;&nbsp;<label>Product :</label>
+            <select id="drpproduct" class="form-control">
+                <option value="">--Select--</option>
+            </select>
+
+        </div>
+
+        <div class="col-md-2">
+            &nbsp;&nbsp;<label>From Date :</label><input id="fromDate" type="date" class="form-control " value="" data-date-format="dd/mm/yyyy" />
+        </div>
+        <div class="col-md-2">
+            &nbsp;&nbsp;<label>To Date :</label><input id="toDate" type="date" class="form-control" value="" data-date-format="dd/mm/yyyy" />
+        </div>
+        <div class="col-md-2">
+            <button id="paymentFilter" class="btn btn-primary" style="margin-top:32px;"><i class="fa fa-filter" aria-hidden="true"></i>Filter</button>
+           @* <button id="generatePDF" class="btn btn-success mt-5">Generate PDF</button>*@
+        </div>
+
+
+
+
+
+    </div>
+</p>
+
+
+
+
+
+<table class="table table-bordered table-avatar" id="tableid">
+    <thead>
+        <tr>
+            <th>
+                Company Name
+            </th>
+            <th>
+                Product Name
+            </th>
+
+            <th>
+                Total Amount
+            </th>
+         
+            <th>
+                Date of Order
+            </th>
+            <th>
+                Date of Payment
+            </th>
+
+
+            <th>Action</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody id="compDetailstbl">
+       
+            @foreach (var items in Model)
+            {
+        <tr>
+            <td>
+                @items.TblCompany.Name
+            </td>
+            <td>
+                @items.ProductName
+            </td>
+
+            <td>
+                @items.TotalAmount
+            </td>
+           
+            <td>
+                @items.dateoforder
+            </td>
+            <td>
+                @items.dateofpayment
+            </td>
+
+
+            <td>
+                <a asp-action="Edit" tooltip="Edit" class="btn btn-primary btn-xs" asp-route-id="@items.Id"><i class="fa fa-pen"></i> </a>
+                <a asp-action="Details" class="btn btn-warning btn-xs" asp-route-id="@items.Id"><i class="fa fa-question-circle"></i></a>
+                <a asp-action="Delete" class="btn btn-danger btn-xs" asp-route-id="@items.Id"><i class="fa fa-trash"></i> </a>
+                @if (items.TotalAmount == items.TotalAmountReceived)
+                {
+
+                }
+                else { 
+                
+                     <a asp-action="PaymentDetail" class="btn btn-info btn-xs" asp-route-id="@items.Id"><i class="fa fa-dollar-sign"></i> </a>
+                }
+                
+            </td>
+            <td>
+                @if (items.TotalAmount == items.TotalAmountReceived)
+                {
+                    <label class="btn btn-success btn-xs" asp-route-id="@items.Id"><i class="">Paid</i> </label>
+                }
+                else
+                {
+
+                    <label class="btn btn-danger btn-xs" asp-route-id="@items.Id"><i class="">Un-Paid</i> </label>
+                }
+
+                
+            </td>
+        </tr>
+            }
+
+     
+
+
+
+
+    </tbody>
+</table>
+
+<script src="~/js/site.js"></script>
+<script type="text/javascript">
+    $('.drpcompany').select2();
+
+
+
+    $('.drpcompany').on('change', function () {
+
+        let companyId = this.value;
+       
+        $.ajax({
+            url: "/CompanyDetails/getProduct",
+            type: "POST",
+            dataType: 'json',
+            data: { companyId: companyId },
+            success: (res) => {
+                $('#drpproduct').empty();
+                $.each(res, function (data, value) {
+                    
+                    $("#drpproduct").append($("<option></option>").val(value.Id).html(value.productName));
+                    
+                })
+               
+            },
+            error: function (output) {
+
+                toastr.error(output)
+            }
+
+        });
+
+    });
+    
+
+    $("#paymentFilter").click(() => {
+        debugger;
+
+        let fromDate = $("#fromDate").val();
+        let toDate = $("#toDate").val();
+
+
+        $.ajax({
+            url: "/CompanyDetails/TodayPaymentList",
+            type: "POST",
+            dataType: 'json',
+            data: { fromDate: fromDate, toDate: toDate },
+            success: (output) => {
+
+
+                $.each(output, function (key, value) {
+                    $('#compDetailstbl').append('<tr> <td>' + value.companyName + '</td>  <td>'
+                        + value.productName + '</td> <td>'
+                        + value.totalAmount + '</td> <td>'
+                        + value.dateofOrder + '</td> <td>'
+                        + value.dateofPayment + '</td></tr>');
+                })
+                console.log(output);
+            },
+            error: function (output) {
+
+                toastr.error(output)
+            }
+
+        });
+
+    });
+    function getPaymentDetail()
+    {
+        debugger;
+        let currentPaymentDate = $("#paymentDate").val();
+
+        $.ajax({
+            url: "/CompanyDetails/TodayPaymentList",
+            type: "POST",
+            dataType: 'json',
+            data: { currentPaymentDate: currentPaymentDate },
+            success: (output) => {
+               
+            },
+            error: function (output) {
+
+                toastr.error(output)
+            }
+
+        });
+    }
+
+
+
+  
+    $(document).ready(function () {
+
+        var tab = $("#tableid").DataTable({
+            "lengthMenu": [[6, 10, 50, -1], [6, 10, 50, "All"]],
+            responsive: true
+        });
+
+
+
+    });
+
+
+
+
+</script>

@@ -1,0 +1,144 @@
+﻿@model IEnumerable<INV_MS.Models.TransportModel.tblTransportDetail>
+@foreach (var items in Model)
+{
+    @Html.Hidden("RedirectTo", Url.Action("Index", "TransportDetail"));
+    <form id="ExpensepayForm">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="text-center bg-dark text-white pt-1 pb-1 rounded-left rounded-right">Add Expense of Transport</h4>
+            </div>
+            <div class="card-body">
+
+                <div class="col-4" hidden><h4>Transport ID: <span class="TransportId">@items.Id</span></h4></div>
+                <div class="row col-12">
+                    <div class="col-3"><h6>Vehicle No: <span id="VehicleNo">@items.TblVehicle.VehicleNo</span></h6></div>
+                    <div class="col-2"><h6>Driver Name: <span id="driverNm">@items.TblDriver.DriverName</span></h6></div>
+                    <div class="col-2"><h6>Total Amount: <span id="totalAmount">@items.TotalAmount</span></h6></div>
+                    <div class="col-2"><h6>Date of Dispatch: <span id="dispatchDate">@items.dispatchDate</span></h6></div>
+                    <div class="col-2"><h6>Date of Delivery: <span id="deliverydate">@items.deliveryDate</span></h6></div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h5>Calculate Payment</h5>
+            </div>
+            <div class="card-body">
+                <div class="row col-12">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="control-label">Maintenance</label>
+
+                            <input class="form-control col-md-8 Maintenance" id="Maintenance" onkeyup="MaintenanceValuechange()" type="number" value="0" />
+                            <span class="text-danger" id="MaintenanceValidation"></span>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <label class="control-label">Tool Tax Cost</label>
+                        <input class="form-control col-md-8" id="tooltaxcost" type="number" onkeyup="ToolTaxValuechange()" value="0" />
+                        <span class="text-danger" id="tooltaxcost"></span>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="control-label">Fuel Cost</label>
+
+                            <input class="form-control col-md-8 fuel" id="fuel" @*onkeyup="fuelValuechange()"*@ type="number" value="0" />
+                            <span class="text-danger" id="fuelValidation"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <label class="control-label">Commission</label>
+                        <input class="form-control col-md-8" id="Commisscost" type="number" onkeyup="Commissionchange()" value="0" />
+                        <span class="text-danger" id="tooltaxcost"></span>
+                    </div>
+                </div>
+
+                <div class="row col-12">
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="control-label">Police Challan</label>
+
+                            <input class="form-control col-md-8" id="Challan" type="number" onkeyup="ChallanValuechange()" value="0" />
+                            <span class="text-danger" id="ChallanValidation"></span>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <label class="control-label">Driver Food Cost</label>
+
+                        <input class="form-control col-md-8" id="driverFoodCost" type="number" onkeyup="DriverFoodValuechange()" value="0" />
+                        <span class="text-danger" id="driverFoodCost"></span>
+                    </div>
+
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label class="control-label">Profit</label>
+
+                            <input class="form-control col-md-8" id="totalProfit" type="number" disabled />
+                            <span class="text-danger" id="totalProfitValidation"></span>
+
+
+
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <label class="control-label">Description</label>
+                        <textarea class="form-control col-md-8" id="description" type="text"></textarea>
+                        <span class="text-danger" id="description"></span>
+                    </div>
+
+
+                </div>
+                <div class="col-4">
+                    <button class="btn btn-primary mt-4"><i class="fa fa-hand-holding-usd" id="addPayment">Add Expense</i></button>
+
+                </div>
+            </div>
+
+
+        </div>
+
+
+    </form>
+    <button class="btn btn-success mt-4 col-3"><i class="fa fa-hand-holding-usd totalcalculation">Calculate</i></button>
+
+
+
+
+}
+
+
+<script src="~/js/site.js"></script>
+<script>
+    $(".totalcalculation").click(function () {
+        debugger;
+        var fule = $("#fuel").val();
+        var CommissionCost = $("#Commisscost").val();
+        var Maintenance = $("#Maintenance").val();
+        var Challan = $("#Challan").val();
+        var driverFoodCost = $("#driverFoodCost").val();
+        var tooltaxcost = $("#tooltaxcost").val();
+        var TotalAmount = $("#totalAmount").text();
+
+
+
+        var total = parseInt(fule) + parseInt(CommissionCost) + parseInt(Maintenance) + parseInt(Challan) + parseInt(driverFoodCost) + parseInt(tooltaxcost);
+
+
+        var profit = parseInt(TotalAmount) - total
+        
+        $("#totalProfit").val(profit);
+    });
+
+
+
+
+
+
+
+
+
+</script>
+

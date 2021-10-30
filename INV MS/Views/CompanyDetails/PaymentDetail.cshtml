@@ -1,0 +1,110 @@
+﻿@model IEnumerable<INV_MS.Models.tblCompanyDetail>
+
+@foreach (var items in Model)
+{
+    @Html.Hidden("RedirectTo", Url.Action("List", "CompanyDetails"));
+    <form id="payForm">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center bg-dark text-white pt-1 pb-1 rounded-left rounded-right">Add Payment of Product</h2>
+            </div>
+            <div class="card-body">
+
+                <div class="col-4" hidden><h4>CompanyDetail ID: <span class="compId">@items.Id</span></h4></div>
+                <div class="row col-12">
+                    <div class="col-4"><h5>Company Name: <span id="companyName">@items.TblCompany.Name</span></h5></div>
+
+                    <div class="col-4"><h5>Total Amount: <span id="totalAmount">@items.TotalAmount</span></h5></div>
+                    <div class="col-4"><h5>Date of Order :  <span id="dateofOrder">@items.dateoforder</span></h5></div>
+                </div>
+                <hr />
+                <br />
+                <div class="row col-12">
+                    <div class="col-4"> <h6>Product Name: <span id="productName">@items.ProductName</span> </h6></div>
+
+
+                    <div class="col-4"> <h6>Date of Payment : <span id="dateofPayment"> @items.dateofpayment</span></h6></div>
+                    <div class="col-4"><h6>Phone : <span id="phone"> @items.PhoneNo</span></h6></div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h3>Calculate Payment</h3>
+            </div>
+            <div class="card-body">
+                <div class="row col-12">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label class="control-label">Payable</label>
+                            @if (items.TotalAmountReceived == null)
+                            {
+                                <input class="form-control col-md-8" id="totalamountReceived" type="number" value="0" />
+                                <span class="text-danger" id="totalamountReceivedValidation"></span>
+                            }
+                            else
+                            {
+                                <input class="form-control col-md-8" id="totalamountReceived" type="number" value="@items.TotalAmountReceived" />
+                                <span class="text-danger" id="totalamountReceivedValidation"></span>
+                            }
+
+
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label class="control-label">Paid Amount</label>
+
+                            <input class="form-control col-md-8 PaidAmount" id="paidAmount" type="number" value="0" />
+                            <span class="text-danger" id="paidAmountValidation"></span>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label class="control-label">Remaining Balance</label>
+
+                            <input class="form-control col-md-8 RemainingAmount" id="remaingBalance" type="number" value="0" />
+                            <span class="text-danger" id="remaingBalanceValidation"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row col-12">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label class="control-label">Date of Remaining Payment  (Optional)</label>
+
+                            <input class="form-control col-md-8" id="dateremaingPayment" type="date" />
+                            <span class="text-danger" id="dateremaingPaymentValidation"></span>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <label class="control-label">Description (Optional)</label>
+
+                        <textarea rows="4" cols="50" class="form-control col-md-8" id="description"></textarea>
+                        <span class="text-danger" id="description"></span>
+                    </div>
+                    <div class="col-4">
+                        <button class="btn btn-primary mt-4"><i class="fa fa-dollar-sign" id="addPayment">Add Payment</i></button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+
+
+
+
+
+}
+
+
+<script src="~/js/site.js"></script>
+
+
+
+
+

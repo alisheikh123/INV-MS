@@ -15,22 +15,254 @@ namespace INV_MS.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.4")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("ProductVersion", "5.0.11");
 
-            modelBuilder.Entity("INV_MS.Models.tblCompanyDetail", b =>
+            modelBuilder.Entity("INV_MS.Models.TransportModel.tblDriver", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Age")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CNIC")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ContactNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DriverName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tblDriver");
+                });
+
+            modelBuilder.Entity("INV_MS.Models.TransportModel.tblExpenses", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<decimal>("ChallanAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("CommissionAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime>("DeliveryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DispatchDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("DriverFoodAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("FuelAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MaintenanceAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ToolTaxAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalProfit")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("TransportId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("driverNm")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("vehicleNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tblExpenses");
+                });
+
+            modelBuilder.Entity("INV_MS.Models.TransportModel.tblProduct", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tblProducts");
+                });
+
+            modelBuilder.Entity("INV_MS.Models.TransportModel.tblTransportDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("BrokerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateofPayment")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FromLocation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ToLocation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal?>("TotalAmountReceived")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("companyId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("deliveryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("dispatchDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("driverId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<int?>("productId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("vehicleId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("companyId");
+
+                    b.HasIndex("driverId");
+
+                    b.HasIndex("productId");
+
+                    b.HasIndex("vehicleId");
+
+                    b.ToTable("tblTransportDetail");
+                });
+
+            modelBuilder.Entity("INV_MS.Models.TransportModel.tblTransportPaymentHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("BrokerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Dateofdispatch")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DeliveryDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("PaidAmount")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ProductName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("RemainingAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("TotalAmountReceived")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("companyName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("dateofpayment")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("dateofremainpayment")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tblTransportPaymentHistory");
+                });
+
+            modelBuilder.Entity("INV_MS.Models.TransportModel.tblVehicle", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("ContactNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OwnerName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("VehicleNo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("tblVehicle");
+                });
+
+            modelBuilder.Entity("INV_MS.Models.tblCompanyDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNo")
                         .HasColumnType("nvarchar(max)");
@@ -39,10 +271,10 @@ namespace INV_MS.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("RemainingAmount")
+                    b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("TotalAmount")
+                    b.Property<decimal?>("TotalAmountReceived")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int?>("companyId")
@@ -55,9 +287,6 @@ namespace INV_MS.Migrations
                     b.Property<DateTime>("dateofpayment")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("dateofremainpayment")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
                     b.HasIndex("companyId");
@@ -65,38 +294,20 @@ namespace INV_MS.Migrations
                     b.ToTable("tblCompanyDetail");
                 });
 
-            modelBuilder.Entity("INV_MS.Models.tblHIstoryDetail", b =>
+            modelBuilder.Entity("INV_MS.Models.tblPaymentHistory", b =>
                 {
-                    b.Property<int>("HistoryId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CompanyDetailId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateofEditing")
-                        .HasColumnType("datetime2");
+                        .UseIdentityColumn();
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("EditedBy")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PhoneNo")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal>("PaidAmount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("ProductName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ReasonofEditing")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("RemainingAmount")
@@ -105,26 +316,24 @@ namespace INV_MS.Migrations
                     b.Property<decimal>("TotalAmount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime?>("dateoforder")
+                    b.Property<decimal>("TotalAmountReceived")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("companyName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("dateoforder")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("dateofpayment")
+                    b.Property<DateTime>("dateofpayment")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("dateofremainpayment")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("firstrecevable")
-                        .HasColumnType("decimal(18,2)");
+                    b.HasKey("Id");
 
-                    b.Property<decimal>("secondrecevable")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("HistoryId");
-
-                    b.HasIndex("CompanyDetailId");
-
-                    b.ToTable("tblHIstoryDetail");
+                    b.ToTable("tblPaymentHistories");
                 });
 
             modelBuilder.Entity("Inventory_Management_Systems.Models.Customer", b =>
@@ -132,7 +341,7 @@ namespace INV_MS.Migrations
                     b.Property<int>("CustomerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
@@ -161,7 +370,7 @@ namespace INV_MS.Migrations
                     b.Property<int>("accountId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -199,7 +408,7 @@ namespace INV_MS.Migrations
                     b.Property<int>("accountHeadId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("accountHeadName")
                         .IsRequired()
@@ -219,7 +428,7 @@ namespace INV_MS.Migrations
                     b.Property<int>("CompanyId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Address")
                         .HasColumnType("nvarchar(max)");
@@ -248,7 +457,7 @@ namespace INV_MS.Migrations
                     b.Property<int>("invoiceId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<int>("CompanyName")
                         .HasColumnType("int");
@@ -294,7 +503,7 @@ namespace INV_MS.Migrations
                     b.Property<int>("invoiceDetailId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
@@ -325,7 +534,7 @@ namespace INV_MS.Migrations
                     b.Property<int>("itemId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(100)");
@@ -364,7 +573,7 @@ namespace INV_MS.Migrations
                     b.Property<int>("unitId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("unitName")
                         .IsRequired()
@@ -380,7 +589,7 @@ namespace INV_MS.Migrations
                     b.Property<int>("catId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("catDesc")
                         .HasColumnType("nvarchar(max)");
@@ -399,7 +608,7 @@ namespace INV_MS.Migrations
                     b.Property<int>("voucherId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<DateTime>("createdDate")
                         .HasColumnType("datetime2");
@@ -433,7 +642,7 @@ namespace INV_MS.Migrations
                     b.Property<int>("voucherdetailId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("Narration")
                         .HasColumnType("nvarchar(max)");
@@ -486,7 +695,7 @@ namespace INV_MS.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -575,7 +784,7 @@ namespace INV_MS.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .UseIdentityColumn();
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -650,7 +859,7 @@ namespace INV_MS.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("INV_MS.Models.tblCompanyDetail", b =>
+            modelBuilder.Entity("INV_MS.Models.TransportModel.tblTransportDetail", b =>
                 {
                     b.HasOne("Inventory_Management_Systems.Models.tblCompany", "TblCompany")
                         .WithMany()
@@ -658,14 +867,36 @@ namespace INV_MS.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("INV_MS.Models.TransportModel.tblDriver", "TblDriver")
+                        .WithMany()
+                        .HasForeignKey("driverId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("INV_MS.Models.TransportModel.tblProduct", "TblProduct")
+                        .WithMany()
+                        .HasForeignKey("productId");
+
+                    b.HasOne("INV_MS.Models.TransportModel.tblVehicle", "TblVehicle")
+                        .WithMany()
+                        .HasForeignKey("vehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("TblCompany");
+
+                    b.Navigation("TblDriver");
+
+                    b.Navigation("TblProduct");
+
+                    b.Navigation("TblVehicle");
                 });
 
-            modelBuilder.Entity("INV_MS.Models.tblHIstoryDetail", b =>
+            modelBuilder.Entity("INV_MS.Models.tblCompanyDetail", b =>
                 {
                     b.HasOne("Inventory_Management_Systems.Models.tblCompany", "TblCompany")
                         .WithMany()
-                        .HasForeignKey("CompanyDetailId")
+                        .HasForeignKey("companyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

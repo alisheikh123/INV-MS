@@ -43,7 +43,7 @@
                 @* Dashboard End *@
 
                 @* Category Start *@
-                <li class="nav-item">
+                <!--<li class="nav-item">
                     <a href="#" class="nav-link">
                         &nbsp; <i class="fas fa-industry"></i>
                         <p>
@@ -61,23 +61,77 @@
                         <li class="nav-item">
                             <a asp-controller="CompanyDetails" asp-action="Company" class="nav-link">
                                 <i class="far fa-address-book nav-icon"></i>
-                                <p>Add Company Detail </p>
+                                <p>Add New Company Detail </p>
                             </a>
                         </li>
 
                         <li class="nav-item">
                             <a asp-controller="CompanyDetails" asp-action="List" class="nav-link">
                                 <i class="far fa-address-card nav-icon"></i>
-                                <p>All Company Details </p>
+                                <p>All Companies Details </p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a asp-controller="CompanyDetails" asp-action="History" class="nav-link">
-                                <i class="fas fa-book nav-icon"></i>
-                                <p>History of Company Details </p>
+                            <a asp-controller="CompanyDetails" asp-action="TodayPaymentList" class="nav-link">
+                                <i class="fa fa-dollar-sign nav-icon"></i>
+                                <p>Today Payments </p>
                             </a>
                         </li>
-                      
+
+
+                    </ul>
+
+                </li>-->
+
+
+
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        &nbsp; <i class="fas fa-truck"></i>
+                        <p>
+                            Transport
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-controller="tblCompanies" asp-action="Create" class="nav-link">
+                                <i class="far fa-building nav-icon"></i>
+                                <p>Add New Company</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Product" asp-action="Create" class="nav-link">
+                                <i class="far fa-building nav-icon"></i>
+                                <p>Add New Product</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Vehicle" asp-action="Create" class="nav-link">
+                                <i class="fas fa-truck-pickup nav-icon"></i>
+                                <p>Add New Vehicle </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-controller="Driver" asp-action="Create" class="nav-link">
+                                <i class="fas fa-wheelchair nav-icon"></i>
+                                <p>Add New Driver </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="TransportDetail" asp-action="Create" class="nav-link">
+                                <i class="far fa-address-card nav-icon"></i>
+                                <p>Add Transport Detail </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="TransportDetail" asp-action="AllExpenses" class="nav-link">
+                                <i class="fa fa-hand-holding-usd nav-icon"></i>
+                                <p>All Expenses </p>
+                            </a>
+                        </li>
+
 
                     </ul>
 
@@ -85,210 +139,210 @@
 
                 <partial name="_LoginPartial" />
                 @*<li class="nav-item">
-                        <a href="#" class="nav-link">
-                            &nbsp; <i class="fas fa-list-ul"></i>
-                            <p>
-                                Category
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a asp-controller="Category" asp-action="Create" class="nav-link">
-                                    <i class="far fa-dot-circle nav-icon"></i>
-                                    <p>Add New Category</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a asp-controller="Category" asp-action="Index" class="nav-link">
-                                    <i class="far fa-dot-circle nav-icon"></i>
-                                    <p>View/Update/Delete </p>
-                                </a>
-                            </li>
+            <a href="#" class="nav-link">
+                &nbsp; <i class="fas fa-list-ul"></i>
+                <p>
+                    Category
+                    <i class="right fas fa-angle-left"></i>
+                </p>
+            </a>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a asp-controller="Category" asp-action="Create" class="nav-link">
+                        <i class="far fa-dot-circle nav-icon"></i>
+                        <p>Add New Category</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Category" asp-action="Index" class="nav-link">
+                        <i class="far fa-dot-circle nav-icon"></i>
+                        <p>View/Update/Delete </p>
+                    </a>
+                </li>
 
-                        </ul>
+            </ul>
 
-                    </li>*@
+        </li>*@
 
                 @* Category End *@
                 @* Product Start *@
                 <!--<li class="nav-item">
-                    <a asp-action="item" asp-controller="Item" class="nav-link">
-                        &nbsp; <i class="fas fa-cubes"></i>
-                        <p>
-                            Product
+        <a asp-action="item" asp-controller="Item" class="nav-link">
+            &nbsp; <i class="fas fa-cubes"></i>
+            <p>
+                Product
 
-                        </p>
-                    </a>
-                </li>-->
+            </p>
+        </a>
+    </li>-->
                 @* Product End *@
                 @* Unit Start *@
                 <!--<li class="nav-item">
-                    <a href="#" class="nav-link">
-                        &nbsp; <i class="fas fa-balance-scale"></i>
-                        <p>
-                            Unit
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a asp-controller="ItemUnits" asp-action="Create" class="nav-link">
-                                <i class="far fa-dot-circle nav-icon"></i>
-                                <p>Add New Unit</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-controller="ItemUnits" asp-action="Index" class="nav-link">
-                                <i class="far fa-dot-circle nav-icon"></i>
-                                <p>View/Update/Delete </p>
-                            </a>
-                        </li>
+        <a href="#" class="nav-link">
+            &nbsp; <i class="fas fa-balance-scale"></i>
+            <p>
+                Unit
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview">
+            <li class="nav-item">
+                <a asp-controller="ItemUnits" asp-action="Create" class="nav-link">
+                    <i class="far fa-dot-circle nav-icon"></i>
+                    <p>Add New Unit</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a asp-controller="ItemUnits" asp-action="Index" class="nav-link">
+                    <i class="far fa-dot-circle nav-icon"></i>
+                    <p>View/Update/Delete </p>
+                </a>
+            </li>
 
-                    </ul>
+        </ul>
 
-                </li>-->
+    </li>-->
                 @* Unit End *@
                 @* Account Start *@
                 <!--<li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-user"></i>
-                        <p>
-                            Account
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview" style="display: none;">
-                        <li class="nav-item">
-                            <a href="/Accounts/Index" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>
-                                    Account Head Detail
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a asp-controller="AccountHeads" asp-action="Create" class="nav-link">
-                                        <i class="far fa-dot-circle nav-icon"></i>
-                                        <p>Add New Account Head</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a asp-controller="AccountHeads" asp-action="Index" class="nav-link">
-                                        <i class="far fa-dot-circle nav-icon"></i>
-                                        <p>View/Update/Delete </p>
-                                    </a>
-                                </li>
+        <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-user"></i>
+            <p>
+                Account
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview" style="display: none;">
+            <li class="nav-item">
+                <a href="/Accounts/Index" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        Account Head Detail
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a asp-controller="AccountHeads" asp-action="Create" class="nav-link">
+                            <i class="far fa-dot-circle nav-icon"></i>
+                            <p>Add New Account Head</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-controller="AccountHeads" asp-action="Index" class="nav-link">
+                            <i class="far fa-dot-circle nav-icon"></i>
+                            <p>View/Update/Delete </p>
+                        </a>
+                    </li>
 
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>
-                                    Account Detail
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="/Accounts/Index" class="nav-link">
-                                        <i class="far fa-dot-circle nav-icon"></i>
-                                        <p>Add New Account</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="/Accounts/Index" class="nav-link">
-                                        <i class="far fa-dot-circle nav-icon"></i>
-                                        <p>View/Update/Delete</p>
-                                    </a>
-                                </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                        Account Detail
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="/Accounts/Index" class="nav-link">
+                            <i class="far fa-dot-circle nav-icon"></i>
+                            <p>Add New Account</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/Accounts/Index" class="nav-link">
+                            <i class="far fa-dot-circle nav-icon"></i>
+                            <p>View/Update/Delete</p>
+                        </a>
+                    </li>
 
-                            </ul>
-                        </li>
+                </ul>
+            </li>
 
-                    </ul>
-                </li>-->
+        </ul>
+    </li>-->
                 @* Account End *@
                 @* Report Start *@
                 <!--<li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-file-alt"></i>
-                        <p>
-                            Report
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview" style="display: none;">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-file nav-icon"></i>
-                                <p>
-                                    Product
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a asp-controller="#" asp-action="#" class="nav-link">
-                                        <i class="far fa-dot-circle nav-icon"></i>
-                                        <p>Category Wise Report</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a asp-controller="#" asp-action="#" class="nav-link">
-                                        <i class="far fa-dot-circle nav-icon"></i>
-                                        <p>Product Wise Report </p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a asp-controller="#" asp-action="#" class="nav-link">
-                                        <i class="far fa-dot-circle nav-icon"></i>
-                                        <p>Product & Category Wise  </p>
-                                    </a>
-                                </li>
+        <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-file-alt"></i>
+            <p>
+                Report
+                <i class="right fas fa-angle-left"></i>
+            </p>
+        </a>
+        <ul class="nav nav-treeview" style="display: none;">
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="far fa-file nav-icon"></i>
+                    <p>
+                        Product
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a asp-controller="#" asp-action="#" class="nav-link">
+                            <i class="far fa-dot-circle nav-icon"></i>
+                            <p>Category Wise Report</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-controller="#" asp-action="#" class="nav-link">
+                            <i class="far fa-dot-circle nav-icon"></i>
+                            <p>Product Wise Report </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-controller="#" asp-action="#" class="nav-link">
+                            <i class="far fa-dot-circle nav-icon"></i>
+                            <p>Product & Category Wise  </p>
+                        </a>
+                    </li>
 
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-file nav-icon"></i>
-                                <p>
-                                    Sale & Purchase
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-dot-circle nav-icon"></i>
-                                        <p>Sale Report</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-dot-circle nav-icon"></i>
-                                        <p>Purchase Report</p>
-                                    </a>
-                                </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="far fa-file nav-icon"></i>
+                    <p>
+                        Sale & Purchase
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="far fa-dot-circle nav-icon"></i>
+                            <p>Sale Report</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="far fa-dot-circle nav-icon"></i>
+                            <p>Purchase Report</p>
+                        </a>
+                    </li>
 
-                            </ul>
-                        </li>
+                </ul>
+            </li>
 
-                    </ul>
-                </li>-->
+        </ul>
+    </li>-->
                 @* Report End *@
                 @* Logout Start *@
                 <!--<li class="nav-item">
-                    <a asp-action="item" asp-controller="Item" class="nav-link">
-                        &nbsp; <i class="fas fa-sign-out-alt"></i>
-                        <p>
-                            Logout
+        <a asp-action="item" asp-controller="Item" class="nav-link">
+            &nbsp; <i class="fas fa-sign-out-alt"></i>
+            <p>
+                Logout
 
-                        </p>
-                    </a>
-                </li>-->
+            </p>
+        </a>
+    </li>-->
                 @* Logout End *@
 
             </ul>

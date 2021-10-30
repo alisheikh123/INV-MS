@@ -1,0 +1,275 @@
+﻿@model INV_MS.Models.TransportModel.tblTransportDetail
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+
+
+
+
+<h5 class="text-center">Add New Transport Detail</h5>
+<div class="row col-md-12">
+    <div class="col-md-5">
+
+
+
+        <button class="btn btn-primary btn-xs" id="Refresh"><i class="fas fa-undo"> Refresh</i></button> &nbsp;
+        <a class="btn btn-outline-secondary btn-xs" asp-controller="TransportDetail" asp-action="Index"><i class="fas fa-arrow-alt-circle-left"> All Transport Details</i></a>
+
+
+    </div>
+    <div class="col-md-2">
+
+    </div>
+    <div class="col-md-2">
+
+    </div>
+    <br /><br />
+    @Html.Hidden("RedirectTo", Url.Action("Index", "TransportDetail"))
+    <form id="log">
+
+        <div class="row col-lg-12">
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label class="control-label">Company Name</label>
+                    <select class="form-control comp" asp-items="ViewBag.companyId">
+                        <option value="0">--Select Company--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label class="control-label">Broker Name</label>
+                    <input class="form-control brokerNm" />
+                    <span id="brokerNmValidation" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label class="control-label">Vehicle No</label>
+                    <select class="form-control veh" asp-items="ViewBag.vehicleId">
+                        <option value="0">--Select Vehicle--</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label class="control-label">Driver Name</label>
+                    <select class="form-control driv" asp-items="ViewBag.driverId">
+                        <option value="0">--Select Driver Name--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label class="control-label">Product Name</label>
+                    <select class="form-control productNm" asp-items="ViewBag.productId">
+                        <option value="0">--Select Product Name--</option>
+                    </select>
+                    <span id="ProductNameValidation" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label class="control-label">From Location</label>
+                    <input class="form-control fromLocation" />
+                    <span id="fromLocationValidation" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label class="control-label">To Location</label>
+                    <input class="form-control toLocation" />
+                    <span id="toLocationValidation" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label class="control-label">Total Amount</label>
+                    <input class="form-control TotalAmount" type="number" />
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row col-lg-12 ">
+
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label class="control-label">Date of Dispatch</label>
+                    <input class="form-control dateofdispatch" type="date" />
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label class="control-label">Date of Delievry</label>
+                    <input class="form-control dateofdelivery" type="date" />
+                    <span class="text-danger"></span>
+                    <input asp-for="TotalAmountReceived" class="form-control" hidden />
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <label class="control-label">Date of Payment</label>
+                    <input class="form-control dateofpayment" type="date" />
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    <button class="btn btn-success btn-sm " id="savetransportDetail" style="margin-top:35px;"><i class="fa fa-save"> Save</i></button>
+
+                </div>
+            </div>
+        </div>
+     
+
+    </form>
+</div>
+
+<script src="~/js/site.js"></script>
+<script>
+    $(document).ready(function () {
+
+        var tab = $("#tableid").DataTable({
+            "lengthMenu": [[4, 10, 50, -1], [4, 10, 50, "All"]],
+            responsive: true
+        });
+
+
+
+    });
+
+
+
+</script>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<!--<div id="categoryModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">-->
+<!-- Modal content-->
+<!--<div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add New Company</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="control-label">Company Name</label>
+
+                    <input class="form-control col-md-8" id="CompanyNm" type="text" />
+                    <span class="text-danger" id="compnmValidation"></span>
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Company Code</label>
+
+                    <input class="form-control col-md-8" id="CompanyCode" type="text" />
+                    <span class="text-danger" id="compcodeValidation"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Email</label>
+
+                    <input class="form-control col-md-8" id="Email" type="text" />
+                    <span class="text-danger" id="EmailValidation"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Contact</label>
+
+                    <input class="form-control col-md-8" id="Contact" type="number" />
+                    <span class="text-danger" id="ContactValidation"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Address</label>
+
+                    <input class="form-control col-md-8" id="Address" type="text" />
+                    <span class="text-danger" id="AddressValidation"></span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="AddCompany">Add</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>-->
+@*<h1>Create</h1>
+
+    <h4>tblTransportDetail</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="companyId" class="control-label"></label>
+                    <select asp-for="companyId" class="form-control" asp-items="ViewBag.companyId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProductName" class="control-label"></label>
+                    <input asp-for="ProductName" class="form-control" />
+                    <span asp-validation-for="ProductName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="vehicleId" class="control-label"></label>
+                    <select asp-for="vehicleId" class="form-control" asp-items="ViewBag.vehicleId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="driverId" class="control-label"></label>
+                    <select asp-for="driverId" class="form-control" asp-items="ViewBag.driverId"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FromLocation" class="control-label"></label>
+                    <input asp-for="FromLocation" class="form-control" />
+                    <span asp-validation-for="FromLocation" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ToLocation" class="control-label"></label>
+                    <input asp-for="ToLocation" class="form-control" />
+                    <span asp-validation-for="ToLocation" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="dispatchDate" class="control-label"></label>
+                    <input asp-for="dispatchDate" class="form-control" />
+                    <span asp-validation-for="dispatchDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="deliveryDate" class="control-label"></label>
+                    <input asp-for="deliveryDate" class="form-control" />
+                    <span asp-validation-for="deliveryDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TotalAmount" class="control-label"></label>
+                    <input asp-for="TotalAmount" class="form-control" />
+                    <span asp-validation-for="TotalAmount" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TotalAmountReceived" class="control-label"></label>
+                    <input asp-for="TotalAmountReceived" class="form-control" />
+                    <span asp-validation-for="TotalAmountReceived" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateofOrder" class="control-label"></label>
+                    <input asp-for="DateofOrder" class="form-control" />
+                    <span asp-validation-for="DateofOrder" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DateofPayment" class="control-label"></label>
+                    <input asp-for="DateofPayment" class="form-control" />
+                    <span asp-validation-for="DateofPayment" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>*@
+

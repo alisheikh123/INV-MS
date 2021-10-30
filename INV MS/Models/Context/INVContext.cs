@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using INV_MS.Models;
 using Microsoft.AspNetCore.Identity;
+using INV_MS.Models.TransportModel;
 
 namespace INV_MS.Models
 {
@@ -27,14 +28,23 @@ namespace INV_MS.Models
         public DbSet<tblCompany> tblCompany { get; set; }
         public DbSet<Customer> Customer { get; set; }
         public DbSet<tblVoucher> tblVoucher { get; set; }
+        public DbSet<tblPaymentHistory> tblPaymentHistories { get; set; }
 
         public DbSet<tblVoucherDetail> tblVoucherDetail { get; set; }
-        public DbSet<tblHIstoryDetail> tblHIstoryDetail { get; set; }
         public DbSet<IdentityUser> IdentityUser { get; set; }
 
-        public DbSet<INV_MS.Models.tblCompanyDetail> tblCompanyDetail { get; set; }
+        public DbSet<tblCompanyDetail> tblCompanyDetail { get; set; }
+        public DbSet<tblTransportPaymentHistory> tblTransportPaymentHistory { get; set; }
+        public DbSet<tblDriver> tblDriver { get; set; }
+        public DbSet<tblExpenses> tblExpenses { get; set; }
+        public DbSet<tblTransportDetail> tblTransportDetail { get; set; }
+        public DbSet<tblVehicle> tblVehicle { get; set; }
+        public DbSet<tblProduct> tblProducts { get; set; }
+     
+
+
         //protected override void OnConfiguring(DbContextOptionsBuilder options)
         //    => options.UseSqlite("Data Source=INV.db");
-      
+
     }
 }

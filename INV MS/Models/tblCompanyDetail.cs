@@ -26,9 +26,7 @@ namespace INV_MS.Models
         [Display(Name = "Description")]
         public string Description { get; set; }
 
-        //[Display(Name = "Arrival Date")]
-        //[DataType(DataType.Date)]
-        //public DateTime ArrivalDate { get; set; }
+        
 
         [DataType(DataType.PhoneNumber)]
         [Display(Name = "Phone No ")]
@@ -38,12 +36,10 @@ namespace INV_MS.Models
         [Display(Name = "Total Amount ")]
         public decimal TotalAmount { get; set; }
 
-        [Required(ErrorMessage = "*Required Paid Amount")]
-        [Display(Name = "Paid Amount")]
-        public decimal PaidAmount { get; set; }
+        [Display(Name = "Total Amount Received ")]
+        public decimal? TotalAmountReceived { get; set; }
 
-        [Display(Name = "Remaining Balance")]
-        public decimal RemainingAmount { get; set; }
+    
 
         [Display(Name = "Date of Order ")]
         [DataType(DataType.Date)]
@@ -53,9 +49,7 @@ namespace INV_MS.Models
         [DataType(DataType.Date)]
         public DateTime dateofpayment { get; set; } 
 
-        [Display(Name = "Date of Remaing payment")]
-        [DataType(DataType.Date)]
-        public DateTime? dateofremainpayment { get; set; }
+    
 
     
 

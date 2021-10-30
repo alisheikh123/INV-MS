@@ -1,0 +1,131 @@
+﻿@model IEnumerable<INV_MS.Models.TransportModel.tblExpenses>
+
+@{
+    ViewData["Title"] = "AllExpenses";
+}
+
+<h1>AllExpenses</h1>
+
+<p>
+    @*<a class="btn btn-success" asp-action="Create">Create New</a>*@
+</p>
+<table class="table table-bordered table-avatar table-borderless table-responsive" id="tableid">
+    <thead>
+        <tr>
+            @*<th>
+                @Html.DisplayNameFor(model => model.TransportId)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.vehicleNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.driverNm)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DispatchDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DeliveryDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalProfit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FuelAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaintenanceAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ChallanAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CommissionAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DriverFoodAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ToolTaxAmount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.TransportId)
+            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.vehicleNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.driverNm)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DispatchDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalProfit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FuelAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaintenanceAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChallanAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CommissionAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DriverFoodAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ToolTaxAmount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+               
+                <a href="/TransportDetail/Remove/@item.Id" class="btn btn-danger btn-xs" ><i class="fa fa-trash"></i> </a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+<script type="text/javascript">
+
+
+
+    $(document).ready(function () {
+
+        var tab = $("#tableid").DataTable({
+            "lengthMenu": [[6, 10, 50, -1], [6, 10, 50, "All"]],
+            responsive: true
+        });
+
+
+
+    });
+
+
+
+
+</script>

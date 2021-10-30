@@ -47,26 +47,12 @@
         <div class="col-lg-3">
             <div class="form-group">
                 <label asp-for="TotalAmount" class="control-label"></label>
-                <input asp-for="TotalAmount" class="form-control TotalAmount" disabled />
-                <input asp-for="TotalAmount" class="form-control TotalAmount" hidden/>
+                <input asp-for="TotalAmount" class="form-control TotalAmount"  />
+                <input asp-for="TotalAmountReceived" class="form-control TotalAmount" hidden/>
                 <span asp-validation-for="TotalAmount" class="text-danger"></span>
             </div>
         </div>
-        <div class="col-lg-3">
-            <div class="form-group">
-                <label asp-for="PaidAmount" class="control-label"></label>
-                <input asp-for="PaidAmount" class="form-control PaidAmount" />
-                <span asp-validation-for="PaidAmount" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="col-lg-3">
-            <div class="form-group">
-                <label asp-for="RemainingAmount" class="control-label"></label>
-                <input asp-for="RemainingAmount" class="form-control RemainingAmount" disabled/>
-                <input asp-for="RemainingAmount" class="form-control RemainingAmount" hidden/>
-                <span asp-validation-for="RemainingAmount" class="text-danger"></span>
-            </div>
-        </div>
+
         <div class="col-lg-3">
             <div class="form-group">
                 <label asp-for="dateoforder" class="control-label"></label>
@@ -74,9 +60,6 @@
                 <span asp-validation-for="dateoforder" class="text-danger"></span>
             </div>
         </div>
-    </div>
-    <div class="row col-lg-12">
-      
         <div class="col-lg-3">
             <div class="form-group">
                 <label asp-for="dateofpayment" class="control-label"></label>
@@ -84,26 +67,25 @@
                 <span asp-validation-for="dateofpayment" class="text-danger"></span>
             </div>
         </div>
-        <div class="col-lg-3">
-            <div class="form-group">
-                <label asp-for="dateofremainpayment" class="control-label"></label>
-                <input asp-for="dateofremainpayment" class="form-control" />
-                <span asp-validation-for="dateofremainpayment" class="text-danger"></span>
-            </div>
-        </div>
         <div class="col-lg-2">
             <div class="form-group">
-                <button type="submit" value="Save" class="btn btn-success btn-sm" style="margin-top:35px;"><i class="fa fa-save"> Update</i></button>
-            </div>
+                <div class="row col-md-12">
+                    <div class="col-md-6">
+                        <button type="submit" value="Save" class="btn btn-success btn-sm" style="margin-top:35px;"><i class="fa fa-save"> Update</i></button>
+                    </div>
+                    <div class="col-md-6">
+                        <a asp-action="List" class="btn btn-primary btn-sm"><i class="fas fa-arrow-alt-circle-left"> Back to List</i></a>
+                        </div>
+                    </div>
+                </div>
         </div>
-
     </div>
+   
 </form>
     
 
 
     <div>
-        <a asp-action="Index" class="btn btn-primary btn-sm"><i class="fas fa-arrow-alt-circle-left"> Back to List</i></a>
     </div>
 
     <script src="~/js/site.js"></script>

@@ -1,7 +1,4 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-////Account Code Start
-//Submit the Form
+﻿
 $('#save').click(function () {
     var AccountHeadName = $('.acchl').val();
     var AccountCode = $('.accc').val();
@@ -38,7 +35,7 @@ $('#save').click(function () {
     });
 
 });
-//Toggle Account Detail Form
+
 function ShowAccDetail() {
     $('#content').toggle('show');
 
@@ -184,18 +181,28 @@ $("#AddCompany").click(function (e) {
 });
 
 
-if ($("#log").length) {
-    $(".TotalAmount").keyup(function () {
-        $.subtract();
-    });
-    $(".PaidAmount").keyup(function () {
-        $.subtract();
-    });
-}
+//if ($("#payForm").length) {
+//    debugger;
+//    $(".TotalAmount").keyup(function () {
+//        $.subtract();
+//    });
+//    $(".PaidAmount").keyup(function () {
+
+//        $.subtract();
+//    });
+//}
+$(".PaidAmount").keyup(function () {
+   
+    $.subtract();
+});
 $.subtract = function () {
-    $(".RemainingAmount").val(parseInt($(".TotalAmount").val()) - parseInt($(".PaidAmount").val()));
+    /*alert(parseInt($(".PaidAmount").val()));*/
+    $(".RemainingAmount").val(parseInt($("#totalAmount").text()) - parseInt($("#totalamountReceived").val()) - parseInt($(".PaidAmount").val()));
 }
 $('.comp').select2();
+$('.veh').select2();
+$('.driv').select2();
+$('.productNm').select2();
 
 
 
@@ -298,14 +305,11 @@ $('#savecompDetail').click(function (e) {
     var comp = $('.comp').val();
     var ProductName = $('.ProductName').val();
     var Description = $('.Description').val();
-    var PhoneNo = $('.PhoneNo').val();
+    let PhoneNo = $('.PhoneNo').val();
     var TotalAmount = $('.TotalAmount').val();
-    var PaidAmount = $('.PaidAmount').val();
-    var RemainingAmount = $('.RemainingAmount').val();
     var dateoforder = $('.dateoforder').val();
     var dateofpayment = $('.dateofpayment').val();
-    var dateofremainpayment = $('.dateofremainpayment').val();
-    //  var dateofArrival = $('.dateofArrival').val();
+    var url = $("#RedirectTo").val();
 
     if (comp == 0) {
 
@@ -331,11 +335,8 @@ $('#savecompDetail').click(function (e) {
             Description: Description,
             PhoneNo: PhoneNo,
             TotalAmount: TotalAmount,
-            PaidAmount: PaidAmount,
-            RemainingAmount: RemainingAmount,
             dateoforder: dateoforder,
             dateofpayment: dateofpayment,
-            dateofremainpayment: dateofremainpayment,
 
 
         };
@@ -352,8 +353,7 @@ $('#savecompDetail').click(function (e) {
                 }
                 else {
                     toastr.success(output);
-
-                    window.location.reload();
+                    location.href = url;
                 }
             },
             error: function (output) {
@@ -407,4 +407,277 @@ $("[name='selection']").change(function () {
         }
 
     });
+});
+
+
+
+$('#payForm').submit((e)=>{
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    debugger;
+    var CompDetailId = $(".compId").text();
+    var CompanyName = $("#companyName").text();
+    var ProductName = $("#productName").text();
+    var Description = $("#description").val();
+    let PhoneNo = $("#phone").val();
+    var TotalAmount = $("#totalAmount").text();
+    let PaidAmount = $("#paidAmount").val();
+    var RemaingBalance = $("#remaingBalance").val();
+    var totalAmountReceived = $("#totalamountReceived").val();
+    var DateofOrder = $("#dateofOrder").text();
+    var DateRemaingPayment = $("#dateremaingPayment").val();
+    var DateOfPayment = $("#dateofPayment").text();
+    var url = $("#RedirectTo").val();
+   
+    
+
+
+  
+        var paymentData = {
+            companyDetailId: CompDetailId,
+            companyName: CompanyName,
+            ProductName: ProductName,
+            description: Description,
+            PhoneNo: PhoneNo,
+            TotalAmount: TotalAmount,
+            dateoforder: DateofOrder,
+            dateofpayment: DateOfPayment,
+            PaidAmount: PaidAmount,
+            RemainingAmount: RemaingBalance,
+            TotalAmountReceived: totalAmountReceived,
+            dateofremainpayment: DateRemaingPayment,
+           
+
+
+        };
+        $.ajax({
+            url: "/CompanyDetails/PaymentDetail",
+            type: "POST",
+            dataType: 'json',
+            data: paymentData,
+            success: (output) => {
+                alert(output);
+              
+                location.href = url;
+            },
+            error: function (output) {
+
+                toastr.error(output)
+            }
+
+        });
+    
+});
+
+
+
+$('#savetransportDetail').click(function (e) {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    debugger;
+    var comp = $('.comp').val();
+    var vehic = $('.veh').val();
+    var drver = $('.driv').val();
+    var productNm = $('.productNm').val();
+    var fromLoc = $('.fromLocation').val();
+    let toLoc = $('.toLocation').val();
+    var TotalAmount = $('.TotalAmount').val();
+    var dateofdispatch = $('.dateofdispatch').val();
+    var dateofdelivery = $('.dateofdelivery').val();
+    var brokerName = $('.brokerNm').val();
+    var dateofpayment = $('.dateofpayment').val();
+    var url = $("#RedirectTo").val();
+
+    if (comp == 0) {
+
+        toastr.error('* Please select the company name !');
+    }
+    if (productNm == 0) {
+
+        toastr.error('* Please select the productName !');
+    }
+    if (vehic == 0) {
+
+        toastr.error('* Please select the Vehicle No !');
+    }
+    if (drver == 0) {
+
+        toastr.error('* Please select the Driver name !');
+    }
+    
+    else if (TotalAmount == 0 || TotalAmount == 0.0) {
+        toastr.error('* Please add the Total Amount !');
+    }
+  
+    else if (dateofpayment == null || dateofpayment == "") {
+        toastr.error('* Please add the Date of Payment !');
+    }
+
+    else {
+        var postData = {
+            companyId: comp,
+            vehicleId: vehic,
+            driverId: drver,
+            productId: productNm,
+            FromLocation: fromLoc,
+            ToLocation: toLoc,
+            TotalAmount: TotalAmount,
+            dispatchDate: dateofdispatch,
+            deliveryDate: dateofdelivery,
+            BrokerName: brokerName,
+            DateofPayment: dateofpayment,
+
+
+        };
+        $.ajax({
+            url: "/TransportDetail/TransDetailCreate",
+            type: "POST",
+            dataType: 'json',
+            data: postData,
+            success: function (output) {
+
+       
+                    toastr.success(output);
+                    /*location.href = url;*/
+                
+            },
+            error: function (output) {
+
+                toastr.error(output)
+            }
+
+        });
+    }
+});
+
+
+
+
+/* Transport Payment Form Submission*/
+
+$('#TranspayForm').submit((e) => {
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    debugger;
+    var TranspDetailId = $(".transportId").text();
+    var CompanyName = $("#companyName").text();
+    var ProductName = $("#productName").text();
+    var TotalAmount = $("#totalAmount").text();
+    var Dateofdispatch = $("#dateofdispatch").text();
+    let DeliveryDate = $("#deliveryDate").text();
+    let BrokerName = $("#brokerName").text();
+    let DateofPayment = $("#dateofPayment").text();
+    let DriverNm = $("#driverNm").text();
+    let VehicleNo = $("#vehicleNo").text();
+    var totalAmountReceived = $("#totalamountReceived").val();
+    let PaidAmount = $("#paidAmount").val();
+    var RemaingBalance = $("#remaingBalance").val();
+    var DateRemaingPayment = $("#dateremaingPayment").val();
+    var description = $("#description").val();
+   
+    var url = $("#RedirectTo").val();
+
+
+
+
+
+    var paymentData = {
+        TranspDetailId: TranspDetailId,
+        companyName: CompanyName,
+        ProductName: ProductName,
+        TotalAmount: TotalAmount,
+        Dateofdispatch: Dateofdispatch,
+        DeliveryDate: DeliveryDate,
+        BrokerName: BrokerName,
+        dateofpayment: DateofPayment,
+        DriverName: DriverNm,
+        VehicleNo: VehicleNo,
+        TotalAmountReceived: totalAmountReceived,
+        PaidAmount: PaidAmount,
+        RemainingAmount: RemaingBalance,
+        dateofremainpayment: DateRemaingPayment,
+        description: description
+    };
+    $.ajax({
+        url: "/TransportDetail/TranspPaymentDetail",
+        type: "POST",
+        dataType: 'json',
+        data: paymentData,
+        success: (output) => {
+            alert(output);
+
+            location.href = url;
+        },
+        error: function (output) {
+
+            toastr.error(output)
+        }
+
+    });
+
+});
+
+
+
+
+$('#ExpensepayForm').submit((e) => {
+    //alert("hy");
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    debugger;
+    var transportId = $(".TransportId").text();
+    var VehicleNo = $("#VehicleNo").text();
+    var driverNm = $("#driverNm").text();
+    var TotalAmount = $("#totalAmount").text();
+    var deliverydate = $("#deliverydate").text();
+    var dispatchDate = $("#dispatchDate").text();
+    var totalProfit = $("#totalProfit").val();
+    let fuel = $("#fuel").val();
+    let Maintenance = $("#Maintenance").val();
+    let Commission = $("#Commisscost").val();
+    let Description = $("#description").val();
+    let Challan = $("#Challan").val();
+    let driverFoodCost = $("#driverFoodCost").val();
+    let tooltaxcost = $("#tooltaxcost").val();
+ 
+
+    var url = $("#RedirectTo").val();
+
+
+
+    var expenseData = {
+        TransportId: transportId,
+        vehicleNo: VehicleNo,
+        driverName: driverNm,
+        TotalAmount: TotalAmount,
+        CommissionAmount: Commission,
+        Description: Description,
+        DispatchDate: dispatchDate,
+        Deliverydate: deliverydate,
+        TotalProfit: totalProfit,
+        FuelAmount: fuel,
+        MaintenanceAmount: Maintenance,
+        ChallanAmount: Challan,
+        DriverFoodAmount: driverFoodCost,
+        ToolTaxAmount: tooltaxcost
+      
+    };
+    $.ajax({
+        url: "/TransportDetail/ExpenseDetail",
+        type: "POST",
+        dataType: 'json',
+        data: expenseData,
+        success: (output) => {
+            alert(output);
+
+            location.href = url;
+        },
+        error: function (output) {
+
+            toastr.error(output)
+        }
+
+    });
+
 });

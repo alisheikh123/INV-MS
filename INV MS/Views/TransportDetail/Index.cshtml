@@ -1,0 +1,287 @@
+﻿@model IEnumerable<INV_MS.Models.TransportModel.tblTransportDetail>
+
+
+@{
+    ViewData["Title"] = "Index";
+   
+}
+
+<h3 class="text-center py-3"><strong>All Transports Payment Detail</strong></h3>
+
+<p>
+    <div class="row col-md-12">
+
+        <div class="col-md-0">
+            &nbsp;&nbsp;<a asp-action="Create" class="btn btn-success "><i class="fa fa-plus">Add Transport Payment Detail</i></a>
+
+
+        </div>
+
+        <div class="col-md-3">
+            @*  <a asp-action="" class="btn btn-info" style="float:right;"><i class="fas fa-file-pdf"></i></a>*@
+
+        </div>
+
+
+
+
+    </div>
+</p>
+
+
+
+
+
+<table class="table table-bordered table-avatar table-borderless table-responsive" id="tableid">
+    <thead>
+        <tr>
+            <th>
+                Company Name
+            </th>
+            <th>
+                Broker Name
+            </th>
+            <th>
+                Product Name
+            </th>
+            <th>
+                From Location
+            </th>
+            <th>
+                To Location
+            </th>
+            <th>
+                Dispatch Date
+            </th>
+            <th>
+                Delivery Date
+            </th>
+            <th>
+                Total Amount
+            </th>
+            <th>
+                Payable
+            </th>
+            @*<th>
+            Date of Order
+        </th>
+        <th>
+            Date of Payment
+        </th>*@
+            <th>
+                Driver Name
+            </th>
+            <th>
+                Vehicle No
+            </th>
+
+
+
+            <th>Action</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var items in Model)
+        {
+        <tr>
+            <td>
+                @items.TblCompany.Name
+            </td>
+            <td>
+                @items.BrokerName
+            </td>
+            <td>
+                @items.TblProduct.ProductName
+            </td>
+            <td>
+                @items.FromLocation
+            </td>
+            <td>
+                @items.ToLocation
+            </td>
+            <td>
+                @items.dispatchDate
+            </td>
+            <td>
+                @items.deliveryDate
+            </td>
+            <td>
+                @items.TotalAmount
+            </td>
+            <td>
+                @items.TotalAmountReceived
+            </td>
+
+            @*<td>
+            @items.DateofOrder
+        </td>
+        <td>
+            @items.DateofPayment
+        </td>*@
+            <td>
+                @items.TblDriver.DriverName
+            </td>
+            <td>
+                @items.TblVehicle.VehicleNo
+            </td>
+
+            <td>
+              @*  <a asp-action="Edit" tooltip="Edit" class="btn btn-primary btn-xs" asp-route-id="@items.Id"><i class="fa fa-pen"></i> </a>*@
+
+                <a asp-action="ExpenseDetail" class="btn btn-warning btn-xs" asp-route-id="@items.Id"><i class="fa fa-hand-holding-usd"></i></a>
+                <a asp-action="Delete" class="btn btn-danger btn-xs" asp-route-id="@items.Id"><i class="fa fa-trash"></i> </a>
+                @if (items.TotalAmount == items.TotalAmountReceived)
+                {
+
+                }
+                else
+                {
+
+                    <a asp-action="TranspPaymentDetail" class="btn btn-info btn-xs" asp-route-id="@items.Id"><i class="fa fa-dollar-sign"></i> </a>
+                }
+
+            </td>
+            <td>
+                @if (items.TotalAmount == items.TotalAmountReceived)
+                {
+                    <label class="btn btn-success btn-xs" asp-route-id="@items.Id"><i class="">Paid</i> </label>
+                }
+                else
+                {
+
+                    <label class="btn btn-danger btn-xs" asp-route-id="@items.Id"><i class="">Un-Paid</i> </label>
+                }
+
+
+            </td>
+        </tr>
+        }
+
+
+
+
+
+
+    </tbody>
+</table>
+
+<script src="~/js/site.js"></script>
+<script type="text/javascript">
+
+
+
+    $(document).ready(function () {
+
+        var tab = $("#tableid").DataTable({
+            "lengthMenu": [[6, 10, 50, -1], [6, 10, 50, "All"]],
+            responsive: true
+        });
+
+
+
+    });
+
+
+
+
+</script>
+
+
+
+
+
+
+
+@*<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ProductName)
+            </th>
+            <th>
+                FromLocation)
+            </th>
+            <th>
+                ToLocation)
+            </th>
+            <th>
+                dispatchDate)
+            </th>
+            <th>
+                deliveryDate)
+            </th>
+            <th>
+                TotalAmount)
+            </th>
+            <th>
+                TotalAmountReceived)
+            </th>
+            <th>
+                DateofOrder)
+            </th>
+            <th>
+                DateofPayment)
+            </th>
+            <th>
+                TblDriver)
+            </th>
+            <th>
+                TblVehicle)
+            </th>
+            <th>
+                TblCompany)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FromLocation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ToLocation)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dispatchDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.deliveryDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalAmount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TotalAmountReceived)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateofOrder)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateofPayment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TblDriver.DriverName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TblVehicle.VehicleNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TblCompany.CompanyrCode)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>*@
